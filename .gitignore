@@ -1,0 +1,44 @@
+# Environments
+.env
+!.env.example
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Node
+node_modules/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Build / Output
+build/
+dist/
+reports/bench/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ML/Data
+data/raw/
+data/lake/
+data/derived/
+*.ckpt
+*.pth
+*.pt
+*.keras
+*.onnx
+*.json.bak
+*.sqlite
+*.sqlite3
+
+# OS generated files
+.DS_Store
+Thumbs.db
