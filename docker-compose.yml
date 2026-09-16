@@ -1,0 +1,58 @@
+version: "3.9"
+
+services:
+  # Lite profile
+  redis:
+    image: redis:7-alpine
+    profiles: ["lite", "full"]
+    ports:
+      - "6379:6379"
+    command: redis-server --save 60 1 --loglevel warning
+
+  # Full profile additions
+  postgres:
+    image: timescale/timescaledb-postgis:latest-pg15
+    profiles: ["full"]
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-vajra}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-vajra}
+      POSTGRES_DB: ${POSTGRES_DB:-vajra}
+    ports:
+      - "5432:5432"
+
+  redpanda:
+    image: redpandadata/redpanda:latest
+    profiles: ["full"]
+    command:
+      - redpanda
+      - start
+      - --smp 1
+      - --memory 1G
+      - --reserve-memory 0M
+      - --overprovisioned
+      - --node-id 0
+      - --kafka-addr PLAINTEXT://0.0.0.0:29092,OUTSIDE://0.0.0.0:9092
+      - --advertise-kafka-addr PLAINTEXT://redpanda:29092,OUTSIDE://localhost:9092
+      - --pandaproxy-addr 0.0.0.0:8082
+      - --advertise-pandaproxy-addr localhost:8082
+    ports:
+      - "8081:8081"
+      - "8082:8082"
+      - "9092:9092"
+      - "29092:29092"
+
+  minio:
+    image: minio/minio
+    profiles: ["full"]
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: password123
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+
+  geo_ml_env:
+    build: .
+    profiles: ["full", "lite"]
+    command: tail -f /dev/null

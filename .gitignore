@@ -42,3 +42,5 @@ data/derived/
 # OS generated files
 .DS_Store
 Thumbs.db
+
+venv_*/
