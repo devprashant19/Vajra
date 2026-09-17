@@ -1,0 +1,14 @@
+{
+  "name": "vajra",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "lint": "echo 'No root lint'",
+    "format": "echo 'No root format'",
+    "typecheck": "echo 'No root typecheck'",
+    "test": "echo 'No root tests'"
+  }
+}

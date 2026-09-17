@@ -1,0 +1,32 @@
+[project]
+name = "vajra"
+version = "0.1.0"
+description = "Vajra real-time convective-scale nowcasting platform"
+requires-python = ">=3.12"
+dependencies = [
+    "pytest>=8.0.0"
+]
+
+[tool.pytest.ini_options]
+markers = [
+    "unit",
+    "integration",
+    "live",
+    "gpu",
+    "slow",
+    "bench"
+]
+testpaths = [
+    "tests",
+    "packages",
+    "services",
+    "ml"
+]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
