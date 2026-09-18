@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  python-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "0.12.21"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ".python-version"
+      - name: Install dependencies
+        run: uv sync
+      - name: Lint (Ruff)
+        run: uv run ruff check .
+      - name: Typecheck (mypy)
+        run: uv run mypy .
+      - name: Test (fast)
+        run: uv run pytest -m "not slow and not gpu and not live"
+
+  node-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install dependencies
+        run: pnpm install -r
+      - name: Lint
+        run: pnpm -r run lint --if-present
+      - name: Typecheck
+        run: pnpm -r run typecheck --if-present
+      - name: Test
+        run: pnpm -r run test --if-present

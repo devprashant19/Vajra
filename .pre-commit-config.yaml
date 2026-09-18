@@ -1,0 +1,28 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+      - id: ruff-format
+  - repo: https://github.com/zricethezav/gitleaks
+    rev: v8.21.1
+    hooks:
+      - id: gitleaks
+  - repo: local
+    hooks:
+      - id: check-readme-format
+        name: Check README Format
+        entry: python tools/check_readme_format.py
+        language: system
+        pass_filenames: false
+      - id: check-no-secrets
+        name: Check No Secrets
+        entry: python tools/check_no_secrets.py
+        language: system
+        pass_filenames: false
