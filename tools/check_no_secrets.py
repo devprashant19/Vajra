@@ -8,8 +8,9 @@ SECRET_PATTERNS = [
     re.compile(r"API_KEY\s*=\s*[\"']?(?!YOUR_API_KEY)[A-Za-z0-9_-]{16,}"),
     re.compile(r"SECRET\s*=\s*[\"']?[A-Za-z0-9_-]{16,}"),
     re.compile(r"password\s*=\s*[\"']?(?!test|admin)[A-Za-z0-9_-]{8,}"),
-    re.compile(r"FAKE_SECRET_FOR_TESTING")
+    re.compile(r"FAKE_SECRET_FOR_TESTING"),
 ]
+
 
 def check_file(file_path):
     # Skip binary files and git directories
@@ -18,15 +19,16 @@ def check_file(file_path):
     try:
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
-            for i, line in enumerate(content.split('\n')):
+            for i, line in enumerate(content.split("\n")):
                 for pattern in SECRET_PATTERNS:
                     if pattern.search(line):
                         return False, f"Potential secret found at line {i+1}: {pattern.pattern}"
     except UnicodeDecodeError:
-        pass # Skip binary
-    except Exception as e:
+        pass  # Skip binary
+    except Exception:
         pass
     return True, ""
+
 
 def main():
     root_dir = Path(__file__).resolve().parent.parent
@@ -38,7 +40,7 @@ def main():
         # Check if it's tracked in git
         status = os.popen(f"git ls-files {env_file}").read().strip()
         if status:
-            errors.append(f".env file is tracked in git!")
+            errors.append(".env file is tracked in git!")
 
     for root, dirs, files in os.walk(root_dir):
         # Exclude common dirs
@@ -46,7 +48,7 @@ def main():
             continue
         for file in files:
             if file == "check_no_secrets.py":
-                continue # skip this script itself
+                continue  # skip this script itself
             file_path = Path(root) / file
             passed, msg = check_file(file_path)
             if not passed:
@@ -59,6 +61,7 @@ def main():
         sys.exit(1)
     else:
         print("Secrets check passed.")
+
 
 if __name__ == "__main__":
     main()
