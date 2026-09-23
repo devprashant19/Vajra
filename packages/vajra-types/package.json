@@ -1,0 +1,13 @@
+{
+  "name": "vajra-types",
+  "version": "0.1.0",
+  "description": "TypeScript types for Vajra",
+  "main": "index.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "json-schema-to-typescript": "^13.1.1",
+    "typescript": "^5.0.0"
+  }
+}
