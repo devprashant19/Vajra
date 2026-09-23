@@ -1,0 +1,10 @@
+[project]
+name = "verify"
+version = "0.1.0"
+description = "Placeholder for verify"
+requires-python = ">=3.12"
+dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

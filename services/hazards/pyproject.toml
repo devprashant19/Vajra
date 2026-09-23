@@ -1,0 +1,10 @@
+[project]
+name = "hazards"
+version = "0.1.0"
+description = "Placeholder for hazards"
+requires-python = ">=3.12"
+dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
