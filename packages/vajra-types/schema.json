@@ -1,0 +1,659 @@
+{
+  "$defs": {
+    "RawEvent": {
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "product_name": {
+          "title": "Product Name",
+          "type": "string"
+        },
+        "valid_time": {
+          "format": "date-time",
+          "title": "Valid Time",
+          "type": "string"
+        },
+        "file_path": {
+          "title": "File Path",
+          "type": "string"
+        },
+        "metadata": {
+          "additionalProperties": true,
+          "default": {},
+          "title": "Metadata",
+          "type": "object"
+        }
+      },
+      "required": [
+        "source_id",
+        "product_name",
+        "valid_time",
+        "file_path"
+      ],
+      "title": "RawEvent",
+      "type": "object"
+    },
+    "FusedFrameRef": {
+      "properties": {
+        "frame_id": {
+          "title": "Frame Id",
+          "type": "string"
+        },
+        "valid_time": {
+          "format": "date-time",
+          "title": "Valid Time",
+          "type": "string"
+        },
+        "zarr_url": {
+          "title": "Zarr Url",
+          "type": "string"
+        },
+        "variables": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Variables",
+          "type": "array"
+        },
+        "tile_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tile Id"
+        }
+      },
+      "required": [
+        "frame_id",
+        "valid_time",
+        "zarr_url",
+        "variables"
+      ],
+      "title": "FusedFrameRef",
+      "type": "object"
+    },
+    "Cell": {
+      "properties": {
+        "cell_id": {
+          "title": "Cell Id",
+          "type": "string"
+        },
+        "frame_id": {
+          "title": "Frame Id",
+          "type": "string"
+        },
+        "lat": {
+          "title": "Lat",
+          "type": "number"
+        },
+        "lon": {
+          "title": "Lon",
+          "type": "number"
+        },
+        "area_km2": {
+          "title": "Area Km2",
+          "type": "number"
+        },
+        "max_dbz": {
+          "title": "Max Dbz",
+          "type": "number"
+        },
+        "max_vil": {
+          "title": "Max Vil",
+          "type": "number"
+        },
+        "polygon_h3": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Polygon H3",
+          "type": "array"
+        }
+      },
+      "required": [
+        "cell_id",
+        "frame_id",
+        "lat",
+        "lon",
+        "area_km2",
+        "max_dbz",
+        "max_vil",
+        "polygon_h3"
+      ],
+      "title": "Cell",
+      "type": "object"
+    },
+    "CellTrack": {
+      "properties": {
+        "track_id": {
+          "title": "Track Id",
+          "type": "string"
+        },
+        "history_cell_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "History Cell Ids",
+          "type": "array"
+        },
+        "speed_ms": {
+          "title": "Speed Ms",
+          "type": "number"
+        },
+        "direction_deg": {
+          "title": "Direction Deg",
+          "type": "number"
+        },
+        "is_active": {
+          "title": "Is Active",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "track_id",
+        "history_cell_ids",
+        "speed_ms",
+        "direction_deg",
+        "is_active"
+      ],
+      "title": "CellTrack",
+      "type": "object"
+    },
+    "CellForecast": {
+      "properties": {
+        "track_id": {
+          "title": "Track Id",
+          "type": "string"
+        },
+        "base_time": {
+          "format": "date-time",
+          "title": "Base Time",
+          "type": "string"
+        },
+        "lead_time_minutes": {
+          "title": "Lead Time Minutes",
+          "type": "integer"
+        },
+        "predicted_lat": {
+          "title": "Predicted Lat",
+          "type": "number"
+        },
+        "predicted_lon": {
+          "title": "Predicted Lon",
+          "type": "number"
+        },
+        "predicted_polygon_h3": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Predicted Polygon H3",
+          "type": "array"
+        },
+        "intensity_trend": {
+          "title": "Intensity Trend",
+          "type": "string"
+        }
+      },
+      "required": [
+        "track_id",
+        "base_time",
+        "lead_time_minutes",
+        "predicted_lat",
+        "predicted_lon",
+        "predicted_polygon_h3",
+        "intensity_trend"
+      ],
+      "title": "CellForecast",
+      "type": "object"
+    },
+    "HazardField": {
+      "properties": {
+        "hazard_type": {
+          "title": "Hazard Type",
+          "type": "string"
+        },
+        "valid_time": {
+          "format": "date-time",
+          "title": "Valid Time",
+          "type": "string"
+        },
+        "h3_indices": {
+          "items": {
+            "type": "string"
+          },
+          "title": "H3 Indices",
+          "type": "array"
+        },
+        "severity": {
+          "title": "Severity",
+          "type": "string"
+        },
+        "probability": {
+          "title": "Probability",
+          "type": "number"
+        }
+      },
+      "required": [
+        "hazard_type",
+        "valid_time",
+        "h3_indices",
+        "severity",
+        "probability"
+      ],
+      "title": "HazardField",
+      "type": "object"
+    },
+    "Location": {
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "type": {
+          "title": "Type",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "h3_index": {
+          "title": "H3 Index",
+          "type": "string"
+        },
+        "priority": {
+          "default": 0,
+          "title": "Priority",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "name",
+        "h3_index"
+      ],
+      "title": "Location",
+      "type": "object"
+    },
+    "ETA": {
+      "properties": {
+        "location_id": {
+          "title": "Location Id",
+          "type": "string"
+        },
+        "hazard_type": {
+          "title": "Hazard Type",
+          "type": "string"
+        },
+        "p10_time": {
+          "format": "date-time",
+          "title": "P10 Time",
+          "type": "string"
+        },
+        "p50_time": {
+          "format": "date-time",
+          "title": "P50 Time",
+          "type": "string"
+        },
+        "p90_time": {
+          "format": "date-time",
+          "title": "P90 Time",
+          "type": "string"
+        },
+        "probability_of_impact": {
+          "title": "Probability Of Impact",
+          "type": "number"
+        },
+        "state": {
+          "title": "State",
+          "type": "string"
+        }
+      },
+      "required": [
+        "location_id",
+        "hazard_type",
+        "p10_time",
+        "p50_time",
+        "p90_time",
+        "probability_of_impact",
+        "state"
+      ],
+      "title": "ETA",
+      "type": "object"
+    },
+    "Alert": {
+      "properties": {
+        "identifier": {
+          "title": "Identifier",
+          "type": "string"
+        },
+        "sender": {
+          "title": "Sender",
+          "type": "string"
+        },
+        "sent": {
+          "format": "date-time",
+          "title": "Sent",
+          "type": "string"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string"
+        },
+        "msg_type": {
+          "title": "Msg Type",
+          "type": "string"
+        },
+        "scope": {
+          "title": "Scope",
+          "type": "string"
+        },
+        "category": {
+          "title": "Category",
+          "type": "string"
+        },
+        "event": {
+          "title": "Event",
+          "type": "string"
+        },
+        "urgency": {
+          "title": "Urgency",
+          "type": "string"
+        },
+        "severity": {
+          "title": "Severity",
+          "type": "string"
+        },
+        "certainty": {
+          "title": "Certainty",
+          "type": "string"
+        },
+        "headline": {
+          "title": "Headline",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "polygon": {
+          "items": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "title": "Polygon",
+          "type": "array"
+        }
+      },
+      "required": [
+        "identifier",
+        "sender",
+        "sent",
+        "status",
+        "msg_type",
+        "scope",
+        "category",
+        "event",
+        "urgency",
+        "severity",
+        "certainty",
+        "headline",
+        "description",
+        "polygon"
+      ],
+      "title": "Alert",
+      "type": "object"
+    },
+    "AuditEntry": {
+      "properties": {
+        "entry_id": {
+          "title": "Entry Id",
+          "type": "string"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "action": {
+          "title": "Action",
+          "type": "string"
+        },
+        "actor": {
+          "title": "Actor",
+          "type": "string"
+        },
+        "details": {
+          "additionalProperties": true,
+          "title": "Details",
+          "type": "object"
+        },
+        "prev_hash": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Prev Hash"
+        },
+        "hash": {
+          "title": "Hash",
+          "type": "string"
+        }
+      },
+      "required": [
+        "entry_id",
+        "timestamp",
+        "action",
+        "actor",
+        "details",
+        "hash"
+      ],
+      "title": "AuditEntry",
+      "type": "object"
+    },
+    "Threshold": {
+      "properties": {
+        "hazard_type": {
+          "title": "Hazard Type",
+          "type": "string"
+        },
+        "metric": {
+          "title": "Metric",
+          "type": "string"
+        },
+        "operator": {
+          "title": "Operator",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        },
+        "severity_level": {
+          "title": "Severity Level",
+          "type": "string"
+        }
+      },
+      "required": [
+        "hazard_type",
+        "metric",
+        "operator",
+        "value",
+        "severity_level"
+      ],
+      "title": "Threshold",
+      "type": "object"
+    },
+    "ModelCard": {
+      "properties": {
+        "model_id": {
+          "title": "Model Id",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "training_date": {
+          "format": "date-time",
+          "title": "Training Date",
+          "type": "string"
+        },
+        "metrics": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Metrics",
+          "type": "object"
+        }
+      },
+      "required": [
+        "model_id",
+        "version",
+        "description",
+        "training_date",
+        "metrics"
+      ],
+      "title": "ModelCard",
+      "type": "object"
+    },
+    "VerificationResult": {
+      "properties": {
+        "model_id": {
+          "title": "Model Id",
+          "type": "string"
+        },
+        "evaluation_time": {
+          "format": "date-time",
+          "title": "Evaluation Time",
+          "type": "string"
+        },
+        "pod": {
+          "title": "Pod",
+          "type": "number"
+        },
+        "far": {
+          "title": "Far",
+          "type": "number"
+        },
+        "csi": {
+          "title": "Csi",
+          "type": "number"
+        },
+        "hss": {
+          "title": "Hss",
+          "type": "number"
+        },
+        "fss": {
+          "title": "Fss",
+          "type": "number"
+        }
+      },
+      "required": [
+        "model_id",
+        "evaluation_time",
+        "pod",
+        "far",
+        "csi",
+        "hss",
+        "fss"
+      ],
+      "title": "VerificationResult",
+      "type": "object"
+    },
+    "SourceHealth": {
+      "properties": {
+        "source_id": {
+          "title": "Source Id",
+          "type": "string"
+        },
+        "last_ingest": {
+          "format": "date-time",
+          "title": "Last Ingest",
+          "type": "string"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string"
+        },
+        "lag_seconds": {
+          "title": "Lag Seconds",
+          "type": "number"
+        }
+      },
+      "required": [
+        "source_id",
+        "last_ingest",
+        "status",
+        "lag_seconds"
+      ],
+      "title": "SourceHealth",
+      "type": "object"
+    }
+  },
+  "title": "VajraCoreSchemas",
+  "type": "object",
+  "properties": {
+    "RawEvent": {
+      "$ref": "#/$defs/RawEvent"
+    },
+    "FusedFrameRef": {
+      "$ref": "#/$defs/FusedFrameRef"
+    },
+    "Cell": {
+      "$ref": "#/$defs/Cell"
+    },
+    "CellTrack": {
+      "$ref": "#/$defs/CellTrack"
+    },
+    "CellForecast": {
+      "$ref": "#/$defs/CellForecast"
+    },
+    "HazardField": {
+      "$ref": "#/$defs/HazardField"
+    },
+    "Location": {
+      "$ref": "#/$defs/Location"
+    },
+    "ETA": {
+      "$ref": "#/$defs/ETA"
+    },
+    "Alert": {
+      "$ref": "#/$defs/Alert"
+    },
+    "AuditEntry": {
+      "$ref": "#/$defs/AuditEntry"
+    },
+    "Threshold": {
+      "$ref": "#/$defs/Threshold"
+    },
+    "ModelCard": {
+      "$ref": "#/$defs/ModelCard"
+    },
+    "VerificationResult": {
+      "$ref": "#/$defs/VerificationResult"
+    },
+    "SourceHealth": {
+      "$ref": "#/$defs/SourceHealth"
+    }
+  }
+}

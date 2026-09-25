@@ -74,6 +74,7 @@ def main():
             continue
 
         for root, dirs, files in os.walk(dir_path):
+            dirs[:] = [d for d in dirs if not d.startswith(".") and d not in ("node_modules", "venv")]
             if "README.md" in files:
                 file_path = os.path.join(root, "README.md")
                 # Skip root Vajra/README.md since we are starting from subdirs

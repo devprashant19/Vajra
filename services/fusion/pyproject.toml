@@ -1,0 +1,10 @@
+[project]
+name = "fusion"
+version = "0.1.0"
+description = "Placeholder for fusion"
+requires-python = ">=3.12"
+dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
