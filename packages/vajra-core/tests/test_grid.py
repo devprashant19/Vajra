@@ -58,3 +58,23 @@ def test_h3():
         assert len(neighbors) == 7 # Cell itself + 6 neighbors
     except ImportError:
         pytest.skip("h3 is not properly built on this system")
+
+def test_crs_epsg_7755_round_trip():
+    try:
+        from pyproj import Transformer
+        # WGS84 to EPSG:7755
+        forward = Transformer.from_crs("EPSG:4326", "EPSG:7755", always_xy=True)
+        # EPSG:7755 to WGS84
+        backward = Transformer.from_crs("EPSG:7755", "EPSG:4326", always_xy=True)
+        
+        # Test point in India (Mumbai)
+        lon, lat = 72.8777, 19.0760
+        x, y = forward.transform(lon, lat)
+        
+        # Convert back
+        rlon, rlat = backward.transform(x, y)
+        
+        assert abs(lon - rlon) < 1e-6
+        assert abs(lat - rlat) < 1e-6
+    except ImportError:
+        pytest.skip("pyproj not installed")

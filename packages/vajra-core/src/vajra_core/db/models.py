@@ -1,9 +1,10 @@
 from sqlalchemy import Column, String, Integer, Float, Boolean, DateTime, JSON, ForeignKey, text
-from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy.orm import DeclarativeBase, relationship
 from geoalchemy2 import Geometry
 from datetime import datetime
 
-Base = declarative_base()
+class Base(DeclarativeBase):
+    pass
 
 class Source(Base):
     __tablename__ = 'sources'

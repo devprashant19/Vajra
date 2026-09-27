@@ -3,8 +3,8 @@ import json
 from datetime import datetime
 
 class JSONFormatter(logging.Formatter):
-    def format(self, record):
-        log_data = {
+    def format(self, record: logging.LogRecord) -> str:
+        log_data: dict[str, str | None] = {
             "timestamp": datetime.fromtimestamp(record.created).isoformat(),
             "level": record.levelname,
             "logger": record.name,
@@ -18,6 +18,23 @@ class JSONFormatter(logging.Formatter):
             log_data["exception"] = self.formatException(record.exc_info)
             
         return json.dumps(log_data)
+
+class VajraError(Exception):
+    def __init__(self, message: str, code: str = "INTERNAL_ERROR"):
+        super().__init__(message)
+        self.code = code
+
+class DataValidationError(VajraError):
+    def __init__(self, message: str):
+        super().__init__(message, "DATA_VALIDATION_ERROR")
+
+class UpstreamTimeoutError(VajraError):
+    def __init__(self, message: str):
+        super().__init__(message, "UPSTREAM_TIMEOUT_ERROR")
+
+class StorageError(VajraError):
+    def __init__(self, message: str):
+        super().__init__(message, "STORAGE_ERROR")
 
 def setup_logging(level=logging.INFO):
     handler = logging.StreamHandler()
