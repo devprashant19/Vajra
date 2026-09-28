@@ -40,35 +40,78 @@ class InMemoryBus(EventBus):
         self._subscribers[topic].append(handler)
 
 class RedisStreamBus(EventBus):
-    def __init__(self, host: str, port: int):
+    def __init__(self, host: str, port: int, max_retries: int = 3):
         import redis
         self.client = redis.Redis(host=host, port=port, decode_responses=True)
+        self.max_retries = max_retries
 
     def publish(self, topic: str, payload: dict, partition_key: Optional[str] = None, idempotency_key: Optional[str] = None) -> None:
         if idempotency_key:
-            # Check if idempotency key exists in a redis set (cache it with TTL)
             if self.client.setnx(f"idemp:{idempotency_key}", "1"):
-                self.client.expire(f"idemp:{idempotency_key}", 86400) # 1 day TTL
+                self.client.expire(f"idemp:{idempotency_key}", 86400)
             else:
                 return # Duplicate
         
-        # Redis streams payload must be dict of strings
         str_payload = {"data": json.dumps(payload)}
         self.client.xadd(topic, str_payload)
 
     def subscribe(self, topic: str, group: str, handler: Callable[[dict], None]) -> None:
-        # A real implementation would create consumer group and loop `xreadgroup`
-        # In this mock we raise NotImplementedError for brevity as it's complex to simulate async loops here
-        raise NotImplementedError("RedisStreamBus loop not fully implemented in skeleton")
+        import time
+        from redis.exceptions import ResponseError
+        
+        consumer_name = "consumer_1"
+        try:
+            self.client.xgroup_create(topic, group, id='0', mkstream=True)
+        except ResponseError as e:
+            if "BUSYGROUP" not in str(e):
+                raise
+                
+        def consume_loop():
+            while True:
+                # Reclaim pending entries older than 60s
+                try:
+                    pending = self.client.xpending_range(topic, group, "-", "+", 10)
+                    for p in pending:
+                        msg_id, consumer, idle, delivered = p['message_id'], p['consumer'], p['time_since_delivered'], p['deliveries']
+                        if idle > 60000:
+                            if delivered > self.max_retries:
+                                # dead letter
+                                msgs = self.client.xrange(topic, min=msg_id, max=msg_id)
+                                if msgs:
+                                    self.client.xadd("dead_letters", {"topic": topic, "group": group, "data": msgs[0][1].get("data")})
+                                self.client.xack(topic, group, msg_id)
+                            else:
+                                self.client.xclaim(topic, group, consumer_name, 60000, [msg_id])
+                except Exception as e:
+                    logger.error(f"Error reclaiming: {e}")
+                    
+                # Read new or claimed messages
+                try:
+                    messages = self.client.xreadgroup(group, consumer_name, {topic: '>'}, count=10, block=1000)
+                    for stream, msg_list in messages:
+                        for msg_id, msg_data in msg_list:
+                            try:
+                                payload = json.loads(msg_data["data"])
+                                handler(payload)
+                                self.client.xack(topic, group, msg_id)
+                            except Exception as e:
+                                logger.error(f"Error handling message {msg_id}: {e}")
+                except Exception as e:
+                    logger.error(f"Error reading group: {e}")
+                    time.sleep(1)
+
+        import threading
+        t = threading.Thread(target=consume_loop, daemon=True)
+        t.start()
 
 class KafkaBus(EventBus):
-    def __init__(self, bootstrap_servers: str):
-        from confluent_kafka import Producer, Consumer
+    def __init__(self, bootstrap_servers: str, max_retries: int = 3):
+        from confluent_kafka import Producer
         self.bootstrap_servers = bootstrap_servers
         self.producer = Producer({'bootstrap.servers': bootstrap_servers})
+        self.max_retries = max_retries
 
     def publish(self, topic: str, payload: dict, partition_key: Optional[str] = None, idempotency_key: Optional[str] = None) -> None:
-        # Kafka handles idempotency natively if enabled, but we can also use headers
         headers = []
         if idempotency_key:
             headers.append(('idempotency_key', idempotency_key.encode('utf-8')))
@@ -89,5 +132,40 @@ class KafkaBus(EventBus):
         self.producer.poll(0)
 
     def subscribe(self, topic: str, group: str, handler: Callable[[dict], None]) -> None:
-        # A real implementation would spin up a background thread with consumer loop
-        raise NotImplementedError("KafkaBus loop not fully implemented in skeleton")
+        def consume_loop():
+            from confluent_kafka import Consumer, KafkaError
+            import time
+            consumer = Consumer({
+                'bootstrap.servers': self.bootstrap_servers,
+                'group.id': group,
+                'auto.offset.reset': 'earliest',
+                'enable.auto.commit': False
+            })
+            consumer.subscribe([topic])
+            
+            while True:
+                msg = consumer.poll(1.0)
+                if msg is None:
+                    continue
+                if msg.error():
+                    if msg.error().code() == KafkaError._PARTITION_EOF:
+                        continue
+                    else:
+                        logger.error(f"Consumer error: {msg.error()}")
+                        time.sleep(1)
+                        continue
+                
+                try:
+                    payload = json.loads(msg.value().decode('utf-8'))
+                    handler(payload)
+                    consumer.commit(asynchronous=False)
+                except Exception as e:
+                    logger.error(f"Error handling message: {e}")
+                    # Dead letter logic would go here in a real implementation
+                    # (e.g. tracking retries in headers, publishing to dead_letters topic)
+                    # For now we'll just log and commit to avoid poison pill blocking
+                    consumer.commit(asynchronous=False)
+
+        import threading
+        t = threading.Thread(target=consume_loop, daemon=True)
+        t.start()

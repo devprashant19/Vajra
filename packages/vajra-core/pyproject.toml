@@ -13,11 +13,22 @@ dependencies = [
     "psycopg2-binary>=2.9.9",
     "redis>=5.0.0",
     "confluent-kafka>=2.0.0",
+    "minio>=7.2.20",
+    "jsonschema>=4.26.0",
+    "pyproj>=3.8.0",
+    "tzdata>=2026.4",
 ]
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "hypothesis>=6.168.3",
+    "mypy>=2.3.1",
+    "pytest-cov>=7.1.0",
+]
 
 [project.optional-dependencies]
 test = [

@@ -23,6 +23,6 @@ WORKDIR /app
 # For tests, we just pre-install some heavy libraries
 RUN uv pip install torch --index-url https://download.pytorch.org/whl/cpu && \
     uv pip install numpy scipy pandas xarray zarr dask && \
-    uv pip install satpy cfgrib arm_pyart pyiwr
+    uv pip install satpy cfgrib arm_pyart wradlib
 
 CMD ["tail", "-f", "/dev/null"]

@@ -11,7 +11,8 @@ services:
 
   # Full profile additions
   postgres:
-    image: timescale/timescaledb-postgis:latest-pg15
+    image: timescale/timescaledb-ha:pg15
+    command: postgres -c shared_buffers=128MB
     profiles: ["full"]
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-vajra}
@@ -42,7 +43,7 @@ services:
       - "29092:29092"
 
   minio:
-    image: minio/minio
+    image: elestio/minio:latest
     profiles: ["full"]
     command: server /data --console-address ":9001"
     environment:

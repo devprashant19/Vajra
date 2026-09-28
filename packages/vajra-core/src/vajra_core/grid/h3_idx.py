@@ -1,4 +1,4 @@
-import h3
+import h3 # type: ignore
 
 def latlon_to_h3(lat: float, lon: float, resolution: int = 7) -> str:
     """Convert a lat/lon to an H3 index at the given resolution."""
