@@ -1,0 +1,31 @@
+events:
+  - id: "chennai_dec_2023_michaung"
+    hazard: "cyclone_convection"
+    date: "2023-12-04"
+    location: "Chennai, Tamil Nadu"
+    citation: "https://rsmcnewdelhi.imd.gov.in/uploads/report/35/35_ed45d3_Michaung.pdf"
+    
+  - id: "bengaluru_may_2024_squall"
+    hazard: "downburst_thunderstorm"
+    date: "2024-05-17"
+    location: "Bengaluru, Karnataka"
+    citation: "UNVERIFIED"
+    
+  - id: "kolkata_norwester_apr_2024"
+    hazard: "thunderstorm_lightning"
+    date: "2024-04-18"
+    location: "Kolkata, West Bengal"
+    citation: "UNVERIFIED"
+
+  - id: "delhi_dust_storm_may_2024"
+    hazard: "thunderstorm_squall"
+    date: "2024-05-10"
+    location: "Delhi NCR"
+    citation: "https://mausam.imd.gov.in/backend/assets/press_release_pdf/Press_Release_Delhi_Dust_Storm_May2024.pdf"
+    
+  - id: "sevir_transfer_track"
+    hazard: "various"
+    date: "2017-2019"
+    location: "Continental US"
+    citation: "https://doi.org/10.7910/DVN/DBMQHO"
+    note: "Transfer learning pretraining subset, hard capped at 40 GB."

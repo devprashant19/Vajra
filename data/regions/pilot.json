@@ -1,0 +1,14 @@
+{
+    "domains": [
+        {
+            "id": "delhi_ncr",
+            "name": "Delhi NCR",
+            "bbox": [28.2, 76.6, 29.0, 77.5]
+        },
+        {
+            "id": "mumbai",
+            "name": "Mumbai Metropolitan Region",
+            "bbox": [18.8, 72.7, 19.4, 73.2]
+        }
+    ]
+}
