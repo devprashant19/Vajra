@@ -1,31 +1,76 @@
 events:
-  - id: "chennai_dec_2023_michaung"
-    hazard: "cyclone_convection"
-    date: "2023-12-04"
-    location: "Chennai, Tamil Nadu"
-    citation: "https://rsmcnewdelhi.imd.gov.in/uploads/report/35/35_ed45d3_Michaung.pdf"
-    
-  - id: "bengaluru_may_2024_squall"
-    hazard: "downburst_thunderstorm"
-    date: "2024-05-17"
-    location: "Bengaluru, Karnataka"
-    citation: "UNVERIFIED"
-    
-  - id: "kolkata_norwester_apr_2024"
-    hazard: "thunderstorm_lightning"
-    date: "2024-04-18"
-    location: "Kolkata, West Bengal"
-    citation: "UNVERIFIED"
-
-  - id: "delhi_dust_storm_may_2024"
-    hazard: "thunderstorm_squall"
-    date: "2024-05-10"
-    location: "Delhi NCR"
-    citation: "https://mausam.imd.gov.in/backend/assets/press_release_pdf/Press_Release_Delhi_Dust_Storm_May2024.pdf"
-    
-  - id: "sevir_transfer_track"
-    hazard: "various"
-    date: "2017-2019"
-    location: "Continental US"
-    citation: "https://doi.org/10.7910/DVN/DBMQHO"
-    note: "Transfer learning pretraining subset, hard capped at 40 GB."
+- id: ind-2022-amarnath
+  date: '2022-07-08'
+  location: Amarnath, Jammu and Kashmir
+  hazard_type: Cloudburst
+  citation_url: https://en.wikipedia.org/wiki/2022_Amarnath_floods
+- id: ind-2018-duststorm
+  date: '2018-05-02'
+  location: Uttar Pradesh and Rajasthan
+  hazard_type: Downburst/Squall
+  citation_url: https://en.wikipedia.org/wiki/2018_Indian_dust_storms
+- id: ind-2024-jalpaiguri
+  date: '2024-03-31'
+  location: Jalpaiguri, West Bengal
+  hazard_type: Tornado/Hail
+  citation_url: https://en.wikipedia.org/wiki/2024_Jalpaiguri_storm
+- id: ind-2013-kedarnath
+  date: '2013-06-16'
+  location: Kedarnath, Uttarakhand
+  hazard_type: Cloudburst
+  citation_url: https://en.wikipedia.org/wiki/2013_North_India_floods
+- id: ind-2020-hyderabad
+  date: '2020-10-14'
+  location: Hyderabad, Telangana
+  hazard_type: Extreme Rainfall
+  citation_url: https://en.wikipedia.org/wiki/2020_Hyderabad_floods
+- id: ind-2019-pune
+  date: '2019-09-25'
+  location: Pune, Maharashtra
+  hazard_type: Extreme Rainfall
+  citation_url: https://en.wikipedia.org/wiki/2019_Pune_flood
+- id: ind-2021-maharashtra
+  date: '2021-07-22'
+  location: Maharashtra
+  hazard_type: Extreme Rainfall
+  citation_url: https://en.wikipedia.org/wiki/2021_Maharashtra_floods
+- id: ind-2022-bengaluru
+  date: '2022-09-05'
+  location: Bengaluru, Karnataka
+  hazard_type: Extreme Rainfall
+  citation_url: https://en.wikipedia.org/wiki/2022_Bengaluru_floods
+- id: ind-2023-sikkim
+  date: '2023-10-04'
+  location: Sikkim
+  hazard_type: Cloudburst/GLOF
+  citation_url: https://en.wikipedia.org/wiki/2023_Sikkim_flash_floods
+- id: ind-2015-chennai
+  date: '2015-12-01'
+  location: Chennai, Tamil Nadu
+  hazard_type: Extreme Rainfall
+  citation_url: https://en.wikipedia.org/wiki/2015_South_Indian_floods
+- id: ind-2014-kashmir
+  date: '2014-09-02'
+  location: Kashmir
+  hazard_type: Extreme Rainfall
+  citation_url: https://en.wikipedia.org/wiki/2014_India%E2%80%93Pakistan_floods
+- id: ind-2005-mumbai
+  date: '2005-07-26'
+  location: Mumbai, Maharashtra
+  hazard_type: Cloudburst
+  citation_url: https://en.wikipedia.org/wiki/2005_Maharashtra_floods
+- id: ind-2010-leh
+  date: '2010-08-06'
+  location: Leh, Ladakh
+  hazard_type: Cloudburst
+  citation_url: https://en.wikipedia.org/wiki/2010_Ladakh_floods
+- id: ind-2023-himachal
+  date: '2023-07-09'
+  location: Himachal Pradesh
+  hazard_type: Extreme Rainfall
+  citation_url: https://en.wikipedia.org/wiki/2023_North_India_floods
+- id: ind-2020-bihar
+  date: '2020-06-25'
+  location: Bihar
+  hazard_type: Lightning
+  citation_url: https://en.wikipedia.org/wiki/2020_Bihar_lightning_strikes

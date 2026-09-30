@@ -1,17 +1,14 @@
-# Data Source Status Verification
+# Source Status
 
-| Source | Identifier / URL | Status | Credentials | Licence / Terms | Format | Est. Size | Time Coverage |
-|---|---|---|---|---|---|---|---|
-| **SIH Reference (Figshare)** | https://doi.org/10.6084/m9.figshare.22704910 | **LIVE** | None | CC BY 4.0 (assumed for figshare unless noted) | Archive | ~Varies | Historical |
-| **Open-Meteo** | https://open-meteo.com | **LIVE** | None (Basic) | Non-commercial free | JSON | Tiny | Real-time / Forecast |
-| **GFS (NOMADS)** | https://nomads.ncep.noaa.gov | **LIVE** | None | Public Domain | GRIB2 | Large per run | Real-time |
-| **MOSDAC** | https://mosdac.gov.in | **LIVE** | `MOSDAC_USERNAME` | Research/Academic use | HDF5, JPEG | Large | Real-time & Archive |
-| **Earthdata (NASA)** | https://disc.gsfc.nasa.gov | **LIVE** | `EARTHDATA_USERNAME` | Public Domain / Open | HDF5, NetCDF | Large | Historical |
-| **Copernicus CDS (ERA5)** | https://cds.climate.copernicus.eu | **LIVE** | `CDS_API_KEY` | Copernicus Open (Free for research) | GRIB2 / NetCDF | Medium | Reanalysis |
-| **Kaggle BharatBench** | https://kaggle.com/datasets/maslab/bharatbench | **LIVE** | Kaggle Token | Open/Varies | NetCDF | Medium | Pre-computed dataset |
-| **SEVIR (Harvard Dataverse)** | https://doi.org/10.7910/DVN/DBMQHO | **UNVERIFIED (404)** | None | CC BY-NC-SA 4.0 | HDF5 + CSV | >40 GB total | 2017-2019 (US only) |
-| **Blitzortung** | https://www.blitzortung.org | **LIVE** | `BLITZORTUNG_USER` | Restrictions on redistribution | JSON / CSV | Small | Real-time & Archive |
-| **IMD DWR Network** | https://dd.imd.gov.in / Research | **UNVERIFIED** | Institutional | Research / Restricted | CfRadial | Huge | Real-time (if access granted) |
-| **ILLN (IITM Pune)** | Institutional Request | **UNVERIFIED** | Institutional | Research / Restricted | Point data | Small | Real-time |
-
-Note: `needs_credentials` status is reported for MOSDAC, Earthdata, Copernicus CDS, Kaggle, Blitzortung, IMD DWR, and ILLN as `.env` credentials are not currently present.
+| Source | Reachable | Credentials | Licence / Terms | Format | Est. Size | Coverage |
+|---|---|---|---|---|---|---|
+| figshare_sih | ✅ | No | [CC BY 4.0](https://figshare.com/articles/dataset/NEXUS_Data/22704910) | NetCDF/HDF5 | Unknown | Unknown |
+| open_meteo | ✅ | No | [CC BY 4.0 (Non-commercial API)](https://open-meteo.com/en/terms) | JSON, Parquet | Variable | Historical & Forecast |
+| nomads_gfs | ✅ | No | [Public Domain (US Govt)](https://nomads.ncep.noaa.gov/txt_descriptions/Data_Access_Policy.txt) | GRIB2 | Terabytes | Recent forecast cycles |
+| mosdac | ✅ | Yes | [ISRO Data Policy](https://mosdac.gov.in/data-policy) | HDF5 | Terabytes | Historical & Real-time INSAT |
+| earthdata | ✅ | Yes | [Public Domain / NASA Earthdata Policy](https://earthdata.nasa.gov/earth-observation-data/data-use-policy) | HDF5, NetCDF | Petabytes | Historical & Near Real-time |
+| cds | ✅ | Yes | [Copernicus License](https://cds.climate.copernicus.eu/api-how-to) | GRIB, NetCDF | Petabytes | Historical ERA5 |
+| kaggle_bharatbench | ✅ | Yes | [Unknown](https://www.kaggle.com/datasets/maslab/bharatbench) | Unknown | Unknown | Unknown |
+| sevir_dataverse | ❌ (404) | No | [MIT License](https://doi.org/10.7910/DVN/DBMQHO) | HDF5 | Terabytes | 2018-2019 US |
+| sevir_aws | ❌ (None) | No | [MIT License](https://registry.opendata.aws/sevir/) | HDF5 | 1TB+ | 2018-2019 US |
+| blitzortung | ✅ | No | [Non-commercial only](https://www.blitzortung.org/en/contact.php) | Custom | Variable | Real-time |
