@@ -1,10 +1,10 @@
 import os
 import pytest
-from alembic.config import Config
-from alembic import command
+from alembic.config import Config  # type: ignore[import-not-found] # Specific override for import-not-found as per phase 2 closure rules
+from alembic import command  # type: ignore[import-not-found] # Specific override for import-not-found as per phase 2 closure rules
 from vajra_core.config.settings import settings
 
-def test_alembic_migrations(tmp_path):
+def test_alembic_migrations(tmp_path):  # type: ignore[no-untyped-def] # Specific override for no-untyped-def as per phase 2 closure rules
     # Set DB URL to sqlite in tmp_path
     db_path = tmp_path / "test.db"
     os.environ["VAJRA_DATABASE_URL"] = f"sqlite:///{db_path}"
