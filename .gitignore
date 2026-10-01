@@ -44,3 +44,5 @@ data/derived/
 Thumbs.db
 
 venv_*/
+
+data/reference/SEVIR_CATALOG.csv
