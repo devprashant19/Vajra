@@ -39,10 +39,12 @@ def object_store(request, tmp_path):
         )
 
 def test_bus_idempotent_publish(event_bus):
-    if isinstance(event_bus, KafkaBus):
-        pytest.skip("KafkaBus does not auto-create topics instantly in tests")
-        
     topic = f"test.topic.{uuid.uuid4()}"
+    if isinstance(event_bus, KafkaBus):
+        from confluent_kafka.admin import AdminClient, NewTopic
+        a = AdminClient({'bootstrap.servers': event_bus.bootstrap_servers})
+        a.create_topics([NewTopic(topic, num_partitions=1, replication_factor=1)])
+        time.sleep(1)
     received = []
     
     def handler(payload):
@@ -61,10 +63,12 @@ def test_bus_idempotent_publish(event_bus):
     assert len(received) == 1
 
 def test_bus_ordering(event_bus):
-    if isinstance(event_bus, KafkaBus):
-        pytest.skip("KafkaBus does not auto-create topics instantly in tests")
-        
     topic = f"test.topic.order.{uuid.uuid4()}"
+    if isinstance(event_bus, KafkaBus):
+        from confluent_kafka.admin import AdminClient, NewTopic
+        a = AdminClient({'bootstrap.servers': event_bus.bootstrap_servers})
+        a.create_topics([NewTopic(topic, num_partitions=1, replication_factor=1)])
+        time.sleep(1)
     received = []
     
     def handler(payload):

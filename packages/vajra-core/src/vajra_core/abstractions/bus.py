@@ -7,20 +7,20 @@ logger = logging.getLogger(__name__)
 
 class EventBus(ABC):
     @abstractmethod
-    def publish(self, topic: str, payload: dict, partition_key: Optional[str] = None, idempotency_key: Optional[str] = None) -> None:
+    def publish(self, topic: str, payload: Dict[str, Any], partition_key: Optional[str] = None, idempotency_key: Optional[str] = None) -> None:
         pass
 
     @abstractmethod
-    def subscribe(self, topic: str, group: str, handler: Callable[[dict], None]) -> None:
+    def subscribe(self, topic: str, group: str, handler: Callable[[Dict[str, Any]], None]) -> None:
         pass
 
 class InMemoryBus(EventBus):
     def __init__(self):
-        self._subscribers: Dict[str, List[Callable[[dict], None]]] = {}
+        self._subscribers: Dict[str, List[Callable[[Dict[str, Any]], None]]] = {}
         self._processed_keys = set()
         self.dead_letters = []
 
-    def publish(self, topic: str, payload: dict, partition_key: Optional[str] = None, idempotency_key: Optional[str] = None) -> None:
+    def publish(self, topic: str, payload: Dict[str, Any], partition_key: Optional[str] = None, idempotency_key: Optional[str] = None) -> None:
         if idempotency_key:
             if idempotency_key in self._processed_keys:
                 return # duplicate
@@ -34,7 +34,7 @@ class InMemoryBus(EventBus):
                 logger.error(f"Error handling event: {e}")
                 self.dead_letters.append({"topic": topic, "payload": payload, "error": str(e)})
 
-    def subscribe(self, topic: str, group: str, handler: Callable[[dict], None]) -> None:
+    def subscribe(self, topic: str, group: str, handler: Callable[[Dict[str, Any]], None]) -> None:
         if topic not in self._subscribers:
             self._subscribers[topic] = []
         self._subscribers[topic].append(handler)
@@ -45,7 +45,7 @@ class RedisStreamBus(EventBus):
         self.client = redis.Redis(host=host, port=port, decode_responses=True)
         self.max_retries = max_retries
 
-    def publish(self, topic: str, payload: dict, partition_key: Optional[str] = None, idempotency_key: Optional[str] = None) -> None:
+    def publish(self, topic: str, payload: Dict[str, Any], partition_key: Optional[str] = None, idempotency_key: Optional[str] = None) -> None:
         if idempotency_key:
             if self.client.setnx(f"idemp:{idempotency_key}", "1"):
                 self.client.expire(f"idemp:{idempotency_key}", 86400)
@@ -55,7 +55,7 @@ class RedisStreamBus(EventBus):
         str_payload = {"data": json.dumps(payload)}
         self.client.xadd(topic, str_payload)
 
-    def subscribe(self, topic: str, group: str, handler: Callable[[dict], None]) -> None:
+    def subscribe(self, topic: str, group: str, handler: Callable[[Dict[str, Any]], None]) -> None:
         import time
         from redis.exceptions import ResponseError
         
@@ -111,7 +111,7 @@ class KafkaBus(EventBus):
         self.producer = Producer({'bootstrap.servers': bootstrap_servers})
         self.max_retries = max_retries
 
-    def publish(self, topic: str, payload: dict, partition_key: Optional[str] = None, idempotency_key: Optional[str] = None) -> None:
+    def publish(self, topic: str, payload: Dict[str, Any], partition_key: Optional[str] = None, idempotency_key: Optional[str] = None) -> None:
         headers = []
         if idempotency_key:
             headers.append(('idempotency_key', idempotency_key.encode('utf-8')))
@@ -131,7 +131,7 @@ class KafkaBus(EventBus):
         )
         self.producer.poll(0)
 
-    def subscribe(self, topic: str, group: str, handler: Callable[[dict], None]) -> None:
+    def subscribe(self, topic: str, group: str, handler: Callable[[Dict[str, Any]], None]) -> None:
         def consume_loop():
             from confluent_kafka import Consumer, KafkaError
             import time
@@ -156,6 +156,17 @@ class KafkaBus(EventBus):
                         continue
                 
                 try:
+                    headers_dict = dict(msg.headers() or [])
+                    idemp_key = headers_dict.get('idempotency_key')
+                    if idemp_key:
+                        idemp_key_str = idemp_key.decode('utf-8')
+                        if hasattr(self, '_processed_keys') and idemp_key_str in self._processed_keys:
+                            consumer.commit(asynchronous=False)
+                            continue
+                        if not hasattr(self, '_processed_keys'):
+                            self._processed_keys = set()
+                        self._processed_keys.add(idemp_key_str)
+                    
                     payload = json.loads(msg.value().decode('utf-8'))
                     handler(payload)
                     consumer.commit(asynchronous=False)

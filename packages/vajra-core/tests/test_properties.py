@@ -78,7 +78,7 @@ def test_schema_round_trip_and_jsonschema():
         "polygon": [[0.0, 0.0], [1.0, 1.0], [1.0, 0.0], [0.0, 0.0]]
     }
     
-    alert = Alert(**alert_json)
+    alert = Alert.model_validate(alert_json)
     dumped = json.loads(alert.model_dump_json())
     
     # Assert dates match (note format differences)
