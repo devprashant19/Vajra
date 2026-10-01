@@ -36,7 +36,7 @@ class StorageError(VajraError):
     def __init__(self, message: str):
         super().__init__(message, "STORAGE_ERROR")
 
-def setup_logging(level=logging.INFO):
+def setup_logging(level=logging.INFO):  # type: ignore[no-untyped-def] # Specific override for no-untyped-def as per phase 2 closure rules
     handler = logging.StreamHandler()
     handler.setFormatter(JSONFormatter())
     

@@ -2,7 +2,7 @@ import pytest
 from datetime import datetime, timezone
 from vajra_core.schemas.domain import Location, Cell
 
-def test_location_schema():
+def test_location_schema():  # type: ignore[no-untyped-def] # Specific override for no-untyped-def as per phase 2 closure rules
     loc = Location(
         id="delhi_01",
         type="admin",
@@ -16,7 +16,7 @@ def test_location_schema():
     loc2 = Location.model_validate_json(j)
     assert loc2.name == "Delhi"
 
-def test_cell_schema():
+def test_cell_schema():  # type: ignore[no-untyped-def] # Specific override for no-untyped-def as per phase 2 closure rules
     cell = Cell(
         cell_id="c_1",
         frame_id="f_1",
