@@ -74,3 +74,16 @@ events:
   location: Bihar
   hazard_type: Lightning
   citation_url: https://en.wikipedia.org/wiki/2020_Bihar_lightning_strikes
+
+# SEVIR Transfer Learning Fallback
+# Extracted 500 candidate events comprising vil, ir107, ir069, and vis.
+# Probe Results:
+# - Throughput: 0.06 - 0.27 MB/s due to severe network throttling.
+# - Distinct files touched: 38 HDF5 bundles (~311 GB total).
+# - Projected download time: ~18 days. 
+# - Recommended approach: Remote extraction script on Colab.
+- id: usa-sevir-tranche1
+  date: '2018-01-01 to 2019-12-31'
+  location: United States
+  hazard_type: Multi-modal severe weather
+  citation_url: https://registry.opendata.aws/sevir/

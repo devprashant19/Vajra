@@ -91,6 +91,15 @@ export type SourceId1 = string;
 export type LastIngest = string;
 export type Status1 = string;
 export type LagSeconds = number;
+export type SkilfulFlag = "true" | "false" | "unknown";
+export type Status2 = "live" | "cached" | "stale" | "simulated" | "unavailable" | "needs_credentials";
+export type Source = string;
+export type ValidTime3 = string;
+export type IngestTime = string;
+export type AgeSeconds = number;
+export type IsObservation = boolean;
+export type Engine = string | null;
+export type Method = string | null;
 
 export interface VajraCoreSchemas {
   RawEvent?: RawEvent;
@@ -107,6 +116,9 @@ export interface VajraCoreSchemas {
   ModelCard?: ModelCard;
   VerificationResult?: VerificationResult;
   SourceHealth?: SourceHealth;
+  SkilfulFlag?: SkilfulFlag;
+  Status?: Status2;
+  "Provenanced[Any]"?: ProvenancedAny;
 }
 export interface RawEvent {
   source_id: SourceId;
@@ -233,4 +245,23 @@ export interface SourceHealth {
   last_ingest: LastIngest;
   status: Status1;
   lag_seconds: LagSeconds;
+}
+export interface ProvenancedAny {
+  source: Source;
+  valid_time: ValidTime3;
+  ingest_time: IngestTime;
+  age_seconds: AgeSeconds;
+  status: Status2;
+  quality_flags?: QualityFlags;
+  is_observation?: IsObservation;
+  data?: Data;
+  engine?: Engine;
+  method?: Method;
+  skilful?: SkilfulFlag | null;
+}
+export interface QualityFlags {
+  [k: string]: unknown;
+}
+export interface Data {
+  [k: string]: unknown;
 }
