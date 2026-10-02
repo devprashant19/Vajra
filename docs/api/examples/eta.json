@@ -1,0 +1,37 @@
+{
+  "provenance": {
+    "source": "SIMULATED-Kolkata-NorWester",
+    "valid_time": "2026-10-02T07:31:58.157687Z",
+    "ingest_time": "2026-10-02T07:31:58.157687Z",
+    "age_seconds": 0.0,
+    "status": "simulated",
+    "quality_flags": {},
+    "is_observation": false,
+    "data": {
+      "location_id": "loc-kolkata",
+      "hazard_type": "thunderstorm",
+      "p10_time": "2026-10-02T07:31:58.157687Z",
+      "p50_time": "2026-10-02T07:31:58.157687Z",
+      "p90_time": "2026-10-02T07:31:58.157687Z",
+      "probability_of_impact": 0.85,
+      "state": "APPROACHING"
+    },
+    "engine": "ml:simulator",
+    "method": "rule_based",
+    "skilful": "unknown"
+  },
+  "data": {
+    "location_id": "loc-kolkata",
+    "hazard_type": "thunderstorm",
+    "p10_time": "2026-10-02T07:31:58.157687Z",
+    "p50_time": "2026-10-02T07:31:58.157687Z",
+    "p90_time": "2026-10-02T07:31:58.157687Z",
+    "probability_of_impact": 0.85,
+    "state": "APPROACHING"
+  },
+  "pagination": {
+    "total": 1,
+    "page": 1,
+    "size": 100
+  }
+}
