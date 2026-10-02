@@ -6,7 +6,9 @@ requires-python = ">=3.12"
 dependencies = [
     "boto3>=1.43.106",
     "duckdb>=1.5.6",
+    "earthaccess>=0.19.0",
     "fsspec>=2026.9.0",
+    "h5netcdf>=1.8.1",
     "h5py>=3.16.0",
     "httpx>=0.28.1",
     "imdlib>=0.1.22",
