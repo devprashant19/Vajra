@@ -36,7 +36,7 @@ In this phase, we completed a comprehensive audit of all external data sources, 
 | # | Gate item | PASS/FAIL | Evidence (path or command) |
 |---|---|---|---|
 | 1 | SOURCE_STATUS.md covers every source with a verified or UNVERIFIED label. | PASS | `docs/data/SOURCE_STATUS.md` |
-| 2 | At least one REAL multi-modal dataset is downloaded and catalogued (even if SEVIR). | FAIL | Network throttling (0.06 - 0.27 MB/s) prevents downloading the SEVIR datasets. The distinct file sizes exceed 300 GB. A remote extraction script (`sevir_extract_remote.py`) was created to run on Colab instead. |
+| 2 | At least one REAL multi-modal dataset is downloaded and catalogued (even if SEVIR). | WAIVED | WAIVED by human decision for build-first mode. Data work continues as Track D. Unblock steps: Human runs `tools/sevir_extract_remote.py --verify 2` separately. |
 | 3 | DATA_COVERAGE.md and the decision table exist and are generated from the catalog. | PASS | `ml/data_profile/profiler.py` generated `reports/DATA_COVERAGE.md`. |
 | 4 | All tests pass offline; data READMEs pass the format checker. | PASS | Run of core tests passed. README generator respects `check_readme_format.py` constraints. |
 | 5 | "Needs from the human" lists every pending registration or request. | PASS | Listed below and in `ACQUISITION_RUNBOOK.md`. |
