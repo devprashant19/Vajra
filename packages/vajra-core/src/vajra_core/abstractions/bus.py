@@ -11,7 +11,7 @@ class EventBus(ABC):
         pass
 
     @abstractmethod
-    def subscribe(self, topic: str, group: str, handler: Callable[[Dict[str, Any]], None]) -> None:
+    def subscribe(self, topic: str, group: str, handler: Callable[[Dict[str, Any]], None], offset: Optional[str] = None) -> None:
         pass
 
 class InMemoryBus(EventBus):
@@ -40,11 +40,12 @@ class InMemoryBus(EventBus):
                     logger.error(f"Error handling event: {e}")
                     self.dead_letters.append({"topic": topic, "payload": payload, "error": str(e)})
 
-    def subscribe(self, topic: str, group: str, handler: Callable[[Dict[str, Any]], None]) -> None:
+    def subscribe(self, topic: str, group: str, handler: Callable[[Dict[str, Any]], None], offset: Optional[str] = None) -> None:
         if topic not in self._subscribers:
             self._subscribers[topic] = {}
         if group not in self._subscribers[topic]:
             self._subscribers[topic][group] = []
+        # Not fully supporting offset in InMemory for now, just append
         self._subscribers[topic][group].append(handler)
 
 class RedisStreamBus(EventBus):
@@ -63,17 +64,19 @@ class RedisStreamBus(EventBus):
         str_payload = {"data": json.dumps(payload)}
         self.client.xadd(topic, str_payload)  # type: ignore[arg-type] # Specific override for arg-type as per phase 2 closure rules
 
-    def subscribe(self, topic: str, group: str, handler: Callable[[Dict[str, Any]], None]) -> None:
+    def subscribe(self, topic: str, group: str, handler: Callable[[Dict[str, Any]], None], offset: Optional[str] = None) -> None:
         import time
         from redis.exceptions import ResponseError
         
         import uuid
         consumer_name = f"consumer_{uuid.uuid4()}"
         try:
-            self.client.xgroup_create(topic, group, id='0', mkstream=True)
+            self.client.xgroup_create(topic, group, id=offset or '0', mkstream=True)
         except ResponseError as e:
             if "BUSYGROUP" not in str(e):
                 raise
+            if offset is not None:
+                self.client.xgroup_setid(topic, group, offset)
                 
         def consume_loop():  # type: ignore[no-untyped-def] # Specific override for no-untyped-def as per phase 2 closure rules
             while True:
@@ -140,9 +143,9 @@ class KafkaBus(EventBus):
         )
         self.producer.poll(0)
 
-    def subscribe(self, topic: str, group: str, handler: Callable[[Dict[str, Any]], None]) -> None:
+    def subscribe(self, topic: str, group: str, handler: Callable[[Dict[str, Any]], None], offset: Optional[str] = None) -> None:
         def consume_loop():  # type: ignore[no-untyped-def] # Specific override for no-untyped-def as per phase 2 closure rules
-            from confluent_kafka import Consumer, KafkaError
+            from confluent_kafka import Consumer, KafkaError, TopicPartition
             import time
             consumer = Consumer({
                 'bootstrap.servers': self.bootstrap_servers,
@@ -150,7 +153,10 @@ class KafkaBus(EventBus):
                 'auto.offset.reset': 'earliest',
                 'enable.auto.commit': False
             })
-            consumer.subscribe([topic])
+            if offset is not None:
+                consumer.assign([TopicPartition(topic, 0, int(offset))])
+            else:
+                consumer.subscribe([topic])
             
             while True:
                 msg = consumer.poll(1.0)
