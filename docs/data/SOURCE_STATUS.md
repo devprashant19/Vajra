@@ -12,3 +12,5 @@
 | sevir_dataverse | ❌ (404) | No | [MIT License](https://doi.org/10.7910/DVN/DBMQHO) | HDF5 | Terabytes | 2018-2019 US |
 | sevir_aws | ❌ (None) | No | [MIT License](https://registry.opendata.aws/sevir/) | HDF5 | 1TB+ | 2018-2019 US |
 | blitzortung | ✅ | No | [Non-commercial only](https://www.blitzortung.org/en/contact.php) | Custom | Variable | Real-time |
+| imd_rainfall | ✅ | No | [Restricted research use](https://imdpune.gov.in) | NetCDF/GRD | < 1GB | Daily 0.25 deg |
+| copernicus_dem | ✅ | No | [Public Domain (AWS)](https://registry.opendata.aws/copernicus-dem/) | COG | TBs | Global 30m |

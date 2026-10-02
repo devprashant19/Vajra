@@ -27,6 +27,10 @@ class CatalogBuilder:
                 
             verdict = data.get("verdict", "REAL")
             
+            licence = data.get("licence", "UNKNOWN")
+            if source == "imd": licence = "Restricted research use. (imdlib)"
+            elif source == "copernicus_dem": licence = "Public Domain (AWS)"
+            
             records.append({
                 "source": source,
                 "product": data.get("product", "unknown"),
