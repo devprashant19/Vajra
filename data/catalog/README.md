@@ -1,11 +1,20 @@
-# Vajra Data Catalogs
+# Catalog Directory
 
-This directory contains filtered and processed event selections used to drive the extraction and processing pipelines.
+**Origin**: NEW (Vajra event catalogs)
+**Generated**: 2026-10-02
 
-## Files
+## Contents
 
-*   **`sevir_tranche1_events.csv`**: The exact list of events selected from the SEVIR catalog that meet the project criteria (modalities present, temporal distribution, severe types). This file drives the `tools/sevir_extract_remote.py` script.
+### sevir_tranche1_events.csv (1MB)
+- **Verdict**: SYNTHETIC — Filtered metadata
+- **Time Range**: 2018-2019
+- **Domain**: USA
+- **Variables**: metadata
+- **Shape**: 500 rows
+- **Useful for**: data ingestion
+- **Source**: SEVIR AWS Open Data
+- **Licence**: MIT/ODC
+- **Note**: Drives remote extraction script.
 
-## Maintenance
-
-These files are reproducible from the original `data/reference/SEVIR_CATALOG.csv` using the offline selection scripts. They are kept here for exact repeatability of extraction runs.
+## Usage Restrictions
+Internal metadata catalogs. No usage restrictions on code/structure.

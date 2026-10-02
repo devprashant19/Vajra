@@ -1,18 +1,20 @@
-# Vajra Data Directory
-**Origin**: NEW
+# Data Directory
+
+**Origin**: NEW (Vajra project data root)
 **Generated**: 2026-10-02
 
 ## Contents
-This directory holds the data for the Vajra real-time convective-scale nowcasting platform.
 
-## Structure
+### catalog/ (Dynamic)
+- **Verdict**: SYNTHETIC — Metadata only
+- **Time Range**: 2018-2024
+- **Domain**: USA and India
+- **Variables**: metadata
+- **Shape**: rows
+- **Useful for**: data ingestion
+- **Source**: Internal
+- **Licence**: Internal
+- **Note**: Holds catalogs for data pipelines.
 
-*   **`reference/`**: Holds reference datasets, catalogs, and static mapping files (e.g., `SEVIR_CATALOG.csv`, projections).
-*   **`catalog/`**: Holds generated tranche/selection lists and filtered views (e.g., `sevir_tranche1_events.csv`).
-*   **`sevir_extracted/`**: Holds the Zarr shards and `manifest.json` for the exact events extracted from the S3 bucket using the remote extraction pipeline.
-*   **`interim/`**: Holds intermediate processing files before they are loaded into the data lake (DuckDB/PostGIS).
-
-## Storage Rules
-
-*   **Do not commit data files:** All directories contain `.gitignore` or exclude rules for large datasets.
-*   **Ephemeral processing:** Files in `interim/` and raw downloads must be deleted after being ingested or converted to Zarr to save disk space.
+## Usage Restrictions
+Internal metadata folders. No usage restrictions on code/structure.
