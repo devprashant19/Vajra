@@ -1,5 +1,8 @@
 # Vajra Data Directory
+**Origin**: NEW
+**Generated**: 2026-10-02
 
+## Contents
 This directory holds the data for the Vajra real-time convective-scale nowcasting platform.
 
 ## Structure
