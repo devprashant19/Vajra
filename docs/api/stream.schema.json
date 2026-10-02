@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Vajra Stream Envelope",
+  "type": "object",
+  "required": ["type", "sequence", "valid_time", "payload"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "cell.updated",
+        "eta.updated",
+        "alert.issued",
+        "source.status",
+        "replay.state"
+      ]
+    },
+    "sequence": {
+      "type": "integer",
+      "description": "Monotonically increasing sequence number for reconnect tracking"
+    },
+    "valid_time": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "payload": {
+      "type": "object"
+    }
+  }
+}

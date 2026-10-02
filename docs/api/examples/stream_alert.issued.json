@@ -1,0 +1,30 @@
+{
+  "type": "alert.issued",
+  "sequence": 100,
+  "valid_time": "2026-10-02T07:31:58.157687+00:00",
+  "payload": {
+    "identifier": "alert-1",
+    "sender": "Vajra",
+    "sent": "2026-10-02T07:31:58.157687Z",
+    "status": "Actual",
+    "msg_type": "Alert",
+    "scope": "Public",
+    "category": "Met",
+    "event": "Severe Thunderstorm",
+    "urgency": "Immediate",
+    "severity": "Severe",
+    "certainty": "Observed",
+    "headline": "Storm approaching",
+    "description": "Take cover",
+    "polygon": [
+      [
+        22.5,
+        88.3
+      ],
+      [
+        22.6,
+        88.4
+      ]
+    ]
+  }
+}

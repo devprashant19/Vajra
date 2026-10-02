@@ -1,0 +1,43 @@
+{
+  "provenance": {
+    "source": "SIMULATED-Kolkata-NorWester",
+    "valid_time": "2026-10-02T07:31:58.157687Z",
+    "ingest_time": "2026-10-02T07:31:58.157687Z",
+    "age_seconds": 0.0,
+    "status": "simulated",
+    "quality_flags": {},
+    "is_observation": false,
+    "data": {
+      "cell_id": "cell-123",
+      "frame_id": "f-1",
+      "lat": 22.5,
+      "lon": 88.3,
+      "area_km2": 50.0,
+      "max_dbz": 45.0,
+      "max_vil": 20.0,
+      "polygon_h3": [
+        "876543210"
+      ]
+    },
+    "engine": "ml:simulator",
+    "method": "rule_based",
+    "skilful": "unknown"
+  },
+  "data": {
+    "cell_id": "cell-123",
+    "frame_id": "f-1",
+    "lat": 22.5,
+    "lon": 88.3,
+    "area_km2": 50.0,
+    "max_dbz": 45.0,
+    "max_vil": 20.0,
+    "polygon_h3": [
+      "876543210"
+    ]
+  },
+  "pagination": {
+    "total": 1,
+    "page": 1,
+    "size": 100
+  }
+}

@@ -1,0 +1,1710 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Vajra API",
+    "description": "Backend platform API for Vajra. Real-time push, map tiles, orchestration.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/status": {
+      "get": {
+        "tags": [
+          "System"
+        ],
+        "summary": "Get Status",
+        "operationId": "get_status_v1_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/health/sources": {
+      "get": {
+        "tags": [
+          "System"
+        ],
+        "summary": "Get Source Health",
+        "operationId": "get_source_health_v1_health_sources_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SourceHealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/cells": {
+      "get": {
+        "tags": [
+          "Nowcast"
+        ],
+        "summary": "List Cells",
+        "operationId": "list_cells_v1_cells_get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "title": "Size"
+            }
+          },
+          {
+            "name": "bbox",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Bounding box filter",
+              "title": "Bbox"
+            },
+            "description": "Bounding box filter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CellsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/cells/{id}": {
+      "get": {
+        "tags": [
+          "Nowcast"
+        ],
+        "summary": "Get Cell",
+        "operationId": "get_cell_v1_cells__id__get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CellResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/eta": {
+      "get": {
+        "tags": [
+          "Nowcast"
+        ],
+        "summary": "List Eta",
+        "operationId": "list_eta_v1_eta_get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "title": "Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ETAResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/locations/{id}/eta": {
+      "get": {
+        "tags": [
+          "Nowcast"
+        ],
+        "summary": "Get Location Eta",
+        "operationId": "get_location_eta_v1_locations__id__eta_get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleETAResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hazards/{layer}": {
+      "get": {
+        "tags": [
+          "Nowcast"
+        ],
+        "summary": "List Hazards",
+        "operationId": "list_hazards_v1_hazards__layer__get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "layer",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Layer"
+            }
+          },
+          {
+            "name": "lead",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Lead"
+            }
+          },
+          {
+            "name": "bbox",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Bbox"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HazardsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/tiles/{layer}/{z}/{x}/{y}": {
+      "get": {
+        "tags": [
+          "Map"
+        ],
+        "summary": "Get Tile",
+        "operationId": "get_tile_v1_tiles__layer___z___x___y__get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "layer",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Layer"
+            }
+          },
+          {
+            "name": "z",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Z"
+            }
+          },
+          {
+            "name": "x",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "X"
+            }
+          },
+          {
+            "name": "y",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Y"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/alerts": {
+      "get": {
+        "tags": [
+          "Alerts"
+        ],
+        "summary": "List Alerts",
+        "operationId": "list_alerts_v1_alerts_get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "Actual",
+              "title": "Status"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "title": "Page"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "title": "Size"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlertsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Alerts"
+        ],
+        "summary": "Create Alert",
+        "operationId": "create_alert_v1_alerts_post",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Alert"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlertResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/alerts/{id}/approve": {
+      "post": {
+        "tags": [
+          "Alerts"
+        ],
+        "summary": "Approve Alert",
+        "operationId": "approve_alert_v1_alerts__id__approve_post",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlertResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/alerts/{id}/cancel": {
+      "post": {
+        "tags": [
+          "Alerts"
+        ],
+        "summary": "Cancel Alert",
+        "operationId": "cancel_alert_v1_alerts__id__cancel_post",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AlertResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/verification": {
+      "get": {
+        "tags": [
+          "Verification"
+        ],
+        "summary": "List Verification",
+        "operationId": "list_verification_v1_verification_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VerificationResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/v1/models": {
+      "get": {
+        "tags": [
+          "Models"
+        ],
+        "summary": "List Models",
+        "operationId": "list_models_v1_models_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelsResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/v1/replay/events": {
+      "get": {
+        "tags": [
+          "Replay"
+        ],
+        "summary": "List Replay Events",
+        "operationId": "list_replay_events_v1_replay_events_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReplayEventsResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/v1/replay/{event_id}/control": {
+      "get": {
+        "tags": [
+          "Replay"
+        ],
+        "summary": "Control Replay",
+        "operationId": "control_replay_v1_replay__event_id__control_get",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "event_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Event Id"
+            }
+          },
+          {
+            "name": "action",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Action"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReplayControlResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/thresholds": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "List Thresholds",
+        "operationId": "list_thresholds_v1_thresholds_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThresholdsResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Set Threshold",
+        "operationId": "set_threshold_v1_thresholds_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Threshold"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThresholdsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/v1/admin/roles": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "List Roles",
+        "operationId": "list_roles_v1_admin_roles_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Alert": {
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "title": "Identifier"
+          },
+          "sender": {
+            "type": "string",
+            "title": "Sender"
+          },
+          "sent": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Sent"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "msg_type": {
+            "type": "string",
+            "title": "Msg Type"
+          },
+          "scope": {
+            "type": "string",
+            "title": "Scope"
+          },
+          "category": {
+            "type": "string",
+            "title": "Category"
+          },
+          "event": {
+            "type": "string",
+            "title": "Event"
+          },
+          "urgency": {
+            "type": "string",
+            "title": "Urgency"
+          },
+          "severity": {
+            "type": "string",
+            "title": "Severity"
+          },
+          "certainty": {
+            "type": "string",
+            "title": "Certainty"
+          },
+          "headline": {
+            "type": "string",
+            "title": "Headline"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "polygon": {
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "type": "array",
+            "title": "Polygon"
+          }
+        },
+        "type": "object",
+        "required": [
+          "identifier",
+          "sender",
+          "sent",
+          "status",
+          "msg_type",
+          "scope",
+          "category",
+          "event",
+          "urgency",
+          "severity",
+          "certainty",
+          "headline",
+          "description",
+          "polygon"
+        ],
+        "title": "Alert"
+      },
+      "AlertResponse": {
+        "properties": {
+          "provenance": {
+            "$ref": "#/components/schemas/Provenanced_Any_"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Alert"
+          }
+        },
+        "type": "object",
+        "required": [
+          "provenance",
+          "data"
+        ],
+        "title": "AlertResponse"
+      },
+      "AlertsResponse": {
+        "properties": {
+          "provenance": {
+            "$ref": "#/components/schemas/Provenanced_Any_"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/Alert"
+            },
+            "type": "array",
+            "title": "Data"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginatedResponse"
+          }
+        },
+        "type": "object",
+        "required": [
+          "provenance",
+          "data",
+          "pagination"
+        ],
+        "title": "AlertsResponse"
+      },
+      "Cell": {
+        "properties": {
+          "cell_id": {
+            "type": "string",
+            "title": "Cell Id"
+          },
+          "frame_id": {
+            "type": "string",
+            "title": "Frame Id"
+          },
+          "lat": {
+            "type": "number",
+            "title": "Lat"
+          },
+          "lon": {
+            "type": "number",
+            "title": "Lon"
+          },
+          "area_km2": {
+            "type": "number",
+            "title": "Area Km2"
+          },
+          "max_dbz": {
+            "type": "number",
+            "title": "Max Dbz"
+          },
+          "max_vil": {
+            "type": "number",
+            "title": "Max Vil"
+          },
+          "polygon_h3": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Polygon H3"
+          }
+        },
+        "type": "object",
+        "required": [
+          "cell_id",
+          "frame_id",
+          "lat",
+          "lon",
+          "area_km2",
+          "max_dbz",
+          "max_vil",
+          "polygon_h3"
+        ],
+        "title": "Cell"
+      },
+      "CellResponse": {
+        "properties": {
+          "provenance": {
+            "$ref": "#/components/schemas/Provenanced_Any_"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Cell"
+          }
+        },
+        "type": "object",
+        "required": [
+          "provenance",
+          "data"
+        ],
+        "title": "CellResponse"
+      },
+      "CellsResponse": {
+        "properties": {
+          "provenance": {
+            "$ref": "#/components/schemas/Provenanced_Any_"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/Cell"
+            },
+            "type": "array",
+            "title": "Data"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginatedResponse"
+          }
+        },
+        "type": "object",
+        "required": [
+          "provenance",
+          "data",
+          "pagination"
+        ],
+        "title": "CellsResponse"
+      },
+      "ETA": {
+        "properties": {
+          "location_id": {
+            "type": "string",
+            "title": "Location Id"
+          },
+          "hazard_type": {
+            "type": "string",
+            "title": "Hazard Type"
+          },
+          "p10_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "P10 Time"
+          },
+          "p50_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "P50 Time"
+          },
+          "p90_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "P90 Time"
+          },
+          "probability_of_impact": {
+            "type": "number",
+            "title": "Probability Of Impact"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          }
+        },
+        "type": "object",
+        "required": [
+          "location_id",
+          "hazard_type",
+          "p10_time",
+          "p50_time",
+          "p90_time",
+          "probability_of_impact",
+          "state"
+        ],
+        "title": "ETA"
+      },
+      "ETAResponse": {
+        "properties": {
+          "provenance": {
+            "$ref": "#/components/schemas/Provenanced_Any_"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ETA"
+            },
+            "type": "array",
+            "title": "Data"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginatedResponse"
+          }
+        },
+        "type": "object",
+        "required": [
+          "provenance",
+          "data",
+          "pagination"
+        ],
+        "title": "ETAResponse"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HazardField": {
+        "properties": {
+          "hazard_type": {
+            "type": "string",
+            "title": "Hazard Type"
+          },
+          "valid_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Valid Time"
+          },
+          "h3_indices": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "H3 Indices"
+          },
+          "severity": {
+            "type": "string",
+            "title": "Severity"
+          },
+          "probability": {
+            "type": "number",
+            "title": "Probability"
+          }
+        },
+        "type": "object",
+        "required": [
+          "hazard_type",
+          "valid_time",
+          "h3_indices",
+          "severity",
+          "probability"
+        ],
+        "title": "HazardField"
+      },
+      "HazardsResponse": {
+        "properties": {
+          "provenance": {
+            "$ref": "#/components/schemas/Provenanced_Any_"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/HazardField"
+            },
+            "type": "array",
+            "title": "Data"
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/PaginatedResponse"
+          }
+        },
+        "type": "object",
+        "required": [
+          "provenance",
+          "data",
+          "pagination"
+        ],
+        "title": "HazardsResponse"
+      },
+      "ModelCard": {
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "title": "Model Id"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "training_date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Training Date"
+          },
+          "metrics": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Metrics"
+          }
+        },
+        "type": "object",
+        "required": [
+          "model_id",
+          "version",
+          "description",
+          "training_date",
+          "metrics"
+        ],
+        "title": "ModelCard"
+      },
+      "ModelsResponse": {
+        "properties": {
+          "provenance": {
+            "$ref": "#/components/schemas/Provenanced_Any_"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ModelCard"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "provenance",
+          "data"
+        ],
+        "title": "ModelsResponse"
+      },
+      "PaginatedResponse": {
+        "properties": {
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "size": {
+            "type": "integer",
+            "title": "Size"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total",
+          "page",
+          "size"
+        ],
+        "title": "PaginatedResponse"
+      },
+      "Provenanced_Any_": {
+        "properties": {
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "valid_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Valid Time"
+          },
+          "ingest_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Ingest Time"
+          },
+          "age_seconds": {
+            "type": "number",
+            "title": "Age Seconds"
+          },
+          "status": {
+            "$ref": "#/components/schemas/Status"
+          },
+          "quality_flags": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Quality Flags",
+            "default": {}
+          },
+          "is_observation": {
+            "type": "boolean",
+            "title": "Is Observation",
+            "default": false
+          },
+          "data": {
+            "title": "Data"
+          },
+          "engine": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Engine"
+          },
+          "method": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Method"
+          },
+          "skilful": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SkilfulFlag"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "source",
+          "valid_time",
+          "ingest_time",
+          "age_seconds",
+          "status"
+        ],
+        "title": "Provenanced[Any]"
+      },
+      "ReplayControlResponse": {
+        "properties": {
+          "provenance": {
+            "$ref": "#/components/schemas/Provenanced_Any_"
+          },
+          "data": {
+            "type": "string",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "provenance",
+          "data"
+        ],
+        "title": "ReplayControlResponse"
+      },
+      "ReplayEventsResponse": {
+        "properties": {
+          "provenance": {
+            "$ref": "#/components/schemas/Provenanced_Any_"
+          },
+          "data": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "provenance",
+          "data"
+        ],
+        "title": "ReplayEventsResponse"
+      },
+      "SingleETAResponse": {
+        "properties": {
+          "provenance": {
+            "$ref": "#/components/schemas/Provenanced_Any_"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ETA"
+          }
+        },
+        "type": "object",
+        "required": [
+          "provenance",
+          "data"
+        ],
+        "title": "SingleETAResponse"
+      },
+      "SkilfulFlag": {
+        "type": "string",
+        "enum": [
+          "true",
+          "false",
+          "unknown"
+        ],
+        "title": "SkilfulFlag"
+      },
+      "SourceHealth": {
+        "properties": {
+          "source_id": {
+            "type": "string",
+            "title": "Source Id"
+          },
+          "last_ingest": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Last Ingest"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "lag_seconds": {
+            "type": "number",
+            "title": "Lag Seconds"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source_id",
+          "last_ingest",
+          "status",
+          "lag_seconds"
+        ],
+        "title": "SourceHealth"
+      },
+      "SourceHealthResponse": {
+        "properties": {
+          "provenance": {
+            "$ref": "#/components/schemas/Provenanced_Any_"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/SourceHealth"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "provenance",
+          "data"
+        ],
+        "title": "SourceHealthResponse"
+      },
+      "Status": {
+        "type": "string",
+        "enum": [
+          "live",
+          "cached",
+          "stale",
+          "simulated",
+          "unavailable",
+          "needs_credentials"
+        ],
+        "title": "Status"
+      },
+      "StatusResponse": {
+        "properties": {
+          "provenance": {
+            "$ref": "#/components/schemas/Provenanced_Any_"
+          },
+          "data": {
+            "type": "string",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "provenance",
+          "data"
+        ],
+        "title": "StatusResponse"
+      },
+      "Threshold": {
+        "properties": {
+          "hazard_type": {
+            "type": "string",
+            "title": "Hazard Type"
+          },
+          "metric": {
+            "type": "string",
+            "title": "Metric"
+          },
+          "operator": {
+            "type": "string",
+            "title": "Operator"
+          },
+          "value": {
+            "type": "number",
+            "title": "Value"
+          },
+          "severity_level": {
+            "type": "string",
+            "title": "Severity Level"
+          }
+        },
+        "type": "object",
+        "required": [
+          "hazard_type",
+          "metric",
+          "operator",
+          "value",
+          "severity_level"
+        ],
+        "title": "Threshold"
+      },
+      "ThresholdsResponse": {
+        "properties": {
+          "provenance": {
+            "$ref": "#/components/schemas/Provenanced_Any_"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/Threshold"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "provenance",
+          "data"
+        ],
+        "title": "ThresholdsResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "VerificationResponse": {
+        "properties": {
+          "provenance": {
+            "$ref": "#/components/schemas/Provenanced_Any_"
+          },
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/VerificationResult"
+            },
+            "type": "array",
+            "title": "Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "provenance",
+          "data"
+        ],
+        "title": "VerificationResponse"
+      },
+      "VerificationResult": {
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "title": "Model Id"
+          },
+          "evaluation_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Evaluation Time"
+          },
+          "pod": {
+            "type": "number",
+            "title": "Pod"
+          },
+          "far": {
+            "type": "number",
+            "title": "Far"
+          },
+          "csi": {
+            "type": "number",
+            "title": "Csi"
+          },
+          "hss": {
+            "type": "number",
+            "title": "Hss"
+          },
+          "fss": {
+            "type": "number",
+            "title": "Fss"
+          }
+        },
+        "type": "object",
+        "required": [
+          "model_id",
+          "evaluation_time",
+          "pod",
+          "far",
+          "csi",
+          "hss",
+          "fss"
+        ],
+        "title": "VerificationResult"
+      }
+    },
+    "securitySchemes": {
+      "OAuth2": {
+        "type": "oauth2",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://auth.vajra.local/auth",
+            "tokenUrl": "https://auth.vajra.local/token",
+            "scopes": {
+              "admin": "Admin access",
+              "forecaster": "Forecaster access",
+              "viewer": "Viewer access",
+              "public-read": "Public Read"
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "OAuth2": [
+        "public-read"
+      ]
+    }
+  ]
+}
