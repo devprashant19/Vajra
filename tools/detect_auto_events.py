@@ -99,21 +99,56 @@ def detect_auto_events():
                         "max_rain_mm": float(max_rain),
                         "n_cells": int(n_cells),
                         "label_quality": "auto_detected",
-                        "source": "imd_threshold"
+                        "source": "imd_top_n"
                     })
                     
         except Exception as e:
             print(f"Failed to scan year {year}: {e}")
             
-    auto_events = sorted(auto_events, key=lambda x: x["max_rain_mm"], reverse=True)[:200]
+    auto_events = sorted(auto_events, key=lambda x: x["max_rain_mm"], reverse=True)
+    
+    cell_counts = {}
+    capped_events = []
+    dropped = 0
+    for ev in auto_events:
+        cell = f"{int(np.floor(ev['lat']))}_{int(np.floor(ev['lon']))}"
+        if cell_counts.get(cell, 0) < 3:
+            capped_events.append(ev)
+            cell_counts[cell] = cell_counts.get(cell, 0) + 1
+        else:
+            dropped += 1
+            
+    print(f"Dropped {dropped} events due to 3-per-cell cap.")
+    auto_events = capped_events[:200]
     
     print(f"Computing DEM features for {len(auto_events)} events...")
+    
+    # Pre-load existing dem stats
+    existing_dem = {}
+    try:
+        old_df = pd.read_csv(out_file)
+        for _, r in old_df.iterrows():
+            k = f"{r['lat']}_{r['lon']}"
+            existing_dem[k] = {
+                "elev_mean_m": r.get("elev_mean_m", np.nan),
+                "elev_max_m": r.get("elev_max_m", np.nan),
+                "relief_m": r.get("relief_m", np.nan),
+                "slope_mean_deg": r.get("slope_mean_deg", np.nan)
+            }
+    except:
+        pass
+        
     for idx, ev in enumerate(auto_events):
         ev["auto_id"] = f"auto-{idx+1:03d}"
-        window = 0.25
-        bbox = [ev["lon"] - window/2, ev["lat"] - window/2, ev["lon"] + window/2, ev["lat"] + window/2]
-        dem_stats = get_copernicus_dem_features(bbox)
-        ev.update(dem_stats)
+        k = f"{ev['lat']}_{ev['lon']}"
+        if k in existing_dem and not np.isnan(existing_dem[k].get("elev_mean_m", np.nan)):
+            ev.update(existing_dem[k])
+        else:
+            window = 0.25
+            bbox = [ev["lon"] - window/2, ev["lat"] - window/2, ev["lon"] + window/2, ev["lat"] + window/2]
+            dem_stats = get_copernicus_dem_features(bbox)
+            ev.update(dem_stats)
+            print(f"Fetched DEM for new event at {ev['lat']}, {ev['lon']}")
         
     df = pd.DataFrame(auto_events)
     cols = ["auto_id", "date", "lat", "lon", "max_rain_mm", "n_cells", "label_quality", "source", 

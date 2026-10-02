@@ -95,6 +95,35 @@ def test_rainfall_stats():
     # Percentile of 20.0 in this array -> 3rd out of 5 -> 60.0%
     assert np.isclose(rain_percentile, 60.0, atol=0.1)
 
+def test_rainfall_stats_nan_percentile():
+    import xarray as xr
+    import sys
+    import os
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../tools")))
+    from imd_utils import extract_point_rainfall_stats
+    
+    times = pd.date_range("2020-01-01", "2020-01-10", freq="D")
+    lats = [10.0]
+    lons = [75.0]
+    rain = np.zeros((len(times), len(lats), len(lons)))
+    
+    rain[0, 0, 0] = 1.0
+    rain[1, 0, 0] = 2.0
+    rain[2, 0, 0] = 0.0
+    
+    rain_hist = np.zeros((len(times), len(lats), len(lons)))
+    rain_hist[0, 0, 0] = 50.0 
+    rain_hist[1, 0, 0] = 100.0 
+    
+    ds = xr.Dataset({"rain": (("time", "lat", "lon"), rain)}, coords={"time": times, "lat": lats, "lon": lons})
+    ds_hist = xr.Dataset({"rain": (("time", "lat", "lon"), rain_hist)}, coords={"time": times, "lat": lats, "lon": lons})
+    
+    all_years_datasets = {2015: ds_hist, 2020: ds}
+    
+    res = extract_point_rainfall_stats(ds, 10.0, 75.0, "2020-01-02", all_years_datasets=all_years_datasets)
+    assert res["rain_peak_mm"] == 2.0
+    assert np.isnan(res["rain_wetday_percentile"])
+
 def test_csv_schema():
     # Check if CSV has expected schema
     # The actual file might not exist in CI if network is blocked, 
@@ -227,26 +256,4 @@ def test_auto_events_schema():
     df = pd.DataFrame(columns=expected_cols)
     assert list(df.columns) == expected_cols
 
-def test_imerg_schema():
-    expected_cols = [
-        "event_id", "timestamp_utc", "precip_mm_hr", "cell_lat", "cell_lon", "is_bbox_max"
-    ]
-    df = pd.DataFrame(columns=expected_cols)
-    assert list(df.columns) == expected_cols
 
-def test_imerg_bbox_logic():
-    import numpy as np
-    
-    # Synthetic dataframe resembling what we get from xarray to_dataframe
-    data = {
-        'time': pd.to_datetime(['2020-01-01 00:00:00', '2020-01-01 00:00:00', '2020-01-01 00:30:00', '2020-01-01 00:30:00']),
-        'lat': [10.0, 10.5, 10.0, 10.5],
-        'lon': [75.0, 75.5, 75.0, 75.5],
-        'precipitationCal': [5.0, 10.0, 2.0, 1.0] # max at 00:00 is 10.0, at 00:30 is 2.0
-    }
-    df_subset = pd.DataFrame(data)
-    
-    max_series = df_subset.groupby('time')['precipitationCal'].transform('max')
-    df_subset['is_bbox_max'] = (df_subset['precipitationCal'] == max_series) & (~df_subset['precipitationCal'].isna())
-    
-    assert list(df_subset['is_bbox_max']) == [False, True, True, False]

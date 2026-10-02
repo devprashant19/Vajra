@@ -113,7 +113,9 @@ def extract_point_rainfall_stats(ds, target_lat, target_lon, target_date_str, al
                 all_time = cell_ts.rain.values
             all_time = all_time[(all_time != -999.0) & (~np.isnan(all_time))]
             wet_days = all_time[all_time >= 2.5]
-            if len(wet_days) > 0:
+            if rain_peak_mm < 2.5:
+                rain_wetday_percentile = np.nan
+            elif len(wet_days) > 0:
                 from scipy import stats
                 rain_wetday_percentile = stats.percentileofscore(wet_days, rain_peak_mm)
             else:
