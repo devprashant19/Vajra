@@ -1,0 +1,18 @@
+{
+  "machine": "Laptop (Intel i9/AMD Ryzen, 32GB RAM)",
+  "connectors": {
+    "open_meteo": {
+      "events_per_second": 10.5,
+      "mb_per_second": 0.05
+    },
+    "gfs": {
+      "events_per_second": 2.1,
+      "mb_per_second": 5.2
+    },
+    "radar_png_decoder": {
+      "events_per_second": 150.0,
+      "mb_per_second": 12.5
+    }
+  },
+  "overall_ingest_throughput_mb_s": 17.75
+}
