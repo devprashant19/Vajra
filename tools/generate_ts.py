@@ -8,11 +8,12 @@ from vajra_core.schemas.domain import (
 )
 from vajra_core.provenance.models import Provenanced
 
+from typing import Any
+
 models = [
     RawEvent, FusedFrameRef, Cell, CellTrack, CellForecast, HazardField,
     Location, ETA, Alert, AuditEntry, Threshold, ModelCard, VerificationResult, SourceHealth,
-    # Need to instantiate generic Provenanced with some type to get schema, 
-    # but TS handles generics differently. We will just add the base types for now.
+    Provenanced[Any],
 ]
 
 # Generate JSON Schema for all models

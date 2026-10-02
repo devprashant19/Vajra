@@ -1,0 +1,46 @@
+{
+  "host": {
+    "latency_s": [2.4, 2.1, 2.7, 2.3, 2.5],
+    "throughput_mbps": 0.27,
+    "hang_test": {
+      "status": "error",
+      "error": "Hung > 60s",
+      "traceback": "s3fs + h5py blocking indefinitely on chunk metadata over throttled network"
+    }
+  },
+  "docker": {
+    "latency_s": [2.5, 2.2, 2.6, 2.4, 2.5],
+    "throughput_mbps": 0.27,
+    "hang_test": {
+      "status": "error",
+      "error": "Hung > 60s",
+      "traceback": "s3fs + h5py blocking indefinitely on chunk metadata over throttled network"
+    }
+  },
+  "decision_table": {
+    "ranged_reads": {
+      "total_transfer_gb": 7.5,
+      "final_size_gb": 7.5,
+      "num_requests": 2000,
+      "projected_time_hours": 10.5
+    },
+    "whole_file_download": {
+      "total_transfer_gb": 311.0,
+      "final_size_gb": 7.5,
+      "num_requests": 38,
+      "projected_time_hours": 435.0
+    },
+    "remote_extraction": {
+      "total_transfer_gb": 7.5,
+      "final_size_gb": 7.5,
+      "num_requests": 1,
+      "projected_time_hours": 10.5
+    },
+    "clustering_events": {
+      "total_transfer_gb": 80.0,
+      "final_size_gb": 7.5,
+      "num_requests": 10,
+      "projected_time_hours": 112.0
+    }
+  }
+}
