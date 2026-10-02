@@ -8,22 +8,21 @@ from services.ingest.simulation import SimulatedSource
 from services.ingest.replay import ReplaySource
 from services.ingest.qc import QualityControl, enforce_idempotency
 from vajra_core.provenance.models import Status
-from unittest.mock import patch
-@pytest.mark.anyio
-@patch("services.ingest.connectors.gfs.GFSConnector._fetch_http", return_value=True)
-async def test_gfs_connector(mock_fetch):
+
+def test_gfs_connector():
     connector = GFSConnector()
     vt = datetime.now(timezone.utc)
-    res = await connector.fetch(vt)
+    res = connector.parse(vt, True, Status.live)
     assert res.status == Status.live
     assert res.data.product_name == "gfs_0.25"
 
-@pytest.mark.anyio
-@patch("services.ingest.connectors.open_meteo.OpenMeteoConnector._fetch_http", return_value={})
-async def test_open_meteo_connector(mock_fetch):
+def test_open_meteo_connector():
     connector = OpenMeteoConnector()
     vt = datetime.now(timezone.utc)
-    res = await connector.fetch(vt)
+    import json
+    with open("tests/fixtures/REAL/open_meteo/response.json", "r") as f:
+        data = json.load(f)
+    res = connector.parse(vt, data, Status.live)
     assert res.status == Status.live
     assert res.data.metadata["source"] == "Open-Meteo"
 
@@ -47,13 +46,12 @@ async def test_simulated_source():
         SimulatedSource("SIMULATED-Invalid")
 
 @pytest.mark.anyio
-@patch("services.ingest.connectors.gfs.GFSConnector._fetch_http", return_value=True)
-async def test_replay_source(mock_fetch):
+async def test_replay_source():
     connector = GFSConnector()
     vt1 = datetime(2026, 1, 1, tzinfo=timezone.utc)
     vt2 = datetime(2026, 1, 2, tzinfo=timezone.utc)
-    ev1 = await connector.fetch(vt1)
-    ev2 = await connector.fetch(vt2)
+    ev1 = connector.parse(vt1, True, Status.live)
+    ev2 = connector.parse(vt2, True, Status.live)
     
     source = ReplaySource("replay", [ev2, ev1])
     # Should yield sorted by valid_time
@@ -64,11 +62,10 @@ async def test_replay_source(mock_fetch):
     r3 = await source.fetch(vt2)
     assert r3.valid_time == vt2
 
-@patch("services.ingest.connectors.gfs.GFSConnector._fetch_http", return_value=True)
-def test_qc(mock_fetch):
+def test_qc():
     connector = GFSConnector()
     vt = datetime.now(timezone.utc)
-    ev = asyncio.run(connector.fetch(vt))
+    ev = connector.parse(vt, True, Status.live)
     ev = QualityControl.check_event(ev)
     assert ev.quality_flags.get("qc_passed") is True
     
@@ -76,11 +73,10 @@ def test_qc(mock_fetch):
     ev = QualityControl.check_event(ev)
     assert ev.quality_flags.get("qc_passed") is False
 
-@patch("services.ingest.connectors.gfs.GFSConnector._fetch_http", return_value=True)
-def test_idempotency(mock_fetch):
+def test_idempotency():
     connector = GFSConnector()
     vt = datetime.now(timezone.utc)
-    ev = asyncio.run(connector.fetch(vt))
+    ev = connector.parse(vt, True, Status.live)
     seen = set()
     assert enforce_idempotency(ev, seen) is False
     assert enforce_idempotency(ev, seen) is True

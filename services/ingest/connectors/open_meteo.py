@@ -21,15 +21,7 @@ class OpenMeteoConnector(BaseSourceConnector):
             resp.raise_for_status()
             return resp.json()
             
-    async def fetch(self, valid_time: datetime) -> Provenanced[RawEvent]:
-        try:
-            data = await self._fetch_http()
-            status = Status.live
-        except Exception as e:
-            # Circuit breaker / fault tolerance
-            data = {"error": str(e)}
-            status = Status.unavailable
-
+    def parse(self, valid_time: datetime, data: dict, status: Status) -> Provenanced[RawEvent]:
         event = RawEvent(
             source_id=self.source_id,
             product_name="open_meteo_forecast",
@@ -48,3 +40,14 @@ class OpenMeteoConnector(BaseSourceConnector):
             method="adapter",
             skilful=SkilfulFlag.true
         )
+
+    async def fetch(self, valid_time: datetime) -> Provenanced[RawEvent]:
+        try:
+            data = await self._fetch_http()
+            status = Status.live
+        except Exception as e:
+            # Circuit breaker / fault tolerance
+            data = {"error": str(e)}
+            status = Status.unavailable
+            
+        return self.parse(valid_time, data, status)

@@ -18,14 +18,7 @@ class GFSConnector(BaseSourceConnector):
             resp = await client.head(self.url)
             return resp.status_code == 200
             
-    async def fetch(self, valid_time: datetime) -> Provenanced[RawEvent]:
-        try:
-            reachable = await self._fetch_http()
-            status = Status.live if reachable else Status.unavailable
-        except Exception:
-            reachable = False
-            status = Status.unavailable
-            
+    def parse(self, valid_time: datetime, reachable: bool, status: Status) -> Provenanced[RawEvent]:
         event = RawEvent(
             source_id=self.source_id,
             product_name="gfs_0.25",
@@ -44,3 +37,13 @@ class GFSConnector(BaseSourceConnector):
             method="adapter",
             skilful=SkilfulFlag.true
         )
+
+    async def fetch(self, valid_time: datetime) -> Provenanced[RawEvent]:
+        try:
+            reachable = await self._fetch_http()
+            status = Status.live if reachable else Status.unavailable
+        except Exception:
+            reachable = False
+            status = Status.unavailable
+            
+        return self.parse(valid_time, reachable, status)

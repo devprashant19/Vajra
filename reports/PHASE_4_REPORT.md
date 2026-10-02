@@ -17,6 +17,8 @@
 | QC / Synthetic | `test_qc_clutter_spike_removed`, `test_qc_beam_blockage_masked`, `test_qc_saturated_pixels_flagged`, `test_qc_wrong_units_rejected` |
 | Fault Injection | `test_fault_injection_500`, `test_fault_injection_timeout`, `test_fault_injection_recovery` |
 | Replay | `test_replay_source`, `test_replay_equivalence` |
+| Live Connectors | `test_live_gfs`, `test_live_open_meteo`, `test_live_era5` |
+| Missing Phase 4 | `test_satellite_georeference_check`, `test_lightning_binning_histogram`, `test_circuit_breaker`, `test_dead_letter`, etc. |
 
 ## Commits
 All changes committed on `track-a-engine`.
