@@ -20,7 +20,9 @@ __pycache__/
 # Build / Output
 build/
 dist/
-reports/bench/
+# Ignore reports/bench except json files
+reports/bench/*
+!reports/bench/*.json
 *.egg-info/
 .pytest_cache/
 .mypy_cache/

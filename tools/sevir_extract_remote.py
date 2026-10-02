@@ -17,6 +17,7 @@ import h5py
 import zarr
 import urllib.request
 import time
+import argparse
 
 CATALOG_PATH = "data/catalog/sevir_tranche1_events.csv"
 OUTPUT_DIR = "data/sevir_extracted"
@@ -68,6 +69,10 @@ def extract_events_from_file(file_name, event_indices, modality):
             return extracted
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--verify", type=int, help="Verify mode: exit after downloading N events", default=None)
+    args = parser.parse_args()
+
     if not os.path.exists(CATALOG_PATH):
         print(f"Error: Catalog not found at {CATALOG_PATH}")
         print("Please upload sevir_tranche1_events.csv to data/catalog/ before running.")
@@ -99,6 +104,10 @@ def main():
             
         print(f"Processing {len(indices)} events from {file_name}")
         try:
+            if args.verify:
+                indices = indices[:args.verify]
+                event_ids = event_ids[:args.verify]
+                
             extracted_data = extract_events_from_file(file_name, indices, img_type)
             
             for eid, idx in zip(event_ids, indices):
@@ -112,6 +121,10 @@ def main():
                 
             with open(MANIFEST_PATH, "w") as f:
                 json.dump(manifest, f, indent=2)
+                
+            if args.verify:
+                print(f"Verify mode: successfully processed chunk for {file_name}. Exiting.")
+                return
                 
         except Exception as e:
             print(f"Error processing {file_name}: {e}")

@@ -4,86 +4,110 @@ events:
   location: Amarnath, Jammu and Kashmir
   hazard_type: Cloudburst
   citation_url: https://en.wikipedia.org/wiki/2022_Amarnath_floods
+  retrieval_date: '2026-10-02'
+  http_status: 200
 - id: ind-2018-duststorm
   date: '2018-05-02'
   location: Uttar Pradesh and Rajasthan
   hazard_type: Downburst/Squall
   citation_url: https://en.wikipedia.org/wiki/2018_Indian_dust_storms
+  retrieval_date: '2026-10-02'
+  http_status: 200
 - id: ind-2024-jalpaiguri
   date: '2024-03-31'
   location: Jalpaiguri, West Bengal
   hazard_type: Tornado/Hail
   citation_url: https://en.wikipedia.org/wiki/2024_Jalpaiguri_storm
+  retrieval_date: '2026-10-02'
+  http_status: 200
 - id: ind-2013-kedarnath
   date: '2013-06-16'
   location: Kedarnath, Uttarakhand
   hazard_type: Cloudburst
   citation_url: https://en.wikipedia.org/wiki/2013_North_India_floods
+  retrieval_date: '2026-10-02'
+  http_status: 200
 - id: ind-2020-hyderabad
   date: '2020-10-14'
   location: Hyderabad, Telangana
   hazard_type: Extreme Rainfall
   citation_url: https://en.wikipedia.org/wiki/2020_Hyderabad_floods
+  retrieval_date: '2026-10-02'
+  http_status: 200
 - id: ind-2019-pune
   date: '2019-09-25'
   location: Pune, Maharashtra
   hazard_type: Extreme Rainfall
   citation_url: https://en.wikipedia.org/wiki/2019_Pune_flood
+  retrieval_date: '2026-10-02'
+  http_status: 200
 - id: ind-2021-maharashtra
   date: '2021-07-22'
   location: Maharashtra
   hazard_type: Extreme Rainfall
   citation_url: https://en.wikipedia.org/wiki/2021_Maharashtra_floods
+  retrieval_date: '2026-10-02'
+  http_status: 200
 - id: ind-2022-bengaluru
   date: '2022-09-05'
   location: Bengaluru, Karnataka
   hazard_type: Extreme Rainfall
   citation_url: https://en.wikipedia.org/wiki/2022_Bengaluru_floods
+  retrieval_date: '2026-10-02'
+  http_status: 200
 - id: ind-2023-sikkim
   date: '2023-10-04'
   location: Sikkim
   hazard_type: Cloudburst/GLOF
   citation_url: https://en.wikipedia.org/wiki/2023_Sikkim_flash_floods
+  retrieval_date: '2026-10-02'
+  http_status: 200
 - id: ind-2015-chennai
   date: '2015-12-01'
   location: Chennai, Tamil Nadu
   hazard_type: Extreme Rainfall
   citation_url: https://en.wikipedia.org/wiki/2015_South_Indian_floods
+  retrieval_date: '2026-10-02'
+  http_status: 200
 - id: ind-2014-kashmir
   date: '2014-09-02'
   location: Kashmir
   hazard_type: Extreme Rainfall
   citation_url: https://en.wikipedia.org/wiki/2014_India%E2%80%93Pakistan_floods
+  retrieval_date: '2026-10-02'
+  http_status: 200
 - id: ind-2005-mumbai
   date: '2005-07-26'
   location: Mumbai, Maharashtra
   hazard_type: Cloudburst
   citation_url: https://en.wikipedia.org/wiki/2005_Maharashtra_floods
+  retrieval_date: '2026-10-02'
+  http_status: 200
 - id: ind-2010-leh
   date: '2010-08-06'
   location: Leh, Ladakh
   hazard_type: Cloudburst
   citation_url: https://en.wikipedia.org/wiki/2010_Ladakh_floods
+  retrieval_date: '2026-10-02'
+  http_status: 200
 - id: ind-2023-himachal
   date: '2023-07-09'
   location: Himachal Pradesh
   hazard_type: Extreme Rainfall
   citation_url: https://en.wikipedia.org/wiki/2023_North_India_floods
+  retrieval_date: '2026-10-02'
+  http_status: 200
 - id: ind-2020-bihar
   date: '2020-06-25'
   location: Bihar
   hazard_type: Lightning
   citation_url: https://en.wikipedia.org/wiki/2020_Bihar_lightning_strikes
-
-# SEVIR Transfer Learning Fallback
-# Extracted 500 candidate events comprising vil, ir107, ir069, and vis.
-# Probe Results:
-# - Throughput: 0.06 - 0.27 MB/s due to severe network throttling.
-# - Distinct files touched: 38 HDF5 bundles (~311 GB total).
-# - Projected download time: ~18 days. 
-# - Recommended approach: Remote extraction script on Colab.
+  retrieval_date: '2026-10-02'
+  http_status: 200
 - id: usa-sevir-tranche1
-  date: '2018-01-01 to 2019-12-31'
+  date: 2018-01-01 to 2019-12-31
   location: United States
   hazard_type: Multi-modal severe weather
   citation_url: https://registry.opendata.aws/sevir/
+  retrieval_date: '2026-10-02'
+  http_status: 200

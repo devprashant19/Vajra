@@ -3,6 +3,10 @@ from datetime import datetime
 from typing import Optional, Dict, Any
 from vajra_core.provenance.models import Provenanced, Status, SkilfulFlag
 from vajra_core.schemas.domain import RawEvent
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class BaseSourceConnector(abc.ABC):
     def __init__(self, source_id: str, is_simulated: bool = False):

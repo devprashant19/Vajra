@@ -56,7 +56,11 @@ In this phase, we completed a comprehensive audit of all external data sources, 
 
 ### 4. SEVIR Selection Evidence
 - Events selected matching criteria: **100+** hail/thunderstorm-wind events.
-- Clustered options: episode `85536` (2 files, 0.49 GB total), episode `84866` (12 files, ~4.1 GB).
+- Clustered options table for final training set:
+| Option | Files | Size | Strategy |
+|---|---|---|---|
+| Option A | 12 | ~4.1 GB | Clean map to 3 hazard classes across distinct chunks. |
+| Option B | 6 | ~2.0 GB | Optimizing for chunk layout (same 12 events clustered by month). |
 - Total bulk download (5.7 GB) deferred to background/Track D.
 
 ### 5. Remote Runbook & Extract Proof
