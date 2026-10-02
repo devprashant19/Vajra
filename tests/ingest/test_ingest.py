@@ -8,9 +8,10 @@ from services.ingest.simulation import SimulatedSource
 from services.ingest.replay import ReplaySource
 from services.ingest.qc import QualityControl, enforce_idempotency
 from vajra_core.provenance.models import Status
-
+from unittest.mock import patch
 @pytest.mark.anyio
-async def test_gfs_connector():
+@patch("services.ingest.connectors.gfs.GFSConnector._fetch_http", return_value=True)
+async def test_gfs_connector(mock_fetch):
     connector = GFSConnector()
     vt = datetime.now(timezone.utc)
     res = await connector.fetch(vt)
@@ -18,7 +19,8 @@ async def test_gfs_connector():
     assert res.data.product_name == "gfs_0.25"
 
 @pytest.mark.anyio
-async def test_open_meteo_connector():
+@patch("services.ingest.connectors.open_meteo.OpenMeteoConnector._fetch_http", return_value={})
+async def test_open_meteo_connector(mock_fetch):
     connector = OpenMeteoConnector()
     vt = datetime.now(timezone.utc)
     res = await connector.fetch(vt)
@@ -45,7 +47,8 @@ async def test_simulated_source():
         SimulatedSource("SIMULATED-Invalid")
 
 @pytest.mark.anyio
-async def test_replay_source():
+@patch("services.ingest.connectors.gfs.GFSConnector._fetch_http", return_value=True)
+async def test_replay_source(mock_fetch):
     connector = GFSConnector()
     vt1 = datetime(2026, 1, 1, tzinfo=timezone.utc)
     vt2 = datetime(2026, 1, 2, tzinfo=timezone.utc)
@@ -61,7 +64,8 @@ async def test_replay_source():
     r3 = await source.fetch(vt2)
     assert r3.valid_time == vt2
 
-def test_qc():
+@patch("services.ingest.connectors.gfs.GFSConnector._fetch_http", return_value=True)
+def test_qc(mock_fetch):
     connector = GFSConnector()
     vt = datetime.now(timezone.utc)
     ev = asyncio.run(connector.fetch(vt))
@@ -72,7 +76,8 @@ def test_qc():
     ev = QualityControl.check_event(ev)
     assert ev.quality_flags.get("qc_passed") is False
 
-def test_idempotency():
+@patch("services.ingest.connectors.gfs.GFSConnector._fetch_http", return_value=True)
+def test_idempotency(mock_fetch):
     connector = GFSConnector()
     vt = datetime.now(timezone.utc)
     ev = asyncio.run(connector.fetch(vt))

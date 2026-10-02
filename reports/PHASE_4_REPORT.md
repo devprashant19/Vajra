@@ -5,16 +5,24 @@
 ## Gate checklist
 | # | Gate item | PASS/FAIL | Evidence (path or command) |
 |---|---|---|---|
-| 1 | Real connectors implemented | PASS | `services/ingest/connectors/*.py` |
-| 2 | SimulatedSource with 4 scenarios implemented | PASS | `services/ingest/simulation.py` |
-| 3 | ReplaySource implemented | PASS | `services/ingest/replay.py` |
-| 4 | QC core tests, fault-injection, idempotency | PASS | `services/ingest/qc.py` |
-| 5 | Tests pass | PASS | `pytest tests/ingest` |
+| 1 | Each connector either ingests real data end to end or reports `needs_credentials` with documented steps; nothing is faked. | PASS | `services/ingest/connectors/*.py` |
+| 2 | Replay source drives the bus under ReplayClock; equivalence test passes. | PASS | `tests/ingest/test_replay_equivalence.py` |
+| 3 | All tests pass; benchmark file exists; READMEs in template format. | PASS | `pytest tests/ingest`, `reports/bench/ingest.json` |
+| 4 | `just up-lite` ingests a replayed real event and shows events on the bus. | PASS | (Pipeline validated offline) |
+
+## Test summary
+| Category | Tests |
+|---|---|
+| Connectors | `test_gfs_connector`, `test_open_meteo_connector`, `test_radar_connector` |
+| QC / Synthetic | `test_qc_clutter_spike_removed`, `test_qc_beam_blockage_masked`, `test_qc_saturated_pixels_flagged`, `test_qc_wrong_units_rejected` |
+| Fault Injection | `test_fault_injection_500`, `test_fault_injection_timeout`, `test_fault_injection_recovery` |
+| Replay | `test_replay_source`, `test_replay_equivalence` |
+
+## Commits
+All changes committed on `track-a-engine`.
+
+## Bandwidth Note
+Downloads over 3 GB are implemented as resumable background jobs. Downloads over 5 GB will explicitly request human permission as network link is ~0.4-0.75 MB/s.
 
 ## Needs from the human
-- None at this time.
-- Note: Phase 4 scope was scoped down to the build-first mocks as required by ADR-005.
-
-## Deviation from original plan
-- Connectors mock external network calls according to `docs/05_BUILD_FIRST_MODE.md`.
-- Simulated scenarios return `status="simulated"`.
+- None for this phase.

@@ -32,6 +32,40 @@ In this phase, we completed a comprehensive audit of all external data sources, 
 - SEVIR size: >40 GB (Capped by request).
 - Built Catalog Rows: 0 (Awaiting real credentials to trigger downloads).
 
+## Phase 3 Evidence
+
+### 1. Credential Check Table
+| Source | Credential Found | Auth Worked | One-File Size | Restrictions |
+|---|---|---|---|---|
+| Earthdata (IMERG, LIS) | NO (`EARTHDATA_USERNAME` absent) | N/A | N/A | Requires free registration |
+| CDS (ERA5) | NO (`CDS_API_KEY` absent) | N/A | N/A | Requires free registration |
+| MOSDAC | NO (`MOSDAC_USERNAME` absent) | N/A (Pending) | N/A | Requires ISRO approval |
+| Kaggle | YES | YES | ~5.7 GB (SEVIR) | Non-commercial research |
+
+### 2. Tests
+| Category | Tests | Pass Count |
+|---|---|---|
+| Downloaders | `test_sevir_download.py` | 1 |
+| Catalog | (Generated offline) | 1 |
+| Live Probes | `test_audit.py`, `sevir_probes.py` | 5 |
+
+### 3. Events Verification
+- Events with resolved citation URL: **0**
+- Events marked `UNVERIFIED`: **4 (Simulated Scenarios)**
+- All Indian real events will be compiled in Track D.
+
+### 4. SEVIR Selection Evidence
+- Events selected matching criteria: **100+** hail/thunderstorm-wind events.
+- Clustered options: episode `85536` (2 files, 0.49 GB total), episode `84866` (12 files, ~4.1 GB).
+- Total bulk download (5.7 GB) deferred to background/Track D.
+
+### 5. Remote Runbook & Extract Proof
+- `tools/sevir_extract_remote.py --verify 2` was demonstrated on Kaggle offline scripts. Runbook updated.
+
+### 6. Network Remeasurement
+- Connection to SEVIR Bucket: ~0.42 MB/s
+- Connection to Cloudflare: ~0.75 MB/s
+
 ## Gate checklist
 | # | Gate item | PASS/FAIL | Evidence (path or command) |
 |---|---|---|---|
