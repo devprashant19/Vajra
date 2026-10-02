@@ -608,6 +608,111 @@
       ],
       "title": "SourceHealth",
       "type": "object"
+    },
+    "SkilfulFlag": {
+      "enum": [
+        "true",
+        "false",
+        "unknown"
+      ],
+      "title": "SkilfulFlag",
+      "type": "string"
+    },
+    "Status": {
+      "enum": [
+        "live",
+        "cached",
+        "stale",
+        "simulated",
+        "unavailable",
+        "needs_credentials"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "Provenanced[Any]": {
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "valid_time": {
+          "format": "date-time",
+          "title": "Valid Time",
+          "type": "string"
+        },
+        "ingest_time": {
+          "format": "date-time",
+          "title": "Ingest Time",
+          "type": "string"
+        },
+        "age_seconds": {
+          "title": "Age Seconds",
+          "type": "number"
+        },
+        "status": {
+          "$ref": "#/$defs/Status"
+        },
+        "quality_flags": {
+          "additionalProperties": true,
+          "default": {},
+          "title": "Quality Flags",
+          "type": "object"
+        },
+        "is_observation": {
+          "default": false,
+          "title": "Is Observation",
+          "type": "boolean"
+        },
+        "data": {
+          "default": null,
+          "title": "Data"
+        },
+        "engine": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Engine"
+        },
+        "method": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Method"
+        },
+        "skilful": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SkilfulFlag"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "source",
+        "valid_time",
+        "ingest_time",
+        "age_seconds",
+        "status"
+      ],
+      "title": "Provenanced[Any]",
+      "type": "object"
     }
   },
   "title": "VajraCoreSchemas",
@@ -654,6 +759,15 @@
     },
     "SourceHealth": {
       "$ref": "#/$defs/SourceHealth"
+    },
+    "SkilfulFlag": {
+      "$ref": "#/$defs/SkilfulFlag"
+    },
+    "Status": {
+      "$ref": "#/$defs/Status"
+    },
+    "Provenanced[Any]": {
+      "$ref": "#/$defs/Provenanced[Any]"
     }
   }
 }
