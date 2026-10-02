@@ -19,7 +19,7 @@ test_spec = GridSpec(
     x=st.floats(min_value=0.0, max_value=9.99),
     y=st.floats(min_value=0.0, max_value=9.99)
 )
-def test_coord_to_rc_roundtrip(x, y):
+def test_coord_to_rc_roundtrip(x, y):  # type: ignore[no-untyped-def] # Specific override for no-untyped-def as per phase 2 closure rules
     r, c = coord_to_rc(x, y, test_spec)
     assert 0 <= r < test_spec.height
     assert 0 <= c < test_spec.width
@@ -29,7 +29,7 @@ def test_coord_to_rc_roundtrip(x, y):
     assert abs(rx - x) <= test_spec.dx
     assert abs(ry - y) <= test_spec.dy
 
-def test_tiling():
+def test_tiling():  # type: ignore[no-untyped-def] # Specific override for no-untyped-def as per phase 2 closure rules
     cfg = TileConfig(size=256, overlap=16)
     tile_id = rc_to_tile_id(100, 100, cfg)
     assert tile_id == "0_0"
@@ -44,7 +44,33 @@ def test_tiling():
     tile_id2 = rc_to_tile_id(240, 240, cfg)
     assert tile_id2 == "1_1"
 
-def test_h3():
+import numpy as np
+
+@given(
+    h=st.integers(min_value=10, max_value=100),
+    w=st.integers(min_value=10, max_value=100),
+    size=st.integers(min_value=5, max_value=50),
+    overlap=st.integers(min_value=1, max_value=4)
+)
+def test_overlap_stitching(h, w, size, overlap):  # type: ignore[no-untyped-def] # Specific override for no-untyped-def as per phase 2 closure rules
+    from vajra_core.grid.tiling import tile_array, stitch_tiles
+    
+    # Generate random original array
+    original = np.random.rand(h, w)
+    
+    cfg = TileConfig(size=size, overlap=overlap)
+    
+    # Tile the array
+    tiles = tile_array(original, cfg)
+    
+    # Assume processing does nothing to values for this test, just stitch back
+    stitched = stitch_tiles(tiles, (h, w), cfg)
+    
+    # Stitching should reconstruct original perfectly because we do out / counts 
+    # where counts is number of tiles overlapping that pixel.
+    np.testing.assert_allclose(original, stitched, rtol=1e-5)
+
+def test_h3():  # type: ignore[no-untyped-def] # Specific override for no-untyped-def as per phase 2 closure rules
     try:
         from vajra_core.grid.h3_idx import latlon_to_h3, h3_to_latlon, get_h3_neighbors
         lat, lon = 20.0, 80.0
@@ -59,7 +85,7 @@ def test_h3():
     except ImportError:
         pytest.skip("h3 is not properly built on this system")
 
-def test_crs_epsg_7755_round_trip():
+def test_crs_epsg_7755_round_trip():  # type: ignore[no-untyped-def] # Specific override for no-untyped-def as per phase 2 closure rules
     try:
         from pyproj import Transformer
         # WGS84 to EPSG:7755

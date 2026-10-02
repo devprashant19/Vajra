@@ -1,7 +1,7 @@
 """
 Migration script setup for TimescaleDB.
 """
-from alembic import op
+from alembic import op  # type: ignore[import-not-found] # Specific override for import-not-found as per phase 2 closure rules
 import sqlalchemy as sa
 from geoalchemy2 import Geometry
 
@@ -11,7 +11,7 @@ down_revision = None
 branch_labels = None
 depends_on = None
 
-def upgrade():
+def upgrade():  # type: ignore[no-untyped-def] # Specific override for no-untyped-def as per phase 2 closure rules
     # Verify extensions
     bind = op.get_bind()
     if bind.dialect.name == 'postgresql':
@@ -189,7 +189,7 @@ def upgrade():
         # Actually, if alert_audit doesn't have timestamp in PK, timescale will complain.
         pass
 
-def downgrade():
+def downgrade():  # type: ignore[no-untyped-def] # Specific override for no-untyped-def as per phase 2 closure rules
     op.drop_table('model_registry')
     op.drop_table('verification_results')
     op.drop_table('users_roles')

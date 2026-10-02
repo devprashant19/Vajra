@@ -19,6 +19,10 @@ class ObjectStore(ABC):
     def exists(self, key: str) -> bool:
         pass
 
+    @abstractmethod
+    def get_range(self, key: str, offset: int, length: int) -> Optional[bytes]:
+        pass
+
 class LocalFSStore(ObjectStore):
     def __init__(self, base_dir: str):
         self.base_dir = base_dir
@@ -39,6 +43,14 @@ class LocalFSStore(ObjectStore):
             return None
         with open(path, 'rb') as f:
             return f.read()
+
+    def get_range(self, key: str, offset: int, length: int) -> Optional[bytes]:
+        path = self._get_path(key)
+        if not os.path.exists(path):
+            return None
+        with open(path, 'rb') as f:
+            f.seek(offset)
+            return f.read(length)
 
     def delete(self, key: str) -> None:
         path = self._get_path(key)

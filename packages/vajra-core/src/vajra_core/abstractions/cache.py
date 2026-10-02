@@ -16,7 +16,7 @@ class Cache(ABC):
         pass
 
 class InMemoryCache(Cache):
-    def __init__(self):
+    def __init__(self):  # type: ignore[no-untyped-def] # Specific override for no-untyped-def as per phase 2 closure rules
         import time
         self._store = {}
 

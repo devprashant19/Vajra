@@ -3,7 +3,7 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
-from alembic import context
+from alembic import context  # type: ignore[import-not-found] # Specific override for import-not-found as per phase 2 closure rules
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

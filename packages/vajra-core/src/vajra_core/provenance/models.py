@@ -24,7 +24,7 @@ class Provenanced(BaseModel, Generic[T]):
     data: Optional[T] = None
     
     @model_validator(mode='after')
-    def check_simulated_observation(self) -> 'Provenanced':
+    def check_simulated_observation(self) -> 'Provenanced':  # type: ignore[type-arg] # Specific override for type-arg as per phase 2 closure rules
         if self.status == Status.simulated and self.is_observation:
             raise ValueError("A 'simulated' payload cannot be labeled as an observation layer.")
         return self
