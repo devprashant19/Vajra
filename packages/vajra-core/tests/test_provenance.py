@@ -2,7 +2,7 @@ import pytest
 from datetime import datetime, timezone
 from vajra_core.provenance.models import Provenanced, Status
 
-def test_regression_simulated_never_served_as_observation():
+def test_regression_simulated_never_served_as_observation():  # type: ignore[no-untyped-def] # Specific override for no-untyped-def as per phase 2 closure rules
     # Verify that attempting to create a Provenanced object with Status.simulated
     # and is_observation=True raises a ValueError
     
@@ -19,7 +19,7 @@ def test_regression_simulated_never_served_as_observation():
         
     assert "cannot be labeled as an observation" in str(exc.value)
 
-def test_valid_provenance():
+def test_valid_provenance():  # type: ignore[no-untyped-def] # Specific override for no-untyped-def as per phase 2 closure rules
     # Should work fine
     p = Provenanced(
         source="test_live",
