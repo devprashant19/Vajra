@@ -148,7 +148,111 @@ MOSDAC = DownloaderConfig("mosdac", ["MOSDAC_USERNAME", "MOSDAC_PASSWORD"], "htt
 EARTHDATA = DownloaderConfig("earthdata", ["EARTHDATA_USERNAME", "EARTHDATA_PASSWORD"], "https://disc.gsfc.nasa.gov", "Public Domain.")
 CDS = DownloaderConfig("cds", ["CDS_API_KEY"], "https://cds.climate.copernicus.eu", "Copernicus Open (Free for research).")
 KAGGLE = DownloaderConfig("kaggle", ["KAGGLE_USERNAME", "KAGGLE_KEY"], "https://kaggle.com", "Varies.")
-IMD = DownloaderConfig("imd", ["IMD_USERNAME", "IMD_PASSWORD"], "https://dd.imd.gov.in", "Restricted research use.")
+IMD = DownloaderConfig("imd", [], "https://imdpune.gov.in", "Restricted research use. (imdlib)")
+COPERNICUS_DEM = DownloaderConfig("copernicus_dem", [], "s3://copernicus-dem-30m/", "Public Domain (AWS)")
+
+class IMDRainfallDownloader(Downloader):
+    def __init__(self, data_dir: str = "data/raw"):
+        super().__init__(IMD, data_dir)
+        
+    def download(self, year: int, dry_run: bool = False) -> str:
+        if dry_run: return "success_dry_run"
+        try:
+            import imdlib as imd
+            import time
+            os.makedirs(self.output_dir, exist_ok=True)
+            print(f"[{self.config.name}] Downloading IMD rainfall data for {year}...")
+            
+            # imdlib downloads internally, add retries with backoff
+            max_retries = 3
+            for attempt in range(max_retries):
+                try:
+                    imd.get_data("rain", year, year, fn_format="yearwise", file_dir=self.output_dir)
+                    break
+                except Exception as e:
+                    print(f"[{self.config.name}] Attempt {attempt + 1} failed for {year}: {e}")
+                    if attempt < max_retries - 1:
+                        backoff_time = (2 ** attempt) * 10  # 10s, 20s
+                        print(f"[{self.config.name}] Waiting {backoff_time} seconds before retry...")
+                        time.sleep(backoff_time)
+                    else:
+                        raise e
+            
+            # Write a manifest
+            file_path = os.path.join(self.output_dir, f"rain_{year}.grd")
+            manifest_path = file_path + ".manifest.json"
+            manifest_data = {
+                "source": self.config.name,
+                "url": f"https://imdpune.gov.in/rain_{year}",
+                "downloaded_at": datetime.now().isoformat(),
+                "size_bytes": os.path.getsize(file_path) if os.path.exists(file_path) else 0
+            }
+            with open(manifest_path, "w") as mf:
+                json.dump(manifest_data, mf)
+                
+            return "success"
+        except Exception as e:
+            print(f"[{self.config.name}] Error: {e}")
+            return "error"
+
+def compute_dem_stats(elev: np.ndarray) -> dict:
+    import numpy as np
+    elev = elev.astype(float)
+    elev[elev < -1000] = np.nan
+    if np.isnan(elev).all():
+        return {"elev_mean_m": np.nan, "elev_max_m": np.nan, "relief_m": np.nan, "slope_mean_deg": np.nan}
+    
+    elev_mean = np.nanmean(elev)
+    elev_max = np.nanmax(elev)
+    relief = elev_max - np.nanmin(elev)
+    
+    dy, dx = np.gradient(elev, 30, 30)
+    slope = np.degrees(np.arctan(np.sqrt(dx**2 + dy**2)))
+    slope_mean = np.nanmean(slope)
+    
+    return {
+        "elev_mean_m": float(elev_mean),
+        "elev_max_m": float(elev_max),
+        "relief_m": float(relief),
+        "slope_mean_deg": float(slope_mean)
+    }
+
+def get_copernicus_dem_features(bbox: List[float]) -> Dict[str, float]:
+    """
+    Computes DEM stats (elev_mean_m, elev_max_m, relief_m, slope_mean_deg) for a given bbox [min_lon, min_lat, max_lon, max_lat].
+    """
+    try:
+        import rasterio
+        from rasterio.session import AWSSession
+        import boto3
+        import numpy as np
+    except ImportError:
+        return {"elev_mean_m": float('nan'), "elev_max_m": float('nan'), "relief_m": float('nan'), "slope_mean_deg": float('nan')}
+        
+    min_lon, min_lat, max_lon, max_lat = bbox
+    center_lat = (min_lat + max_lat) / 2
+    center_lon = (min_lon + max_lon) / 2
+    
+    lat_int = int(np.floor(center_lat))
+    lon_int = int(np.floor(center_lon))
+    
+    ns = f"N{lat_int:02d}" if lat_int >= 0 else f"S{-lat_int:02d}"
+    ew = f"E{lon_int:03d}" if lon_int >= 0 else f"W{-lon_int:03d}"
+    
+    s3_url = f"s3://copernicus-dem-30m/Copernicus_DSM_COG_10_{ns}_00_{ew}_00_DEM/Copernicus_DSM_COG_10_{ns}_00_{ew}_00_DEM.tif"
+    
+    session = boto3.Session()
+    aws_session = AWSSession(session, requester_pays=False)
+    
+    try:
+        with rasterio.Env(aws_session, AWS_NO_SIGN_REQUEST='YES'):
+            with rasterio.open(s3_url) as src:
+                window = rasterio.windows.from_bounds(min_lon, min_lat, max_lon, max_lat, transform=src.transform)
+                elev = src.read(1, window=window)
+                return compute_dem_stats(elev)
+    except Exception as e:
+        print(f"[COPERNICUS_DEM] Failed to read from {s3_url}: {e}")
+        return {"elev_mean_m": np.nan, "elev_max_m": np.nan, "relief_m": np.nan, "slope_mean_deg": np.nan}
 
 if __name__ == "__main__":
     d = Downloader(MOSDAC)

@@ -4,6 +4,10 @@ events:
   location: Amarnath, Jammu and Kashmir
   hazard_type: Cloudburst
   citation_url: https://en.wikipedia.org/wiki/2022_Amarnath_floods
+  lat: 34.215
+  lon: 75.5
+  geometry_type: point
+  label_quality: weak
   retrieval_date: '2026-10-02'
   http_status: 200
 - id: ind-2018-duststorm
@@ -11,6 +15,15 @@ events:
   location: Uttar Pradesh and Rajasthan
   hazard_type: Downburst/Squall
   citation_url: https://en.wikipedia.org/wiki/2018_Indian_dust_storms
+  lat: 27.18
+  lon: 78.01
+  bbox:
+  - 75.0
+  - 25.5
+  - 79.5
+  - 28.5
+  geometry_type: region
+  label_quality: context_only
   retrieval_date: '2026-10-02'
   http_status: 200
 - id: ind-2024-jalpaiguri
@@ -18,6 +31,10 @@ events:
   location: Jalpaiguri, West Bengal
   hazard_type: Tornado/Hail
   citation_url: https://en.wikipedia.org/wiki/2024_Jalpaiguri_storm
+  lat: 26.517
+  lon: 88.733
+  geometry_type: point
+  label_quality: strong
   retrieval_date: '2026-10-02'
   http_status: 200
 - id: ind-2013-kedarnath
@@ -25,6 +42,10 @@ events:
   location: Kedarnath, Uttarakhand
   hazard_type: Cloudburst
   citation_url: https://en.wikipedia.org/wiki/2013_North_India_floods
+  lat: 30.735
+  lon: 79.067
+  geometry_type: point
+  label_quality: weak
   retrieval_date: '2026-10-02'
   http_status: 200
 - id: ind-2020-hyderabad
@@ -32,6 +53,10 @@ events:
   location: Hyderabad, Telangana
   hazard_type: Extreme Rainfall
   citation_url: https://en.wikipedia.org/wiki/2020_Hyderabad_floods
+  lat: 17.385
+  lon: 78.487
+  geometry_type: point
+  label_quality: strong
   retrieval_date: '2026-10-02'
   http_status: 200
 - id: ind-2019-pune
@@ -39,6 +64,10 @@ events:
   location: Pune, Maharashtra
   hazard_type: Extreme Rainfall
   citation_url: https://en.wikipedia.org/wiki/2019_Pune_flood
+  lat: 18.52
+  lon: 73.857
+  geometry_type: point
+  label_quality: strong
   retrieval_date: '2026-10-02'
   http_status: 200
 - id: ind-2021-maharashtra
@@ -46,6 +75,15 @@ events:
   location: Maharashtra
   hazard_type: Extreme Rainfall
   citation_url: https://en.wikipedia.org/wiki/2021_Maharashtra_floods
+  lat: 18.08
+  lon: 73.42
+  bbox:
+  - 72.8
+  - 16.5
+  - 74.8
+  - 19.0
+  geometry_type: region
+  label_quality: weak
   retrieval_date: '2026-10-02'
   http_status: 200
 - id: ind-2022-bengaluru
@@ -53,6 +91,10 @@ events:
   location: Bengaluru, Karnataka
   hazard_type: Extreme Rainfall
   citation_url: https://en.wikipedia.org/wiki/2022_Bengaluru_floods
+  lat: 12.972
+  lon: 77.595
+  geometry_type: point
+  label_quality: strong
   retrieval_date: '2026-10-02'
   http_status: 200
 - id: ind-2023-sikkim
@@ -60,6 +102,15 @@ events:
   location: Sikkim
   hazard_type: Cloudburst/GLOF
   citation_url: https://en.wikipedia.org/wiki/2023_Sikkim_flash_floods
+  lat: 27.91
+  lon: 88.18
+  bbox:
+  - 88.0
+  - 27.0
+  - 88.9
+  - 28.1
+  geometry_type: region
+  label_quality: context_only
   retrieval_date: '2026-10-02'
   http_status: 200
 - id: ind-2015-chennai
@@ -67,6 +118,10 @@ events:
   location: Chennai, Tamil Nadu
   hazard_type: Extreme Rainfall
   citation_url: https://en.wikipedia.org/wiki/2015_South_Indian_floods
+  lat: 13.083
+  lon: 80.271
+  geometry_type: point
+  label_quality: strong
   retrieval_date: '2026-10-02'
   http_status: 200
 - id: ind-2014-kashmir
@@ -74,6 +129,15 @@ events:
   location: Kashmir
   hazard_type: Extreme Rainfall
   citation_url: https://en.wikipedia.org/wiki/2014_India%E2%80%93Pakistan_floods
+  lat: 34.084
+  lon: 74.797
+  bbox:
+  - 73.8
+  - 33.5
+  - 75.5
+  - 34.6
+  geometry_type: region
+  label_quality: weak
   retrieval_date: '2026-10-02'
   http_status: 200
 - id: ind-2005-mumbai
@@ -81,6 +145,10 @@ events:
   location: Mumbai, Maharashtra
   hazard_type: Cloudburst
   citation_url: https://en.wikipedia.org/wiki/2005_Maharashtra_floods
+  lat: 19.12
+  lon: 72.846
+  geometry_type: point
+  label_quality: strong
   retrieval_date: '2026-10-02'
   http_status: 200
 - id: ind-2010-leh
@@ -88,6 +156,10 @@ events:
   location: Leh, Ladakh
   hazard_type: Cloudburst
   citation_url: https://en.wikipedia.org/wiki/2010_Ladakh_floods
+  lat: 34.153
+  lon: 77.577
+  geometry_type: point
+  label_quality: weak
   retrieval_date: '2026-10-02'
   http_status: 200
 - id: ind-2023-himachal
@@ -95,6 +167,15 @@ events:
   location: Himachal Pradesh
   hazard_type: Extreme Rainfall
   citation_url: https://en.wikipedia.org/wiki/2023_North_India_floods
+  lat: 32.243
+  lon: 77.189
+  bbox:
+  - 76.5
+  - 31.0
+  - 78.5
+  - 32.8
+  geometry_type: region
+  label_quality: weak
   retrieval_date: '2026-10-02'
   http_status: 200
 - id: ind-2020-bihar
@@ -102,6 +183,15 @@ events:
   location: Bihar
   hazard_type: Lightning
   citation_url: https://en.wikipedia.org/wiki/2020_Bihar_lightning_strikes
+  lat: 26.47
+  lon: 84.44
+  bbox:
+  - 83.3
+  - 24.3
+  - 88.3
+  - 27.5
+  geometry_type: region
+  label_quality: context_only
   retrieval_date: '2026-10-02'
   http_status: 200
 - id: usa-sevir-tranche1
