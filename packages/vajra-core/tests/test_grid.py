@@ -44,6 +44,32 @@ def test_tiling():  # type: ignore[no-untyped-def] # Specific override for no-un
     tile_id2 = rc_to_tile_id(240, 240, cfg)
     assert tile_id2 == "1_1"
 
+import numpy as np
+
+@given(
+    h=st.integers(min_value=10, max_value=100),
+    w=st.integers(min_value=10, max_value=100),
+    size=st.integers(min_value=5, max_value=50),
+    overlap=st.integers(min_value=1, max_value=4)
+)
+def test_overlap_stitching(h, w, size, overlap):  # type: ignore[no-untyped-def] # Specific override for no-untyped-def as per phase 2 closure rules
+    from vajra_core.grid.tiling import tile_array, stitch_tiles
+    
+    # Generate random original array
+    original = np.random.rand(h, w)
+    
+    cfg = TileConfig(size=size, overlap=overlap)
+    
+    # Tile the array
+    tiles = tile_array(original, cfg)
+    
+    # Assume processing does nothing to values for this test, just stitch back
+    stitched = stitch_tiles(tiles, (h, w), cfg)
+    
+    # Stitching should reconstruct original perfectly because we do out / counts 
+    # where counts is number of tiles overlapping that pixel.
+    np.testing.assert_allclose(original, stitched, rtol=1e-5)
+
 def test_h3():  # type: ignore[no-untyped-def] # Specific override for no-untyped-def as per phase 2 closure rules
     try:
         from vajra_core.grid.h3_idx import latlon_to_h3, h3_to_latlon, get_h3_neighbors

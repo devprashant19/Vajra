@@ -101,11 +101,8 @@ def test_object_store_operations(object_store):  # type: ignore[no-untyped-def] 
     assert object_store.get(key) == data
     
     # range reads (first 5 bytes)
-    if hasattr(object_store, 'get_range') and getattr(object_store, 'get_range') is not getattr(object_store.__class__, 'get_range', None):
-        try:
-            assert object_store.get_range(key, offset=0, length=5) == b"hello"
-        except NotImplementedError:
-            pass
+    assert object_store.get_range(key, offset=0, length=5) == b"hello"
+    assert object_store.get_range(key, offset=6, length=5) == b"world"
             
     listed = object_store.list()
     assert key in listed
@@ -212,13 +209,32 @@ def test_bus_replay_offset(event_bus):
         event_bus.publish(topic, {"seq": i})
         time.sleep(0.1)
         
-    event_bus.subscribe(topic, "replay_group", handler)
+    # For test purposes we get an offset to replay from.
+    # We want to replay from message 1 (which means skipping message 0)
+    replay_offset = None
+    if isinstance(event_bus, KafkaBus):
+        replay_offset = "1" # Kafka partition 0, offset 1 is the second message
+    elif type(event_bus).__name__ == "RedisStreamBus":
+        # Get the ID of the first message to use as the starting point for replay
+        # When creating a group, id=msg_0_id means we will read msg 1 and msg 2.
+        msgs = event_bus.client.xrange(topic, count=1)
+        if msgs:
+            replay_offset = msgs[0][0]
+            
+    if replay_offset is None and type(event_bus).__name__ == "InMemoryBus":
+        # We don't strictly support offset based replay in InMemoryBus right now
+        return
+
+    received_replay = []
+    def replay_handler(payload):
+        received_replay.append(payload["seq"])
+        
+    event_bus.subscribe(topic, "specific_offset_group", replay_handler, offset=replay_offset)
     
     for _ in range(10):
-        if len(received) >= 3:
+        if len(received_replay) >= 2:
             break
         time.sleep(1)
         
-    # Either it gets all 3 (earliest offset) or we just assert it doesn't crash
-    # For now we just pass to avoid strict failure if some buses default to latest
-    pass
+    # We expect messages 1 and 2
+    assert received_replay == [1, 2]

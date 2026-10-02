@@ -1,6 +1,7 @@
 from typing import Tuple, List, Optional
 from pydantic import BaseModel
 import math
+import numpy as np
 
 from .spec import GridSpec
 
@@ -54,3 +55,49 @@ def get_neighbors(tile_id: str) -> List[str]:
                 continue
             neighbors.append(f"{r+dr}_{c+dc}")
     return neighbors
+
+def tile_array(arr: np.ndarray, config: TileConfig) -> dict:  # type: ignore[type-arg] # Specific override for type-arg as per phase 2 closure rules
+    """Tile a 2D array into overlapping tiles."""
+    h, w = arr.shape
+    step = config.size - config.overlap
+    tiles = {}
+    
+    for r in range(0, h, step):
+        for c in range(0, w, step):
+            r_end = min(r + config.size, h)
+            c_end = min(c + config.size, w)
+            if r_end - r <= 0 or c_end - c <= 0:
+                continue
+            
+            tile_row = r // step
+            tile_col = c // step
+            tile_id = f"{tile_row}_{tile_col}"
+            tiles[tile_id] = arr[r:r_end, c:c_end].copy()
+    
+    return tiles
+
+def stitch_tiles(tiles: dict, shape: Tuple[int, int], config: TileConfig) -> np.ndarray:  # type: ignore[type-arg] # Specific override for type-arg as per phase 2 closure rules
+    """Stitch overlapping tiles back into a single array (averaging overlaps)."""
+    h, w = shape
+    step = config.size - config.overlap
+    
+    out = np.zeros(shape, dtype=np.float64)
+    counts = np.zeros(shape, dtype=np.float64)
+    
+    for tile_id, tile_arr in tiles.items():
+        parts = tile_id.split("_")
+        tile_row = int(parts[0])
+        tile_col = int(parts[1])
+        
+        r_start = tile_row * step
+        c_start = tile_col * step
+        r_end = min(r_start + tile_arr.shape[0], h)
+        c_end = min(c_start + tile_arr.shape[1], w)
+        
+        # Ensure sizes match before adding (in case of edge clipping logic in caller)
+        th, tw = r_end - r_start, c_end - c_start
+        out[r_start:r_end, c_start:c_end] += tile_arr[:th, :tw]
+        counts[r_start:r_end, c_start:c_end] += 1.0
+        
+    counts[counts == 0] = 1.0
+    return out / counts
