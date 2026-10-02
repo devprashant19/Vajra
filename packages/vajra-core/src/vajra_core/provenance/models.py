@@ -11,6 +11,11 @@ class Status(str, Enum):
     unavailable = "unavailable"
     needs_credentials = "needs_credentials"
 
+class SkilfulFlag(str, Enum):
+    true = "true"
+    false = "false"
+    unknown = "unknown"
+
 T = TypeVar('T')
 
 class Provenanced(BaseModel, Generic[T]):
@@ -22,6 +27,9 @@ class Provenanced(BaseModel, Generic[T]):
     quality_flags: Dict[str, Any] = {}
     is_observation: bool = False
     data: Optional[T] = None
+    engine: Optional[str] = None
+    method: Optional[str] = None
+    skilful: Optional[SkilfulFlag] = None
     
     @model_validator(mode='after')
     def check_simulated_observation(self) -> 'Provenanced':

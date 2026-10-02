@@ -31,3 +31,21 @@ def test_valid_provenance():
         data={"foo": "bar"}
     )
     assert p.status == Status.live
+
+def test_provenance_build_first_mode_fields():
+    from vajra_core.provenance.models import SkilfulFlag
+    p = Provenanced(
+        source="ml_engine",
+        valid_time=datetime.now(timezone.utc),
+        ingest_time=datetime.now(timezone.utc),
+        age_seconds=0.0,
+        status=Status.live,
+        is_observation=False,
+        engine="ml:model_v1",
+        method="rule_based",
+        skilful=SkilfulFlag.unknown,
+        data={"foo": "bar"}
+    )
+    assert p.engine == "ml:model_v1"
+    assert p.method == "rule_based"
+    assert p.skilful == SkilfulFlag.unknown
