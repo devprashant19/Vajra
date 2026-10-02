@@ -1,0 +1,17 @@
+{
+  "type": "cell.updated",
+  "sequence": 100,
+  "valid_time": "2026-10-02T07:31:58.157687+00:00",
+  "payload": {
+    "cell_id": "cell-123",
+    "frame_id": "f-1",
+    "lat": 22.5,
+    "lon": 88.3,
+    "area_km2": 50.0,
+    "max_dbz": 45.0,
+    "max_vil": 20.0,
+    "polygon_h3": [
+      "876543210"
+    ]
+  }
+}

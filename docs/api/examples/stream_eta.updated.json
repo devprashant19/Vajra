@@ -1,0 +1,14 @@
+{
+  "type": "eta.updated",
+  "sequence": 100,
+  "valid_time": "2026-10-02T07:31:58.157687+00:00",
+  "payload": {
+    "location_id": "loc-kolkata",
+    "hazard_type": "thunderstorm",
+    "p10_time": "2026-10-02T07:31:58.157687Z",
+    "p50_time": "2026-10-02T07:31:58.157687Z",
+    "p90_time": "2026-10-02T07:31:58.157687Z",
+    "probability_of_impact": 0.85,
+    "state": "APPROACHING"
+  }
+}
