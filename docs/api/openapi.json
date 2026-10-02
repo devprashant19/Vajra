@@ -1,0 +1,740 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Vajra API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/v1/frames/latest": {
+      "get": {
+        "summary": "Get Latest Frame",
+        "operationId": "get_latest_frame_api_v1_frames_latest_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FusedFrameRef"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cells": {
+      "get": {
+        "summary": "List Cells",
+        "operationId": "list_cells_api_v1_cells_get",
+        "parameters": [
+          {
+            "name": "frame_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Frame Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Cell"
+                  },
+                  "title": "Response List Cells Api V1 Cells Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tracks": {
+      "get": {
+        "summary": "List Tracks",
+        "operationId": "list_tracks_api_v1_tracks_get",
+        "parameters": [
+          {
+            "name": "active_only",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true,
+              "title": "Active Only"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CellTrack"
+                  },
+                  "title": "Response List Tracks Api V1 Tracks Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/forecasts": {
+      "get": {
+        "summary": "Get Forecasts",
+        "operationId": "get_forecasts_api_v1_forecasts_get",
+        "parameters": [
+          {
+            "name": "track_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Track Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CellForecast"
+                  },
+                  "title": "Response Get Forecasts Api V1 Forecasts Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hazards": {
+      "get": {
+        "summary": "List Hazards",
+        "operationId": "list_hazards_api_v1_hazards_get",
+        "parameters": [
+          {
+            "name": "valid_time",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Valid Time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/HazardField"
+                  },
+                  "title": "Response List Hazards Api V1 Hazards Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/locations": {
+      "get": {
+        "summary": "List Locations",
+        "operationId": "list_locations_api_v1_locations_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Location"
+                  },
+                  "type": "array",
+                  "title": "Response List Locations Api V1 Locations Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/eta/{location_id}": {
+      "get": {
+        "summary": "Get Eta",
+        "operationId": "get_eta_api_v1_eta__location_id__get",
+        "parameters": [
+          {
+            "name": "location_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Location Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ETA"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/alerts": {
+      "get": {
+        "summary": "List Alerts",
+        "operationId": "list_alerts_api_v1_alerts_get",
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "Actual",
+              "title": "Status"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Alert"
+                  },
+                  "title": "Response List Alerts Api V1 Alerts Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Alert": {
+        "properties": {
+          "identifier": {
+            "type": "string",
+            "title": "Identifier"
+          },
+          "sender": {
+            "type": "string",
+            "title": "Sender"
+          },
+          "sent": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Sent"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "msg_type": {
+            "type": "string",
+            "title": "Msg Type"
+          },
+          "scope": {
+            "type": "string",
+            "title": "Scope"
+          },
+          "category": {
+            "type": "string",
+            "title": "Category"
+          },
+          "event": {
+            "type": "string",
+            "title": "Event"
+          },
+          "urgency": {
+            "type": "string",
+            "title": "Urgency"
+          },
+          "severity": {
+            "type": "string",
+            "title": "Severity"
+          },
+          "certainty": {
+            "type": "string",
+            "title": "Certainty"
+          },
+          "headline": {
+            "type": "string",
+            "title": "Headline"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "polygon": {
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "type": "array",
+            "title": "Polygon"
+          }
+        },
+        "type": "object",
+        "required": [
+          "identifier",
+          "sender",
+          "sent",
+          "status",
+          "msg_type",
+          "scope",
+          "category",
+          "event",
+          "urgency",
+          "severity",
+          "certainty",
+          "headline",
+          "description",
+          "polygon"
+        ],
+        "title": "Alert"
+      },
+      "Cell": {
+        "properties": {
+          "cell_id": {
+            "type": "string",
+            "title": "Cell Id"
+          },
+          "frame_id": {
+            "type": "string",
+            "title": "Frame Id"
+          },
+          "lat": {
+            "type": "number",
+            "title": "Lat"
+          },
+          "lon": {
+            "type": "number",
+            "title": "Lon"
+          },
+          "area_km2": {
+            "type": "number",
+            "title": "Area Km2"
+          },
+          "max_dbz": {
+            "type": "number",
+            "title": "Max Dbz"
+          },
+          "max_vil": {
+            "type": "number",
+            "title": "Max Vil"
+          },
+          "polygon_h3": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Polygon H3"
+          }
+        },
+        "type": "object",
+        "required": [
+          "cell_id",
+          "frame_id",
+          "lat",
+          "lon",
+          "area_km2",
+          "max_dbz",
+          "max_vil",
+          "polygon_h3"
+        ],
+        "title": "Cell"
+      },
+      "CellForecast": {
+        "properties": {
+          "track_id": {
+            "type": "string",
+            "title": "Track Id"
+          },
+          "base_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Base Time"
+          },
+          "lead_time_minutes": {
+            "type": "integer",
+            "title": "Lead Time Minutes"
+          },
+          "predicted_lat": {
+            "type": "number",
+            "title": "Predicted Lat"
+          },
+          "predicted_lon": {
+            "type": "number",
+            "title": "Predicted Lon"
+          },
+          "predicted_polygon_h3": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Predicted Polygon H3"
+          },
+          "intensity_trend": {
+            "type": "string",
+            "title": "Intensity Trend"
+          }
+        },
+        "type": "object",
+        "required": [
+          "track_id",
+          "base_time",
+          "lead_time_minutes",
+          "predicted_lat",
+          "predicted_lon",
+          "predicted_polygon_h3",
+          "intensity_trend"
+        ],
+        "title": "CellForecast"
+      },
+      "CellTrack": {
+        "properties": {
+          "track_id": {
+            "type": "string",
+            "title": "Track Id"
+          },
+          "history_cell_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "History Cell Ids"
+          },
+          "speed_ms": {
+            "type": "number",
+            "title": "Speed Ms"
+          },
+          "direction_deg": {
+            "type": "number",
+            "title": "Direction Deg"
+          },
+          "is_active": {
+            "type": "boolean",
+            "title": "Is Active"
+          }
+        },
+        "type": "object",
+        "required": [
+          "track_id",
+          "history_cell_ids",
+          "speed_ms",
+          "direction_deg",
+          "is_active"
+        ],
+        "title": "CellTrack"
+      },
+      "ETA": {
+        "properties": {
+          "location_id": {
+            "type": "string",
+            "title": "Location Id"
+          },
+          "hazard_type": {
+            "type": "string",
+            "title": "Hazard Type"
+          },
+          "p10_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "P10 Time"
+          },
+          "p50_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "P50 Time"
+          },
+          "p90_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "P90 Time"
+          },
+          "probability_of_impact": {
+            "type": "number",
+            "title": "Probability Of Impact"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          }
+        },
+        "type": "object",
+        "required": [
+          "location_id",
+          "hazard_type",
+          "p10_time",
+          "p50_time",
+          "p90_time",
+          "probability_of_impact",
+          "state"
+        ],
+        "title": "ETA"
+      },
+      "FusedFrameRef": {
+        "properties": {
+          "frame_id": {
+            "type": "string",
+            "title": "Frame Id"
+          },
+          "valid_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Valid Time"
+          },
+          "zarr_url": {
+            "type": "string",
+            "title": "Zarr Url"
+          },
+          "variables": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Variables"
+          },
+          "tile_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tile Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "frame_id",
+          "valid_time",
+          "zarr_url",
+          "variables"
+        ],
+        "title": "FusedFrameRef"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HazardField": {
+        "properties": {
+          "hazard_type": {
+            "type": "string",
+            "title": "Hazard Type"
+          },
+          "valid_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Valid Time"
+          },
+          "h3_indices": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "H3 Indices"
+          },
+          "severity": {
+            "type": "string",
+            "title": "Severity"
+          },
+          "probability": {
+            "type": "number",
+            "title": "Probability"
+          }
+        },
+        "type": "object",
+        "required": [
+          "hazard_type",
+          "valid_time",
+          "h3_indices",
+          "severity",
+          "probability"
+        ],
+        "title": "HazardField"
+      },
+      "Location": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "h3_index": {
+            "type": "string",
+            "title": "H3 Index"
+          },
+          "priority": {
+            "type": "integer",
+            "title": "Priority",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "name",
+          "h3_index"
+        ],
+        "title": "Location"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}
