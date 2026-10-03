@@ -1,0 +1,134 @@
+{
+  "numpy": {
+    "install": "OK",
+    "import": "OK"
+  },
+  "scipy": {
+    "install": "OK",
+    "import": "OK"
+  },
+  "xarray": {
+    "install": "OK",
+    "import": "OK"
+  },
+  "zarr": {
+    "install": "OK",
+    "import": "OK"
+  },
+  "dask": {
+    "install": "OK",
+    "import": "OK"
+  },
+  "pandas": {
+    "install": "OK",
+    "import": "OK"
+  },
+  "pyarrow": {
+    "install": "OK",
+    "import": "OK"
+  },
+  "opencv-python-headless": {
+    "install": "OK",
+    "import": "OK"
+  },
+  "scikit-image": {
+    "install": "OK",
+    "import": "OK"
+  },
+  "torch": {
+    "install": "FAIL",
+    "import": "FAIL"
+  },
+  "lightgbm": {
+    "install": "FAIL",
+    "import": "FAIL"
+  },
+  "onnxruntime": {
+    "install": "FAIL",
+    "import": "FAIL"
+  },
+  "pysteps": {
+    "install": "FAIL",
+    "import": "FAIL"
+  },
+  "tobac": {
+    "install": "FAIL",
+    "import": "FAIL"
+  },
+  "arm_pyart": {
+    "install": "FAIL",
+    "import": "FAIL"
+  },
+  "pyiwr": {
+    "install": "FAIL",
+    "import": "FAIL"
+  },
+  "satpy": {
+    "install": "FAIL",
+    "import": "FAIL"
+  },
+  "pyresample": {
+    "install": "FAIL",
+    "import": "FAIL"
+  },
+  "cfgrib": {
+    "install": "FAIL",
+    "import": "FAIL"
+  },
+  "h5py": {
+    "install": "FAIL",
+    "import": "FAIL"
+  },
+  "netCDF4": {
+    "install": "FAIL",
+    "import": "FAIL"
+  },
+  "rasterio": {
+    "install": "FAIL",
+    "import": "FAIL"
+  },
+  "geopandas": {
+    "install": "FAIL",
+    "import": "FAIL"
+  },
+  "shapely": {
+    "install": "FAIL",
+    "import": "FAIL"
+  },
+  "h3": {
+    "install": "OK",
+    "import": "OK"
+  },
+  "pyproj": {
+    "install": "OK",
+    "import": "OK"
+  },
+  "fastapi": {
+    "install": "OK",
+    "import": "OK"
+  },
+  "sqlalchemy": {
+    "install": "OK",
+    "import": "OK"
+  },
+  "asyncpg": {
+    "install": "OK",
+    "import": "OK"
+  },
+  "redis": {
+    "install": "OK",
+    "import": "OK"
+  },
+  "aiokafka": {
+    "install": "OK",
+    "import": "OK"
+  },
+  "pytest": {
+    "install": "OK",
+    "import": "OK"
+  },
+  "hypothesis": {
+    "install": "OK",
+    "import": "OK"
+  }
+}

@@ -1,0 +1,275 @@
+{
+  "missing_criteria": {
+    "modalities": "No events found with vil, ir107, and lght. 'lght' is missing.",
+    "years": "Only found years [2018 2019], requested all years."
+  },
+  "total_bytes": 311438160272,
+  "files": [
+    {
+      "file": "ir069/2018/SEVIR_IR069_RANDOMEVENTS_2018_0101_0430.h5",
+      "modality": "ir069",
+      "period": "2018",
+      "events_selected": 51,
+      "bytes": 1968920146
+    },
+    {
+      "file": "ir069/2019/SEVIR_IR069_STORMEVENTS_2019_0101_0630.h5",
+      "modality": "ir069",
+      "period": "2019",
+      "events_selected": 111,
+      "bytes": 2633649274
+    },
+    {
+      "file": "ir069/2018/SEVIR_IR069_RANDOMEVENTS_2018_0901_1231.h5",
+      "modality": "ir069",
+      "period": "2018",
+      "events_selected": 99,
+      "bytes": 7846766776
+    },
+    {
+      "file": "ir069/2018/SEVIR_IR069_STORMEVENTS_2018_0701_1231.h5",
+      "modality": "ir069",
+      "period": "2018",
+      "events_selected": 142,
+      "bytes": 3265868624
+    },
+    {
+      "file": "ir069/2019/SEVIR_IR069_RANDOMEVENTS_2019_0101_0430.h5",
+      "modality": "ir069",
+      "period": "2019",
+      "events_selected": 96,
+      "bytes": 7283187136
+    },
+    {
+      "file": "ir107/2018/SEVIR_IR107_RANDOMEVENTS_2018_0101_0430.h5",
+      "modality": "ir107",
+      "period": "2018",
+      "events_selected": 52,
+      "bytes": 1997821666
+    },
+    {
+      "file": "ir107/2019/SEVIR_IR107_RANDOMEVENTS_2019_0101_0430.h5",
+      "modality": "ir107",
+      "period": "2019",
+      "events_selected": 96,
+      "bytes": 7283187136
+    },
+    {
+      "file": "ir107/2018/SEVIR_IR107_STORMEVENTS_2018_0701_1231.h5",
+      "modality": "ir107",
+      "period": "2018",
+      "events_selected": 142,
+      "bytes": 3265868624
+    },
+    {
+      "file": "ir107/2019/SEVIR_IR107_STORMEVENTS_2019_0101_0630.h5",
+      "modality": "ir107",
+      "period": "2019",
+      "events_selected": 111,
+      "bytes": 2630036592
+    },
+    {
+      "file": "ir107/2018/SEVIR_IR107_RANDOMEVENTS_2018_0901_1231.h5",
+      "modality": "ir107",
+      "period": "2018",
+      "events_selected": 99,
+      "bytes": 7846766776
+    },
+    {
+      "file": "vil/2019/SEVIR_VIL_RANDOMEVENTS_2019_0101_0430.h5",
+      "modality": "vil",
+      "period": "2019",
+      "events_selected": 96,
+      "bytes": 16300420768
+    },
+    {
+      "file": "vil/2018/SEVIR_VIL_STORMEVENTS_2018_0701_1231.h5",
+      "modality": "vil",
+      "period": "2018",
+      "events_selected": 142,
+      "bytes": 6119878934
+    },
+    {
+      "file": "vil/2019/SEVIR_VIL_STORMEVENTS_2019_0101_0630.h5",
+      "modality": "vil",
+      "period": "2019",
+      "events_selected": 111,
+      "bytes": 6148780350
+    },
+    {
+      "file": "vil/2018/SEVIR_VIL_RANDOMEVENTS_2018_0901_1231.h5",
+      "modality": "vil",
+      "period": "2018",
+      "events_selected": 99,
+      "bytes": 16213716424
+    },
+    {
+      "file": "vil/2018/SEVIR_VIL_RANDOMEVENTS_2018_0101_0430.h5",
+      "modality": "vil",
+      "period": "2018",
+      "events_selected": 52,
+      "bytes": 12369823840
+    },
+    {
+      "file": "vis/2018/SEVIR_VIS_RANDOMEVENTS_2018_0321_0331.h5",
+      "modality": "vis",
+      "period": "2018",
+      "events_selected": 3,
+      "bytes": 8381405746
+    },
+    {
+      "file": "vis/2018/SEVIR_VIS_RANDOMEVENTS_2018_0411_0420.h5",
+      "modality": "vis",
+      "period": "2018",
+      "events_selected": 26,
+      "bytes": 10635713776
+    },
+    {
+      "file": "vis/2018/SEVIR_VIS_RANDOMEVENTS_2018_1111_1120.h5",
+      "modality": "vis",
+      "period": "2018",
+      "events_selected": 6,
+      "bytes": 12022980256
+    },
+    {
+      "file": "vis/2018/SEVIR_VIS_STORMEVENTS_2018_0801_0831.h5",
+      "modality": "vis",
+      "period": "2018",
+      "events_selected": 55,
+      "bytes": 15895763646
+    },
+    {
+      "file": "vis/2018/SEVIR_VIS_RANDOMEVENTS_2018_0401_0410.h5",
+      "modality": "vis",
+      "period": "2018",
+      "events_selected": 11,
+      "bytes": 6936336496
+    },
+    {
+      "file": "vis/2019/SEVIR_VIS_RANDOMEVENTS_2019_0201_0210.h5",
+      "modality": "vis",
+      "period": "2019",
+      "events_selected": 1,
+      "bytes": 3699381376
+    },
+    {
+      "file": "vis/2019/SEVIR_VIS_RANDOMEVENTS_2019_0311_0320.h5",
+      "modality": "vis",
+      "period": "2019",
+      "events_selected": 4,
+      "bytes": 10173291616
+    },
+    {
+      "file": "vis/2019/SEVIR_VIS_RANDOMEVENTS_2019_0101_0110.h5",
+      "modality": "vis",
+      "period": "2019",
+      "events_selected": 2,
+      "bytes": 8786025136
+    },
+    {
+      "file": "vis/2019/SEVIR_VIS_RANDOMEVENTS_2019_0121_0131.h5",
+      "modality": "vis",
+      "period": "2019",
+      "events_selected": 2,
+      "bytes": 7340955886
+    },
+    {
+      "file": "vis/2018/SEVIR_VIS_RANDOMEVENTS_2018_0921_0930.h5",
+      "modality": "vis",
+      "period": "2018",
+      "events_selected": 18,
+      "bytes": 9248447296
+    },
+    {
+      "file": "vis/2019/SEVIR_VIS_RANDOMEVENTS_2019_0411_0420.h5",
+      "modality": "vis",
+      "period": "2019",
+      "events_selected": 14,
+      "bytes": 6358308796
+    },
+    {
+      "file": "vis/2018/SEVIR_VIS_STORMEVENTS_2018_1101_1130.h5",
+      "modality": "vis",
+      "period": "2018",
+      "events_selected": 1,
+      "bytes": 1560678670
+    },
+    {
+      "file": "vis/2019/SEVIR_VIS_RANDOMEVENTS_2019_0421_0430.h5",
+      "modality": "vis",
+      "period": "2019",
+      "events_selected": 24,
+      "bytes": 10635713776
+    },
+    {
+      "file": "vis/2019/SEVIR_VIS_STORMEVENTS_2019_0501_0531.h5",
+      "modality": "vis",
+      "period": "2019",
+      "events_selected": 34,
+      "bytes": 12080781354
+    },
+    {
+      "file": "vis/2019/SEVIR_VIS_STORMEVENTS_2019_0401_0430.h5",
+      "modality": "vis",
+      "period": "2019",
+      "events_selected": 31,
+      "bytes": 8843826682
+    },
+    {
+      "file": "vis/2019/SEVIR_VIS_RANDOMEVENTS_2019_0401_0410.h5",
+      "modality": "vis",
+      "period": "2019",
+      "events_selected": 21,
+      "bytes": 9421855606
+    },
+    {
+      "file": "vis/2018/SEVIR_VIS_STORMEVENTS_2018_1201_1231.h5",
+      "modality": "vis",
+      "period": "2018",
+      "events_selected": 3,
+      "bytes": 2080903528
+    },
+    {
+      "file": "vis/2018/SEVIR_VIS_RANDOMEVENTS_2018_0911_0920.h5",
+      "modality": "vis",
+      "period": "2018",
+      "events_selected": 22,
+      "bytes": 9710869456
+    },
+    {
+      "file": "vis/2019/SEVIR_VIS_RANDOMEVENTS_2019_0211_0220.h5",
+      "modality": "vis",
+      "period": "2019",
+      "events_selected": 7,
+      "bytes": 14797513216
+    },
+    {
+      "file": "vis/2019/SEVIR_VIS_RANDOMEVENTS_2019_0111_0120.h5",
+      "modality": "vis",
+      "period": "2019",
+      "events_selected": 5,
+      "bytes": 12022980256
+    },
+    {
+      "file": "vis/2018/SEVIR_VIS_RANDOMEVENTS_2018_0421_0430.h5",
+      "modality": "vis",
+      "period": "2018",
+      "events_selected": 11,
+      "bytes": 5549070016
+    },
+    {
+      "file": "vis/2018/SEVIR_VIS_RANDOMEVENTS_2018_1211_1220.h5",
+      "modality": "vis",
+      "period": "2018",
+      "events_selected": 2,
+      "bytes": 9710869456
+    },
+    {
+      "file": "vis/2019/SEVIR_VIS_STORMEVENTS_2019_0601_0630.h5",
+      "modality": "vis",
+      "period": "2019",
+      "events_selected": 2,
+      "bytes": 12369795164
+    }
+  ]
+}

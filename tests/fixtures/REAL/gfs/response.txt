@@ -1,0 +1,17 @@
+<!doctype html>
+    <html>
+    <head>
+        <title>Request for OpenDAP Data</title>
+        <style type="text/css">body { text-align: center; padding: 150px; }h1 { font-size: 40px; }body { font: 16px Helvetica, sans-serif; color: #333; }#error { display: block; text-align: left; width: 650px; margin: 0 auto; }    </style>
+    </head>
+    <body>
+        <div id="error">
+        <h1>Request for OpenDAP data nomads.ncep.noaa.gov</h1>
+        <div>
+            <hr>
+            <p>OpenDAP format has been retired. Please see <a href="https://www.weather.gov/media/notification/pdf_2025/scn25-81_UPDATED_NOMADS_Consolidate_Subsetting_Services_aaa.pdf" target="_blank"> Service Change Notice 25-81</a> for more information.</p>
+             <p> Reference ID 0.646fd917.1790943873.e73db2d connecting from IP 223.237.49.253 </p>
+        </div>
+        </div>
+    </body>
+    </html>

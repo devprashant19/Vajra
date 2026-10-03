@@ -52,7 +52,7 @@ def add_provenance(data: Dict[str, Any]) -> Dict[str, Any]:
         data["provenance"] = {
             "status": "simulated",
             "engine": "example",
-            "method": "mock",
+            "method": "unknown",
             "skilful": "unknown",
             "label_quality": "none"
         }

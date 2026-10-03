@@ -9,24 +9,30 @@ type LocationImpact = {
 };
 
 export function Inspector() {
-  const [locations, setLocations] = useState<LocationImpact[]>([
-    { id: '1', name: 'Airport T1', hazards: ['Cloudburst', 'Lightning'], etaMinutes: 12, status: 'IMPACT' },
-    { id: '2', name: 'Downtown Substation', hazards: ['Heavy Rain'], etaMinutes: 45, status: 'APPROACHING' },
-    { id: '3', name: 'East Ring Road', hazards: [], etaMinutes: null, status: 'CLEAR' },
-  ]);
+  const [locations, setLocations] = useState<LocationImpact[]>([]);
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
   // Simulate real-time ETA countdown
   useEffect(() => {
-    const timer = setInterval(() => {
-      setLocations(prev => prev.map(loc => {
-        if (loc.etaMinutes && loc.etaMinutes > 0) {
-          return { ...loc, etaMinutes: loc.etaMinutes - 1 };
-        }
-        return loc;
-      }));
-    }, 60000); // tick every minute
+    const load = () => {
+      fetch('/v1/eta')
+        .then(res => res.json())
+        .then(data => {
+          if (data.items) {
+            setLocations(data.items.map((i: any) => ({
+              id: i.cell_id || String(Math.random()),
+              name: i.cell_id || 'Unknown Location',
+              hazards: i.dominant_hazard ? [i.dominant_hazard] : [],
+              etaMinutes: i.eta_minutes || null,
+              status: i.probability_15min > 0 ? (i.eta_minutes < 15 ? 'IMPACT' : 'APPROACHING') : 'CLEAR'
+            })));
+          }
+        })
+        .catch(() => setLocations([]));
+    };
+    load();
+    const timer = setInterval(load, 60000);
     return () => clearInterval(timer);
   }, []);
 

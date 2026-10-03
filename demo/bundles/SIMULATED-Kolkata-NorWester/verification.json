@@ -1,0 +1,15 @@
+{
+  "simulated_not_evidence": true,
+  "metrics": {
+    "30_min": {
+      "CSI": 0.45,
+      "POD": 0.6,
+      "FAR": 0.35
+    },
+    "60_min": {
+      "CSI": 0.3,
+      "POD": 0.45,
+      "FAR": 0.5
+    }
+  }
+}

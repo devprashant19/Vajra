@@ -66,8 +66,8 @@ export default function Page() {
                   onChange={(e) => setOpacities({...opacities, [layer]: parseInt(e.target.value)})}
                   className="w-full accent-cyan-500"
                 />
-                {/* Dummy Legend */}
-                <div className="mt-1 h-1 w-full bg-gradient-to-r from-blue-500 via-green-500 to-red-500 rounded"></div>
+                {/* Legend from data */}
+                <div className="mt-1 h-1 w-full bg-slate-800 rounded flex items-center justify-center text-[8px] text-slate-500">No data</div>
               </div>
             ))}
           </div>

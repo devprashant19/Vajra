@@ -1,0 +1,104 @@
+{
+  "figshare_sih": {
+    "url": "https://doi.org/10.6084/m9.figshare.22704910",
+    "timestamp": "2026-10-03T05:11:54.040148Z",
+    "status": 202,
+    "final_url": "https://figshare.com/articles/dataset/Network_of_Doppler_Weather_Radars_of_India_Meteorological_Department/22704910",
+    "error": null,
+    "headers": {
+      "Content-Type": "text/html; charset=UTF-8",
+      "Server": "awselb/2.0"
+    }
+  },
+  "open_meteo": {
+    "url": "https://open-meteo.com",
+    "timestamp": "2026-10-03T05:11:55.380880Z",
+    "status": 200,
+    "final_url": "https://open-meteo.com",
+    "error": null,
+    "headers": {
+      "Content-Type": "text/html; charset=utf-8",
+      "Server": "cloudflare"
+    }
+  },
+  "nomads_gfs": {
+    "url": "https://nomads.ncep.noaa.gov",
+    "timestamp": "2026-10-03T05:11:56.088760Z",
+    "status": 200,
+    "final_url": "https://nomads.ncep.noaa.gov",
+    "error": null,
+    "headers": {
+      "Content-Type": "text/html; charset=UTF-8",
+      "Server": "Apache"
+    }
+  },
+  "mosdac": {
+    "url": "https://mosdac.gov.in",
+    "timestamp": "2026-10-03T05:11:57.846560Z",
+    "status": 200,
+    "final_url": "https://mosdac.gov.in",
+    "error": null,
+    "headers": {
+      "Content-Type": "text/html; charset=UTF-8",
+      "Server": "Apache"
+    }
+  },
+  "earthdata": {
+    "url": "https://disc.gsfc.nasa.gov",
+    "timestamp": "2026-10-03T05:12:08.449456Z",
+    "status": 200,
+    "final_url": "https://disc.gsfc.nasa.gov",
+    "error": null,
+    "headers": {
+      "Content-Type": "text/html; charset=UTF-8",
+      "Server": "Apache"
+    }
+  },
+  "cds": {
+    "url": "https://cds.climate.copernicus.eu",
+    "timestamp": "2026-10-03T05:12:20.226949Z",
+    "status": 200,
+    "final_url": "https://cds.climate.copernicus.eu",
+    "error": null,
+    "headers": {
+      "Content-Type": "text/html; charset=utf-8"
+    }
+  },
+  "kaggle_bharatbench": {
+    "url": "https://www.kaggle.com/datasets/maslab/bharatbench",
+    "timestamp": "2026-10-03T05:12:22.156439Z",
+    "status": 200,
+    "final_url": "https://www.kaggle.com/datasets/maslab/bharatbench",
+    "error": null,
+    "headers": {
+      "Content-Type": "text/html; charset=utf-8"
+    }
+  },
+  "sevir_dataverse": {
+    "url": "https://doi.org/10.7910/DVN/DBMQHO",
+    "timestamp": "2026-10-03T05:12:22.744729Z",
+    "status": 404,
+    "final_url": null,
+    "error": "Not Found",
+    "headers": {}
+  },
+  "sevir_aws": {
+    "url": "https://sevir.mit.edu/",
+    "timestamp": "2026-10-03T05:12:23.388283Z",
+    "status": null,
+    "final_url": null,
+    "error": "<urlopen error [Errno 11001] getaddrinfo failed>",
+    "headers": {}
+  },
+  "blitzortung": {
+    "url": "https://www.blitzortung.org",
+    "timestamp": "2026-10-03T05:12:23.501464Z",
+    "status": 200,
+    "final_url": "https://www.blitzortung.org/en/live_lightning_maps.php",
+    "error": null,
+    "headers": {
+      "Content-Type": "text/html; charset=utf-8",
+      "Server": "nginx/1.18.0 (Ubuntu)"
+    }
+  }
+}

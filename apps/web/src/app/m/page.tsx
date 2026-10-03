@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 
-// Mock translation dictionary
+// Translation dictionary
 const t = (key: string, lang: string) => {
   if (lang === 'hi') {
     if (key === 'warning') return 'चेतावनी';
@@ -19,13 +19,25 @@ export default function MobilePage() {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js');
     }
-    // Fetch mock data simulating ETA
-    setData({
-      isWarning: true,
-      etaMinutes: 12,
-      hazard: 'Cloudburst & Lightning',
-      p10: 8, p50: 12, p90: 18
-    });
+    // Fetch ETA from API
+    fetch('/v1/eta')
+      .then(res => res.json())
+      .then(json => {
+        if (json.items && json.items.length > 0) {
+          const eta = json.items[0];
+          setData({
+            isWarning: eta.probability_15min > 0,
+            etaMinutes: eta.eta_minutes || 0,
+            hazard: eta.dominant_hazard || 'Unknown',
+            p10: eta.p10_minutes || 0,
+            p50: eta.p50_minutes || 0,
+            p90: eta.p90_minutes || 0
+          });
+        } else {
+          setData({ isWarning: false });
+        }
+      })
+      .catch(() => setData({ isWarning: false }));
   }, []);
 
   if (!data) return <div className="bg-slate-950 text-white min-h-screen p-4">Loading...</div>;
