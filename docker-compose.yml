@@ -57,3 +57,28 @@ services:
     build: .
     profiles: ["full", "lite"]
     command: tail -f /dev/null
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    profiles: ["demo"]
+    command: uv run uvicorn api.main:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./apps/api:/workspace/apps/api
+      - ./docs/api/examples:/workspace/docs/api/examples
+    working_dir: /workspace/apps/api
+
+  web:
+    image: node:20-alpine
+    profiles: ["demo"]
+    command: pnpm run dev --host 0.0.0.0
+    ports:
+      - "5173:5173"
+      - "3000:3000"
+    volumes:
+      - ./apps/web:/workspace/apps/web
+    working_dir: /workspace/apps/web
+
