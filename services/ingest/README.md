@@ -10,16 +10,16 @@ Bridges external radar and meteorological sources into the Vajra internal data b
 
 This service is part of the Vajra backend microservices architecture.
 
-## Inputs / Outputs
+## Interfaces
 
 **Inputs**: Raw radar binary files (IMD format).
 **Outputs**: Zarr arrays via Kafka bus (Topic: `radar.ingest`).
 
-## Algorithm
+## Architecture
 
 Exact quantization for IMD binary grids: `Value = int(dBZ * scale + offset)`.
 
-## What is real versus simulated
+## Limitations and known issues
 
 The decoder is REAL and decodes real IMD files. The streaming aspect is SIMULATED by the demo orchestrator.
 
@@ -29,7 +29,7 @@ The decoder is REAL and decodes real IMD files. The streaming aspect is SIMULATE
 |---|---|
 | `KAFKA_BROKERS` | Kafka connection string |
 
-## Commands
+## Usage examples
 
 ```bash
 <!-- skip-check -->
@@ -43,7 +43,7 @@ Uses `pytest` for unit testing logic.
 ## Contents
 
 ### `connectors/`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Radar decode logic.
 
 ## Usage Restrictions

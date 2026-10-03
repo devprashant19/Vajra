@@ -20,7 +20,7 @@ docker compose up -d
 ## Contents
 
 ### `docker-compose.yml`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Main compose definition.
 
 ## Usage Restrictions

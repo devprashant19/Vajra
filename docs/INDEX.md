@@ -9,31 +9,31 @@ Complete table of documents with their status.
 ## Contents
 
 ### `adr/`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Architecture Decision Records.
 
 ### `api/`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 API schemas.
 
 ### `ops/`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Runbooks and SOPs.
 
 ### `ml/`
-**Verdict**: DESIGNED
+**Verdict**: NEW
 ML docs.
 
 ### `data/`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Data schema descriptions.
 
 ### `ui/`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 UI assets and screenshots.
 
 ### `presentation/`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Pitch deck and scripts.
 
 ## Usage Restrictions

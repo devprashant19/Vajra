@@ -20,11 +20,11 @@ python tools/check_readme_format.py
 ## Contents
 
 ### `write_bundles.py`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Generates demo bundles.
 
 ### `check_readme_format.py`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Checks documentation format.
 
 ## Usage Restrictions

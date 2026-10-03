@@ -10,16 +10,16 @@ Applies optical flow to sequence of radar frames to predict storm cell trajector
 
 This service is part of the Vajra backend microservices architecture.
 
-## Inputs / Outputs
+## Interfaces
 
 **Inputs**: Radar arrays (Topic: `radar.ingest`).
 **Outputs**: `CellTrack` JSON (Topic: `tracks.live`).
 
-## Algorithm
+## Architecture
 
 Optical Flow computes motion vectors `(u, v)`. Extrapolation: `P(t+dt) = P(t) + V * dt`.
 
-## What is real versus simulated
+## Limitations and known issues
 
 Optical flow math is REAL. In the demo, frames are SIMULATED and output is replayed.
 
@@ -29,7 +29,7 @@ Optical flow math is REAL. In the demo, frames are SIMULATED and output is repla
 |---|---|
 | `KAFKA_BROKERS` | Kafka connection string |
 
-## Commands
+## Usage examples
 
 ```bash
 <!-- skip-check -->
@@ -43,7 +43,7 @@ Uses `pytest` for unit testing logic.
 ## Contents
 
 ### `tracker.py`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Optical flow logic.
 
 ## Usage Restrictions

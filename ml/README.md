@@ -10,7 +10,7 @@ The ML Pipeline directory is structured to host datasets, models, training scrip
 
 The ML capability is currently DESIGNED. The codebase contains skeleton structures and smoke-tested data profiling scripts. Real training on large datasets is NOT STARTED.
 
-## Track T Switch-on Checklist
+## Roadmap
 
 - [ ] Complete SEVIR download to persistent storage.
 - [ ] Implement data loaders for training.

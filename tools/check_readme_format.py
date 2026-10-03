@@ -81,7 +81,8 @@ def main():
     errors = []
 
     for root, dirs, files in os.walk(root_dir):
-        dirs[:] = [d for d in dirs if not d.startswith(".") and d not in ("node_modules", "venv", "dist", "build", "out")]
+        dirs[:] = [d for d in dirs if not d.startswith(".") and d not in ("node_modules", "venv", "dist", "build", "out", "gitleaks") and not d.startswith("test_venv")]
+        if "fixtures" in dirs: dirs.remove("fixtures")
         for file in files:
             if file == "README.md" or file == "INDEX.md":
                 file_path = os.path.join(root, file)

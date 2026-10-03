@@ -9,7 +9,7 @@ Slide deck and script for pitch.
 ## Contents
 
 ### `VIDEO_SCRIPT.md`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Video script.
 
 ## Usage Restrictions

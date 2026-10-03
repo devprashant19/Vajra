@@ -9,7 +9,7 @@ OpenAPI schemas and API notes.
 ## Contents
 
 ### `openapi.yaml`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 REST API spec.
 
 ## Usage Restrictions

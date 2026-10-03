@@ -10,16 +10,16 @@ Evaluates predicted tracks and hazards against observed ground truth to compute 
 
 This service is part of the Vajra backend microservices architecture.
 
-## Inputs / Outputs
+## Interfaces
 
 **Inputs**: `CellTrack` predictions, actual observations.
 **Outputs**: Skill metrics (CSI, POD, FAR).
 
-## Algorithm
+## Architecture
 
 Contingency table metrics: `CSI = Hits / (Hits + Misses + False Alarms)`.
 
-## What is real versus simulated
+## Limitations and known issues
 
 Currently DESIGNED. Metric computations are stubbed.
 
@@ -29,7 +29,7 @@ Currently DESIGNED. Metric computations are stubbed.
 |---|---|
 | `KAFKA_BROKERS` | Kafka connection string |
 
-## Commands
+## Usage examples
 
 ```bash
 <!-- skip-check -->

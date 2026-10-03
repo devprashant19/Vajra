@@ -9,7 +9,7 @@ Data layout and schemas.
 ## Contents
 
 ### `schemas.md`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Data schemas.
 
 ## Usage Restrictions

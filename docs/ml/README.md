@@ -9,7 +9,7 @@ ML design documents.
 ## Contents
 
 ### `architecture.md`
-**Verdict**: DESIGNED
+**Verdict**: NEW
 ML pipeline layout.
 
 ## Usage Restrictions

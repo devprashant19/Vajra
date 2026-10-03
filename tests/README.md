@@ -21,11 +21,11 @@ To run subsets, use marks: `pytest -m "not slow"`.
 ## Contents
 
 ### `e2e/`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Playwright smoke tests.
 
 ### `integration/`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Pytest API tests.
 
 ## Usage Restrictions

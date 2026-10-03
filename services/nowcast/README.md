@@ -10,16 +10,16 @@ Deep learning engine for precipitation nowcasting (predicting future radar frame
 
 This service is part of the Vajra backend microservices architecture.
 
-## Inputs / Outputs
+## Interfaces
 
 **Inputs**: Past 4 radar frames.
 **Outputs**: Next 12 predicted radar frames.
 
-## Algorithm
+## Architecture
 
 U-Net or ConvLSTM models trained on SEVIR.
 
-## What is real versus simulated
+## Limitations and known issues
 
 Currently DESIGNED. ML inference is replaced by rule-based optical flow in the current demo.
 
@@ -29,7 +29,7 @@ Currently DESIGNED. ML inference is replaced by rule-based optical flow in the c
 |---|---|
 | `KAFKA_BROKERS` | Kafka connection string |
 
-## Commands
+## Usage examples
 
 ```bash
 <!-- skip-check -->

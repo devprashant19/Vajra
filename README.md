@@ -126,15 +126,15 @@ cd apps/web && pnpm dev
 ## Contents
 
 ### `apps/`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Contains the frontend Next.js app and the FastAPI backend.
 
 ### `packages/`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Shared types and core schemas.
 
 ### `services/`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Python services for tracking, alerts, and ingestion.
 
 ## Usage Restrictions

@@ -9,7 +9,7 @@ Screenshots and design resources.
 ## Contents
 
 ### `screenshots/`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Images for README.
 
 ## Usage Restrictions

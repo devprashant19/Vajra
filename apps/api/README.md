@@ -10,7 +10,7 @@ The Vajra API is a FastAPI-based backend that handles ingestion bridging, WebSoc
 
 It provides REST endpoints and WebSocket channels. The API integrates with Kafka/Redis in production and falls back to mock bundles for the demo.
 
-## Endpoints
+## Interfaces
 
 | Tag | Route | Description | Auth Role |
 |---|---|---|---|
@@ -18,19 +18,19 @@ It provides REST endpoints and WebSocket channels. The API integrates with Kafka
 | Scenarios | `GET /scenarios` | Lists available demo scenarios | `public` |
 | Stream | `WS /ws` | Streams radar cell updates | `public` |
 
-## Stream Messages
+## Interfaces
 
 WebSocket stream emits JSON packets matching the `CellTrack` and `Hazard` schemas every 2 seconds during playback.
 
-## CAP and Audit Behaviour
+## Overview
 
 Alert generation enforces strict validation and is logged to a secure audit trail before signing (simulated).
 
-## Bundle Serving
+## Overview
 
 In static mode, bundles are served as static files. In API mode, the API reads them from `demo/bundles/` and serves them.
 
-## Error Model
+## Overview
 
 Standardized HTTP 400/500 JSON responses following RFC 7807 (Problem Details).
 
@@ -42,7 +42,7 @@ Standardized HTTP 400/500 JSON responses following RFC 7807 (Problem Details).
 | `REDIS_URL` | Redis URL |
 | `KAFKA_BROKERS` | Kafka brokers |
 
-## Commands
+## Usage examples
 
 ```bash
 <!-- skip-check -->
@@ -63,11 +63,11 @@ Uses `pytest` for unit testing.
 ## Contents
 
 ### `src/api/`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 FastAPI routes and main application.
 
 ### `tests/`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Unit tests.
 
 ## Usage Restrictions

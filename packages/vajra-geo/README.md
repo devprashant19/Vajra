@@ -25,7 +25,7 @@ Uses `pytest` for contract testing.
 ## Contents
 
 ### `src/`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Geo math logic.
 
 ## Usage Restrictions

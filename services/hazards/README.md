@@ -10,16 +10,16 @@ Evaluates tracked storm cells against meteorological thresholds to classify haza
 
 This service is part of the Vajra backend microservices architecture.
 
-## Inputs / Outputs
+## Interfaces
 
 **Inputs**: `CellTrack` objects with DBZ values.
 **Outputs**: `Hazard` objects (Topic: `hazards.live`).
 
-## Algorithm
+## Architecture
 
 Rule-based: If `DBZ > 55`, class is Severe/Hail. If `DBZ > 45`, class is Heavy Rain.
 
-## What is real versus simulated
+## Limitations and known issues
 
 Threshold evaluation is REAL. In the demo, the values evaluated are SIMULATED.
 
@@ -29,7 +29,7 @@ Threshold evaluation is REAL. In the demo, the values evaluated are SIMULATED.
 |---|---|
 | `KAFKA_BROKERS` | Kafka connection string |
 
-## Commands
+## Usage examples
 
 ```bash
 <!-- skip-check -->
@@ -43,7 +43,7 @@ Uses `pytest` for unit testing logic.
 ## Contents
 
 ### `src/`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Threshold logic and classification.
 
 ## Usage Restrictions

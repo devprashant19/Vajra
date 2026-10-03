@@ -20,7 +20,7 @@ graph TD
     Adapter -->|API| Fetch[FastAPI REST/WS]
 ```
 
-## Routes & Pages
+## Interfaces
 
 | Route | Description |
 |---|---|
@@ -36,7 +36,7 @@ graph TD
 | `NEXT_PUBLIC_API_URL` | URL of the API |
 | `NEXT_PUBLIC_STATIC_EXPORT` | If `true`, enables static mode |
 
-## Commands
+## Usage examples
 
 ```bash
 <!-- skip-check -->
@@ -62,15 +62,15 @@ pnpm e2e
 ## Contents
 
 ### `src/`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Contains the application source code (pages, components, stores, lib).
 
 ### `public/`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Static assets including bundled demo data.
 
 ### `package.json`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Dependencies and scripts.
 
 ## Usage Restrictions

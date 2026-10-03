@@ -10,16 +10,16 @@ Designed to merge radar, satellite, and lightning data into a unified 3D weather
 
 This service is part of the Vajra backend microservices architecture.
 
-## Inputs / Outputs
+## Interfaces
 
 **Inputs**: Radar, Satellite, Lightning streams.
 **Outputs**: Multi-modal Data Cube.
 
-## Algorithm
+## Architecture
 
 Spatial-temporal interpolation onto a common 1km x 1km EPSG:4326 grid.
 
-## What is real versus simulated
+## Limitations and known issues
 
 Currently DESIGNED. Not yet actively processing data in the demo.
 
@@ -29,7 +29,7 @@ Currently DESIGNED. Not yet actively processing data in the demo.
 |---|---|
 | `KAFKA_BROKERS` | Kafka connection string |
 
-## Commands
+## Usage examples
 
 ```bash
 <!-- skip-check -->

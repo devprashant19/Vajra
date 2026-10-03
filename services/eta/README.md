@@ -10,16 +10,16 @@ Calculates Estimated Time of Arrival (ETA) for severe weather cells intersecting
 
 This service is part of the Vajra backend microservices architecture.
 
-## Inputs / Outputs
+## Interfaces
 
 **Inputs**: `CellTrack` objects (Topic: `tracks.live`).
 **Outputs**: ETA JSON payloads (Topic: `eta.live`).
 
-## Algorithm
+## Architecture
 
 Uses distance divided by storm velocity: `ETA = Distance / Velocity`.
 
-## What is real versus simulated
+## Limitations and known issues
 
 The math is REAL. Intersections in the demo use SIMULATED tracks.
 
@@ -29,7 +29,7 @@ The math is REAL. Intersections in the demo use SIMULATED tracks.
 |---|---|
 | `KAFKA_BROKERS` | Kafka connection string |
 
-## Commands
+## Usage examples
 
 ```bash
 <!-- skip-check -->
@@ -43,7 +43,7 @@ Uses `pytest` for unit testing logic.
 ## Contents
 
 ### `src/`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 ETA math and intersection logic.
 
 ## Usage Restrictions

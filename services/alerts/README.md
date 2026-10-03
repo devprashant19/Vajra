@@ -10,16 +10,16 @@ The Alerts Service correlates hazards with administrative boundaries to generate
 
 This service is part of the Vajra backend microservices architecture.
 
-## Inputs / Outputs
+## Interfaces
 
 **Inputs**: `Hazard` objects (Topic: `hazards.live`).
 **Outputs**: CAP 1.2 XML strings (Topic: `alerts.cap`).
 
-## Algorithm
+## Architecture
 
 Spatial intersection of hazard polygons with sub-district GeoJSON shapes.
 
-## What is real versus simulated
+## Limitations and known issues
 
 The GeoJSON intersection and CAP generation logic is REAL. The demo currently triggers it via SIMULATED hazard events.
 
@@ -29,7 +29,7 @@ The GeoJSON intersection and CAP generation logic is REAL. The demo currently tr
 |---|---|
 | `KAFKA_BROKERS` | Kafka connection string |
 
-## Commands
+## Usage examples
 
 ```bash
 <!-- skip-check -->
@@ -43,7 +43,7 @@ Uses `pytest` for unit testing logic.
 ## Contents
 
 ### `src/`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 CAP generation logic.
 
 ## Usage Restrictions

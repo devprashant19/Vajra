@@ -15,7 +15,7 @@ Last reviewed: 2026-10-01.
 ## Contents
 
 ### `SOP.md`
-**Verdict**: IMPLEMENTED
+**Verdict**: NEW
 Standard Operating Procedure.
 
 ## Usage Restrictions
