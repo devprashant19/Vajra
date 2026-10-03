@@ -1,0 +1,14 @@
+{
+  "_meta": {
+    "status": "human-written"
+  },
+  "warning": "चेतावनी",
+  "clear": "सुरक्षित",
+  "simulated": "SIMULATED DATA - NOT EVIDENCE",
+  "reliability": "SKILFUL: UNKNOWN - Forecast Reliability is Low",
+  "actions": [
+    "Seek shelter immediately.",
+    "Stay away from windows.",
+    "Do not use electrical equipment."
+  ]
+}
