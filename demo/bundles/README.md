@@ -1,8 +1,8 @@
-# Data directory
+# Demo Bundles
 
-**Origin**: MIXED
+**Origin**: GENERATED
 **Generated**: 2026-10-01
-**Status**: IMPLEMENTED
+**Status**: DEMONSTRATED
 
 ## Overview
 
@@ -18,14 +18,18 @@ Data provenance varies per directory. Demo bundles are generated synthetically u
 
 ## Contents
 
-### `reference/`
-**Verdict**: REAL
-Contains downloaded historical data.
+### `chennai_cyclone/`
+**Verdict**: SYNTHETIC
+Simulated event.
 
-### `lake/`
-**Verdict**: FABRICATED
-Temporary storage.
+### `mumbai_floods/`
+**Verdict**: SYNTHETIC
+Simulated event.
+
+### `delhi_hailstorm/`
+**Verdict**: SYNTHETIC
+Simulated event.
 
 ## Usage Restrictions
 
-Data usage must adhere to the original provider's licensing terms, including SEVIR's CC BY-NC-SA 4.0 terms.
+For demonstration use only.
