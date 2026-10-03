@@ -20,4 +20,4 @@ Tranche 1 represents the initial dataset used to bootstrap the data lake and tra
 
 ### Storage Extent
 - The events are stored as event-level Zarr shards in `data/sevir_extracted/`.
-- The dataset touches ~38 distinct large 10-20GB HDF5 files from the S3 bucket, amounting to over 311 GB of raw data. The remote extraction pipeline specifically ranges over these files to only extract the ~8 GB of required events.
+- The dataset touches ~38 distinct large 10-20GB HDF5 files from the S3 bucket, amounting to over 311 GB of raw data. The remote extraction pipeline specifically ranges over these files to only extract the ~8 GB (ESTIMATE-UNVERIFIED) of required events.
