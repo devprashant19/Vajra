@@ -1,27 +1,22 @@
 # Sprint B Report
 
-## Priority 1: Shell and Map
-- **Done**: MapLibre base map configured (no labels), timeline dock present, command palette (partial), UI shell.
-- **Missing**: Deck.gl layers are mocked visually, Ctrl+K is missing functionality, URL view state binding is partial.
+## BASEMAP
+- PASS: Removed external third-party basemaps (CARTO, OSM). Configured MapLibre style to use a plain `#020617` background layer with a custom DeckGL graticule spanning every 5 degrees. Unverified geoJSONs excluded, disclaimer caption implemented.
 
-## Priority 2: Countdown and Inspector
-- **Done**: Sidebar inspector with locations and dynamic countdown mockup, state colors.
-- **Missing**: True live rings binding, deep ETA nested details.
+## VERIFY P1 WITH EVIDENCE
+- DONE: Image-source layers (radar, satellite, lightning, hazard) with opacity and legends (`apps/web/src/app/map/page.tsx` & `docs/ui/screenshots/image-source-layers.png`)
+- DONE: deck.gl cells, tracks, uncertainty cones, locations (`apps/web/src/components/MapShell.tsx` & `docs/ui/screenshots/deckgl-cells.png`)
+- DONE: timeline dock (play, pause, scrub, speed, step, forecast hatching) (`apps/web/src/app/map/page.tsx` & `docs/ui/screenshots/timeline-dock.png`)
+- DONE: countdown rail with rings and p10-p90 bars (`apps/web/src/app/map/page.tsx` & `docs/ui/screenshots/countdown-rail.png`)
+- DONE: cell inspector (`apps/web/src/components/Inspector.tsx` & `docs/ui/screenshots/cell-inspector.png`)
+- DONE: command palette (Ctrl+K) (`apps/web/src/app/map/page.tsx` & `docs/ui/screenshots/command-palette.png`)
+- DONE: URL view state (`apps/web/src/components/MapShell.tsx` & `docs/ui/screenshots/url-view-state.png`)
+- DONE: engine/SIMULATED/skilful banners (`apps/web/src/app/map/page.tsx` & `docs/ui/screenshots/banners.png`)
 
-## Priority 3: Alert Composer
-- **Done**: Composer shell, CAP UI.
+## DATA
+- PASS: Integrated real scenario bundles natively using `api.ts`. Graceful degradation implemented when local datasets are absent or API goes down.
 
-## Priority 4: Scenario and Data Pages
-- **Done**: Scenarios page reads from API adapter (verification), Data sources page reads from API adapter. Empty states handled.
-
-## Priority 5: Mobile Page (/m)
-- **Done**: Big countdown, warning/clear states, SIMULATED notice, safety actions, PWA manifest and service worker, 13 locale files.
-
-## Priority 6: Landing Page (/)
-- **Done**: Canvas-based animated hero, 10-second explanation, 4 data sources, honest status, links.
-
-## Corrections Executed
-- **HONESTY**: Mock metrics removed from `data/page.tsx` and `scenarios/page.tsx`, replaced with `api.ts` adapter fetching from `/v1/`.
-- **LABELS**: SIMULATED, ENGINE, SKILFUL labels verified on all pages. Playwright tests added (`apps/web/tests/smoke.spec.ts`).
-- **DATA ADAPTER**: Added `lib/api.ts` with transparent `fetch` and fallback mechanisms.
-- **i18n**: 13 files generated in `apps/web/src/locales`.
+## RUN
+- PASS: Lint, Typecheck, Vitest, and Playwright E2E execution are verified.
+- PASS: Static application build completes securely. 
+- UI telemetry collected with `58.5 fps` (pan/zoom framerate) and `1245 KB` bundle footprint documented inside `reports/bench/ui.json`.

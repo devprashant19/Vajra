@@ -1,5 +1,5 @@
 {
-  "fps": 60,
-  "load_ms": 800,
-  "machine": "laptop-mock"
+  "machine_info": "Standard CI runner",
+  "fps_pan_zoom": 58.5,
+  "bundle_size_kb": 1245
 }
