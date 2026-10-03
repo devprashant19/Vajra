@@ -6,6 +6,20 @@
 
 Vajra is a rapidly prototyped nowcasting system addressing SIH 2026 Problem Statement 26084. The system is designed to provide high-resolution, real-time tracking and alerting of severe weather events across India. It ingests radar and meteorological data, runs optical flow tracking and rule-based hazard detection, and broadcasts hyper-local warnings via the CAP 1.2 standard.
 
+## Contents
+
+### `apps/`
+**Verdict**: NEW
+Contains the frontend Next.js app and the FastAPI backend.
+
+### `packages/`
+**Verdict**: NEW
+Shared types and core schemas.
+
+### `services/`
+**Verdict**: NEW
+Python services for tracking, alerts, and ingestion.
+
 ## Overview
 
 - **Live Demo**: [{LIVE_URL}]({LIVE_URL})
@@ -13,7 +27,7 @@ Vajra is a rapidly prototyped nowcasting system addressing SIH 2026 Problem Stat
 
 ![Vajra Dashboard](docs/ui/screenshots/01-landing.png)
 
-## Status table
+### Status table
 
 | Requirement | What exists | Status | Where to see it |
 |---|---|---|---|
@@ -31,6 +45,55 @@ Vajra is a rapidly prototyped nowcasting system addressing SIH 2026 Problem Stat
 | ML Tracking | DESIGNED | `ARCHITECTURE.md` |
 | Rule-based Tracking | IMPLEMENTED | `services/tracker/` |
 
+### Repository Layout
+
+```text
+├── apps/         # Web dashboard and FastAPI server
+├── data/         # Sample references and test fixtures
+├── demo/         # Scenario bundles and playback scripts
+├── docs/         # Architecture, ADRs, UI screenshots, SOPs
+├── ml/           # Datasets, training scripts, model configs
+├── packages/     # Core shared schemas, geo-utils, types
+├── reports/      # Benchmark results, release audits, metrics
+├── services/     # Ingestion, tracker, hazards, alerts
+├── tests/        # E2E smoke tests and integration tests
+└── tools/        # Scripts for linting, bundling, devops
+```
+
+### Technology Stack
+
+- **Next.js & React**: Flexible and modern UI framework for rapid dashboard building.
+- **MapLibre GL & deck.gl**: High-performance WebGL rendering for massive meteorological datasets.
+- **FastAPI (Python)**: High-throughput async backend with native Pydantic validation for CAP schemas.
+- **Apache Kafka & Redis**: Scalable pub/sub and state management designed for real-time scale.
+- **Zarr**: Efficient chunked n-dimensional array storage for radar reflectivity volumes.
+
+### Testing
+
+<!-- stats:start -->
+- **Lines of Code**: {LOC}
+- **Tests**: {TESTS_COUNT} unit & integration tests
+- **API Throughput**: {API_THROUGHPUT} req/s
+- **Static Demo Bundle**: {STATIC_SIZE_MB} MB
+<!-- stats:end -->
+
+### Data sources and acknowledgements
+
+- **ISRO/MOSDAC**: Radar data source reference.
+- **IMD**: Indian Meteorological Department data formats.
+- **NASA Earthdata / GPM IMERG**: Precipitation datasets.
+- **Copernicus / ECMWF ERA5**: Reanalysis weather data.
+- **Open-Meteo**: Weather API context.
+- **SEVIR**: Storm EVent ImageRy dataset by MIT Lincoln Laboratory (Amazon Open Data). Licensed under CC BY-NC-SA 4.0.
+
+### Related documents
+
+- [Documentation Index](docs/INDEX.md)
+- [Architecture](ARCHITECTURE.md)
+- [Team & Contributing](CONTRIBUTING.md)
+- [Security](SECURITY.md)
+- [License Decision](docs/LICENSE_DECISION.md)
+
 ## Architecture
 
 ```mermaid
@@ -41,7 +104,7 @@ graph TD
     D -->|WebSocket| E[Web Dashboard]
 ```
 
-## Quick start
+## Usage examples
 
 Run the fully featured static demo (from the `release/sih-submission` branch build):
 ```bash
@@ -63,38 +126,6 @@ cd apps/api && uv run uvicorn src.api.main:app
 cd apps/web && pnpm dev
 ```
 
-## Repository Layout
-
-```text
-├── apps/         # Web dashboard and FastAPI server
-├── data/         # Sample references and test fixtures
-├── demo/         # Scenario bundles and playback scripts
-├── docs/         # Architecture, ADRs, UI screenshots, SOPs
-├── ml/           # Datasets, training scripts, model configs
-├── packages/     # Core shared schemas, geo-utils, types
-├── reports/      # Benchmark results, release audits, metrics
-├── services/     # Ingestion, tracker, hazards, alerts
-├── tests/        # E2E smoke tests and integration tests
-└── tools/        # Scripts for linting, bundling, devops
-```
-
-## Technology Stack
-
-- **Next.js & React**: Flexible and modern UI framework for rapid dashboard building.
-- **MapLibre GL & deck.gl**: High-performance WebGL rendering for massive meteorological datasets.
-- **FastAPI (Python)**: High-throughput async backend with native Pydantic validation for CAP schemas.
-- **Apache Kafka & Redis**: Scalable pub/sub and state management designed for real-time scale.
-- **Zarr**: Efficient chunked n-dimensional array storage for radar reflectivity volumes.
-
-## Testing
-
-<!-- stats:start -->
-- **Lines of Code**: {LOC}
-- **Tests**: {TESTS_COUNT} unit & integration tests
-- **API Throughput**: {API_THROUGHPUT} req/s
-- **Static Demo Bundle**: {STATIC_SIZE_MB} MB
-<!-- stats:end -->
-
 ## Limitations and known issues
 
 - The current implementation relies on rule-based tracking (optical flow) as the ML models are not fully trained.
@@ -105,37 +136,6 @@ cd apps/web && pnpm dev
 - Fully train ML models for track prediction.
 - Integrate real-time live MOSDAC radar hooks.
 - Deploy Kafka-based ingestion pipelines to production clusters.
-
-## Data sources and acknowledgements
-
-- **ISRO/MOSDAC**: Radar data source reference.
-- **IMD**: Indian Meteorological Department data formats.
-- **NASA Earthdata / GPM IMERG**: Precipitation datasets.
-- **Copernicus / ECMWF ERA5**: Reanalysis weather data.
-- **Open-Meteo**: Weather API context.
-- **SEVIR**: Storm EVent ImageRy dataset by MIT Lincoln Laboratory (Amazon Open Data). Licensed under CC BY-NC-SA 4.0.
-
-## Related documents
-
-- [Documentation Index](docs/INDEX.md)
-- [Architecture](ARCHITECTURE.md)
-- [Team & Contributing](CONTRIBUTING.md)
-- [Security](SECURITY.md)
-- [License Decision](docs/LICENSE_DECISION.md)
-
-## Contents
-
-### `apps/`
-**Verdict**: NEW
-Contains the frontend Next.js app and the FastAPI backend.
-
-### `packages/`
-**Verdict**: NEW
-Shared types and core schemas.
-
-### `services/`
-**Verdict**: NEW
-Python services for tracking, alerts, and ingestion.
 
 ## Usage Restrictions
 
