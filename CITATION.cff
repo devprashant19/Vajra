@@ -1,0 +1,6 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Vajra Nowcast System"
+authors:
+  # To be populated with real author names
+repository-code: "https://github.com/devprashant19/Vajra"
