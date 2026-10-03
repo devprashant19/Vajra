@@ -30,10 +30,10 @@ def test_tracker_synthetic_blobs():
 def test_eta_analytic_case():
     eta_engine = ETAEngine(seed=42)
     
-    # Force zero uncertainty
-    eta_engine.rng = np.random.default_rng(42)
-    # Monkey-patch to remove uncertainty
-    eta_engine.rng.normal = lambda loc, scale, size: np.full(size, loc)
+    class MockRNG:
+        def normal(self, loc, scale, size):
+            return np.full(size, loc)
+    eta_engine.rng = MockRNG()
     
     cell = {
         "id": "T_0000",
