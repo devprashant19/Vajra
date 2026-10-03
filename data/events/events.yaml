@@ -8,7 +8,7 @@ events:
   lon: 75.5
   geometry_type: point
   label_quality: weak
-  retrieval_date: '2026-10-02'
+  retrieval_date: '2026-10-03'
   http_status: 200
 - id: ind-2018-duststorm
   date: '2018-05-02'
@@ -24,7 +24,7 @@ events:
   - 28.5
   geometry_type: region
   label_quality: context_only
-  retrieval_date: '2026-10-02'
+  retrieval_date: '2026-10-03'
   http_status: 200
 - id: ind-2024-jalpaiguri
   date: '2024-03-31'
@@ -35,8 +35,7 @@ events:
   lon: 88.733
   geometry_type: point
   label_quality: strong
-  retrieval_date: '2026-10-02'
-  http_status: 200
+  http_status: UNVERIFIED
 - id: ind-2013-kedarnath
   date: '2013-06-16'
   location: Kedarnath, Uttarakhand
@@ -46,7 +45,7 @@ events:
   lon: 79.067
   geometry_type: point
   label_quality: weak
-  retrieval_date: '2026-10-02'
+  retrieval_date: '2026-10-03'
   http_status: 200
 - id: ind-2020-hyderabad
   date: '2020-10-14'
@@ -57,7 +56,7 @@ events:
   lon: 78.487
   geometry_type: point
   label_quality: strong
-  retrieval_date: '2026-10-02'
+  retrieval_date: '2026-10-03'
   http_status: 200
 - id: ind-2019-pune
   date: '2019-09-25'
@@ -68,7 +67,7 @@ events:
   lon: 73.857
   geometry_type: point
   label_quality: strong
-  retrieval_date: '2026-10-02'
+  retrieval_date: '2026-10-03'
   http_status: 200
 - id: ind-2021-maharashtra
   date: '2021-07-22'
@@ -84,7 +83,7 @@ events:
   - 19.0
   geometry_type: region
   label_quality: weak
-  retrieval_date: '2026-10-02'
+  retrieval_date: '2026-10-03'
   http_status: 200
 - id: ind-2022-bengaluru
   date: '2022-09-05'
@@ -95,8 +94,7 @@ events:
   lon: 77.595
   geometry_type: point
   label_quality: strong
-  retrieval_date: '2026-10-02'
-  http_status: 200
+  http_status: UNVERIFIED
 - id: ind-2023-sikkim
   date: '2023-10-04'
   location: Sikkim
@@ -111,7 +109,7 @@ events:
   - 28.1
   geometry_type: region
   label_quality: context_only
-  retrieval_date: '2026-10-02'
+  retrieval_date: '2026-10-03'
   http_status: 200
 - id: ind-2015-chennai
   date: '2015-12-01'
@@ -122,7 +120,7 @@ events:
   lon: 80.271
   geometry_type: point
   label_quality: strong
-  retrieval_date: '2026-10-02'
+  retrieval_date: '2026-10-03'
   http_status: 200
 - id: ind-2014-kashmir
   date: '2014-09-02'
@@ -138,7 +136,7 @@ events:
   - 34.6
   geometry_type: region
   label_quality: weak
-  retrieval_date: '2026-10-02'
+  retrieval_date: '2026-10-03'
   http_status: 200
 - id: ind-2005-mumbai
   date: '2005-07-26'
@@ -149,7 +147,7 @@ events:
   lon: 72.846
   geometry_type: point
   label_quality: strong
-  retrieval_date: '2026-10-02'
+  retrieval_date: '2026-10-03'
   http_status: 200
 - id: ind-2010-leh
   date: '2010-08-06'
@@ -160,7 +158,7 @@ events:
   lon: 77.577
   geometry_type: point
   label_quality: weak
-  retrieval_date: '2026-10-02'
+  retrieval_date: '2026-10-03'
   http_status: 200
 - id: ind-2023-himachal
   date: '2023-07-09'
@@ -176,7 +174,7 @@ events:
   - 32.8
   geometry_type: region
   label_quality: weak
-  retrieval_date: '2026-10-02'
+  retrieval_date: '2026-10-03'
   http_status: 200
 - id: ind-2020-bihar
   date: '2020-06-25'
@@ -192,12 +190,11 @@ events:
   - 27.5
   geometry_type: region
   label_quality: context_only
-  retrieval_date: '2026-10-02'
-  http_status: 200
+  http_status: UNVERIFIED
 - id: usa-sevir-tranche1
   date: 2018-01-01 to 2019-12-31
   location: United States
   hazard_type: Multi-modal severe weather
   citation_url: https://registry.opendata.aws/sevir/
-  retrieval_date: '2026-10-02'
+  retrieval_date: '2026-10-03'
   http_status: 200
