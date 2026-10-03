@@ -1,6 +1,6 @@
 # Vajra Build-First Mode
 
-**Purpose**: Addendum to `docs/MASTER_RULES.md` and the phase prompts. The deadline is near, so the whole system is built end to end first and the models are trained afterwards. This file re-scopes each phase, says what runs while the models are untrained, and keeps the honesty rules intact. Save it as `docs/05_BUILD_FIRST_MODE.md`. Where it conflicts with a phase prompt, this file wins; where it is silent, the phase prompt and the master rules apply.
+**Purpose**: Addendum to `docs/ENGINEERING_STANDARDS.md` and the phase prompts. The deadline is near, so the whole system is built end to end first and the models are trained afterwards. This file re-scopes each phase, says what runs while the models are untrained, and keeps the honesty rules intact. Save it as `docs/05_BUILD_FIRST_MODE.md`. Where it conflicts with a phase prompt, this file wins; where it is silent, the phase prompt and the master rules apply.
 
 ---
 
@@ -96,4 +96,4 @@ Say: Vajra is a complete operational pipeline: ingestion, fusion, tracking, a ba
 Do not say: that a model is accurate, that hail or cloudburst outputs are validated, or that any simulated scenario is an observation.
 
 ## Usage Restrictions
-This file changes scope and ordering only. It does not relax any honesty, licence, secrecy or safety rule in `docs/MASTER_RULES.md`.
+This file changes scope and ordering only. It does not relax any honesty, licence, secrecy or safety rule in `docs/ENGINEERING_STANDARDS.md`.

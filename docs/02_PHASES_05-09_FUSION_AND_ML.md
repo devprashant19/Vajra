@@ -11,7 +11,7 @@ Paste only the text under each **PROMPT** heading into Antigravity. Bring the ph
 ### PROMPT
 
 ```
-Read docs/MASTER_RULES.md, PROGRESS.md, DECISIONS.md, reports/PHASE_4_REPORT.md and
+Read docs/ENGINEERING_STANDARDS.md, PROGRESS.md, DECISIONS.md, reports/PHASE_4_REPORT.md and
 ADR-003 (CRS and tiling).
 
 OBJECTIVE
@@ -91,7 +91,7 @@ GATE
 ### PROMPT
 
 ```
-Read docs/MASTER_RULES.md, PROGRESS.md, DECISIONS.md and reports/PHASE_5_REPORT.md.
+Read docs/ENGINEERING_STANDARDS.md, PROGRESS.md, DECISIONS.md and reports/PHASE_5_REPORT.md.
 
 OBJECTIVE
 Create the verification harness first, then the baseline nowcasts and the storm-cell
@@ -154,7 +154,7 @@ GATE
 ### PROMPT
 
 ```
-Read docs/MASTER_RULES.md, PROGRESS.md, DECISIONS.md, reports/PHASE_6_REPORT.md and the
+Read docs/ENGINEERING_STANDARDS.md, PROGRESS.md, DECISIONS.md, reports/PHASE_6_REPORT.md and the
 decision table in reports/DATA_COVERAGE.md.
 
 OBJECTIVE
@@ -221,7 +221,7 @@ GATE
 ### PROMPT
 
 ```
-Read docs/MASTER_RULES.md, PROGRESS.md, DECISIONS.md, reports/PHASE_7_REPORT.md,
+Read docs/ENGINEERING_STANDARDS.md, PROGRESS.md, DECISIONS.md, reports/PHASE_7_REPORT.md,
 reports/verification/baseline/targets.json and docs/KNOWN_REFERENCE_DEFECTS.md.
 
 OBJECTIVE
@@ -294,7 +294,7 @@ GATE
 ### PROMPT
 
 ```
-Read docs/MASTER_RULES.md, PROGRESS.md, DECISIONS.md, reports/PHASE_8_REPORT.md and
+Read docs/ENGINEERING_STANDARDS.md, PROGRESS.md, DECISIONS.md, reports/PHASE_8_REPORT.md and
 docs/ml/DATASET_CARD.md (label quality per hazard).
 
 OBJECTIVE

@@ -1,16 +1,16 @@
-# API Docs
+# Data Documentation
 
 **Origin**: NEW
 **Created**: 2026-10-01
 **Status**: IMPLEMENTED
 
-OpenAPI schemas and API notes.
+Data layout and schemas.
 
 ## Contents
 
-### `openapi.yaml`
+### `schemas.md`
 **Verdict**: NEW
-REST API spec.
+Data schemas.
 
 ## Usage Restrictions
 Internal documentation.

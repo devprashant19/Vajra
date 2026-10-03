@@ -1,7 +1,7 @@
-# Data directory
+# Real Demo Data
 
-**Origin**: MIXED
-**Generated**: 2026-10-01
+**Origin**: DOWNLOADED
+**Downloaded**: 2026-10-01
 **Status**: IMPLEMENTED
 
 ## Overview
@@ -18,14 +18,18 @@ Data provenance varies per directory. Demo bundles are generated synthetically u
 
 ## Contents
 
-### `reference/`
+### `radar/`
 **Verdict**: REAL
-Contains downloaded historical data.
+70 real radar PNG frames.
 
-### `lake/`
-**Verdict**: FABRICATED
-Temporary storage.
+### `tamil_nadu/`
+**Verdict**: REAL
+Real Tamil Nadu reference data (CAPE, CIN, etc.).
+
+### `open_meteo/`
+**Verdict**: REAL
+Real Open-Meteo response payload.
 
 ## Usage Restrictions
 
-Data usage must adhere to the original provider's licensing terms, including SEVIR's CC BY-NC-SA 4.0 terms.
+Data is sourced from open providers and is REAL. Follow their terms.

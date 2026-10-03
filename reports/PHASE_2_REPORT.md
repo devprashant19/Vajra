@@ -1,5 +1,11 @@
 # PHASE 2 REPORT: Contracts and platform kernel
 
+**Origin**: NEW
+**Created**: 2026-10-01
+**Status**: IMPLEMENTED
+
+[<- Back to Index](../docs/INDEX.md)
+
 **Date**: 2026-10-01
 **Commit**: 87a0edf (and subsequent commits to merge to main)
 

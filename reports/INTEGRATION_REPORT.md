@@ -1,5 +1,11 @@
 # Integration Report (Verified)
 
+**Origin**: NEW
+**Created**: 2026-10-01
+**Status**: IMPLEMENTED
+
+[<- Back to Index](../docs/INDEX.md)
+
 ## Core Capabilities
 - **FastAPI Backend (`apps/api`)**: Implements streaming (WebSocket `/v1/stream`), simulated bundle ingestion, CAP 1.2 XML generation, and strict role-based alert workflows (with a functional kill-switch that returns HTTP 423).
 - **Next.js Frontend (`apps/web`)**: Integrated MapLibre and deck.gl. Simulated alerts and ETA countdowns are visualized. All numeric metrics are dynamically fetched; there are no fabricated hardcoded impact times.

@@ -11,8 +11,8 @@ Run the phases in order. Paste only the text under each **PROMPT** heading into 
 ### PROMPT
 
 ```
-Read docs/MASTER_RULES.md if it exists. If it does not, first copy the provided
-MASTER_RULES.md from the playbook into docs/MASTER_RULES.md, then read it fully.
+Read docs/ENGINEERING_STANDARDS.md if it exists. If it does not, first copy the provided
+ENGINEERING_STANDARDS.md from the playbook into docs/ENGINEERING_STANDARDS.md, then read it fully.
 Also read _audit/AUDIT_SUMMARY.md, _audit/REFERENCE_AUDIT.md, _audit/reusable_modules.md,
 _audit/coverage_matrix.md and _audit/environment.md.
 
@@ -44,7 +44,7 @@ TASKS
       Check the latest stable versions of Next.js, React, Tailwind, MapLibre GL JS,
       deck.gl from the package registry instead of assuming them.
 
-3. Scaffold the repository exactly as in docs/MASTER_RULES.md section 3. Each service
+3. Scaffold the repository exactly as in docs/ENGINEERING_STANDARDS.md section 3. Each service
    directory gets a package skeleton, a README.md in the component template (section 4.2),
    and a placeholder test that passes.
 
@@ -114,7 +114,7 @@ GATE
 ### PROMPT
 
 ```
-Read docs/MASTER_RULES.md, PROGRESS.md, DECISIONS.md and reports/PHASE_1_REPORT.md.
+Read docs/ENGINEERING_STANDARDS.md, PROGRESS.md, DECISIONS.md and reports/PHASE_1_REPORT.md.
 
 OBJECTIVE
 Build packages/vajra-core and packages/vajra-types: the shared contracts every later
@@ -204,7 +204,7 @@ The audit's most important finding is that none of the five projects holds real 
 ### PROMPT
 
 ```
-Read docs/MASTER_RULES.md, PROGRESS.md, DECISIONS.md, reports/PHASE_2_REPORT.md,
+Read docs/ENGINEERING_STANDARDS.md, PROGRESS.md, DECISIONS.md, reports/PHASE_2_REPORT.md,
 _audit/external_sources.md and _audit/dataset_manifest.json.
 
 OBJECTIVE
@@ -303,7 +303,7 @@ GATE
 ### PROMPT
 
 ```
-Read docs/MASTER_RULES.md, PROGRESS.md, DECISIONS.md, reports/PHASE_3_REPORT.md and
+Read docs/ENGINEERING_STANDARDS.md, PROGRESS.md, DECISIONS.md, reports/PHASE_3_REPORT.md and
 reports/DATA_COVERAGE.md. You may read the reference implementations listed in
 docs/THIRD_PARTY.md to understand behaviour, but write new code (clean-room) unless
 THIRD_PARTY.md says PORT.

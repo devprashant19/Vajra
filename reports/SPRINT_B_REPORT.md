@@ -1,5 +1,11 @@
 # Sprint B Report
 
+**Origin**: NEW
+**Created**: 2026-10-01
+**Status**: IMPLEMENTED
+
+[<- Back to Index](../docs/INDEX.md)
+
 ## BASEMAP
 - PASS: Removed external third-party basemaps (CARTO, OSM). Configured MapLibre style to use a plain `#020617` background layer with a custom DeckGL graticule spanning every 5 degrees. Unverified geoJSONs excluded, disclaimer caption implemented.
 

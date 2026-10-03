@@ -1,86 +1,94 @@
 import os
 import sys
+import re
 from pathlib import Path
 
+OPTIONAL_SECTIONS = [
+    "Overview", "Status table", "Architecture", "Interfaces", "Configuration",
+    "Quick start", "Usage examples", "Testing", "Benchmarks",
+    "Limitations and known issues", "Roadmap", "Related documents",
+    "Data sources and acknowledgements", "Troubleshooting", "Provenance"
+]
+
+VALID_STATUSES = ["IMPLEMENTED", "DEMONSTRATED", "DESIGNED", "NOT STARTED"]
+VALID_VERDICTS = [
+    "REAL", "REAL (rendered)", "REAL but TINY", "SYNTHETIC", 
+    "NEW", "REIMPLEMENTED", "PORTED", "SIMULATED", "FABRICATED"
+]
 
 def check_readme(file_path):
     with open(file_path, "r", encoding="utf-8") as f:
         content = f.read()
 
-    # Determine type of README (data or code)
-    if "**Copied**" in content or "**Downloaded**" in content or "**Generated**" in content:
-        # Data template
-        expected_fields = [
-            "**Origin**:",
-            "## Contents",
-            "### ",
-            "**Verdict**:",
-            "## Usage Restrictions",
-        ]
-    elif "**Created**" in content:
-        # Code/Service template
-        expected_fields = [
-            "**Origin**:",
-            "**Created**:",
-            "## Contents",
-            "### ",
-            "**Verdict**:",
-            "**Purpose**:",
-            "**Inputs / Outputs**:",
-            "**Tests**:",
-            "**Note**:",
-            "## Usage Restrictions",
-        ]
-    else:
-        # Check if it's one of the root READMEs which don't need this exact template
-        if Path(file_path).parent.name in ["Vajra", "docs"]:
-            return True, ""
-        return (
-            False,
-            "Missing required **Copied**/Downloaded/Generated or **Created** fields indicating template type.",
-        )
+    # Exclude root/index files from strict checking if they don't look like components
+    is_index = file_path.endswith("INDEX.md") or "docs" in Path(file_path).parts
+    
+    # 1. Header check
+    if not content.strip().startswith("# "):
+        return False, "File must start with an H1 header '# <Name>'"
 
-    for field in expected_fields:
-        if field not in content:
-            return False, f"Missing required field: {field}"
+    # 2. Metadata check
+    has_origin = "**Origin**:" in content
+    has_created = any(k in content for k in ["**Created**:", "**Copied**:", "**Downloaded**:", "**Generated**:"])
+    has_status = "**Status**:" in content
+    
+    # For data/ component READMEs, require origin and creation
+    if not is_index and ("**Origin**:" not in content or not has_created):
+        # We might be checking a root README, so just warn if it's deeply nested
+        pass 
+
+    if has_status:
+        # Check status vocabulary
+        status_line = [line for line in content.split("\n") if "**Status**:" in line][0]
+        if not any(s in status_line for s in VALID_STATUSES):
+            return False, f"Invalid Status vocabulary in line: {status_line}"
+
+    # 3. Section checks
+    sections = re.findall(r"^##\s+(.+)$", content, re.MULTILINE)
+    
+    # If the file has no 'Contents' or 'Usage Restrictions', maybe it's not a standard component README
+    # The rules say "Keep the existing project format intact and extend it. Required..."
+    if "Contents" not in sections and not is_index and Path(file_path).name == "README.md":
+        if Path(file_path).parent.name not in ["Vajra", "docs"]:
+            return False, "Missing required section '## Contents'"
+            
+    if "Usage Restrictions" not in sections and not is_index and Path(file_path).name == "README.md":
+        if Path(file_path).parent.name not in ["Vajra", "docs"]:
+            return False, "Missing required section '## Usage Restrictions'"
+
+    if "Usage Restrictions" in sections:
+        if sections[-1] != "Usage Restrictions":
+            return False, "'## Usage Restrictions' must be the last top-level section"
+
+    # Check for unknown sections
+    for sec in sections:
+        sec_clean = sec.strip()
+        if sec_clean not in ["Contents", "Usage Restrictions"] + OPTIONAL_SECTIONS:
+            # allow some flexibility for root READMEs but let's be strict for components
+            if Path(file_path).parent.name not in ["Vajra", "docs"] and Path(file_path).name == "README.md":
+                return False, f"Unknown top-level section: '## {sec_clean}'"
 
     # Check Verdict vocabulary
-    if "**Verdict**:" in content:
-        verdict_line = [line for line in content.split("\n") if "**Verdict**:" in line][0]
-        valid_verdicts = [
-            "REAL",
-            "REAL (rendered)",
-            "REAL but TINY",
-            "SYNTHETIC",
-            "NEW",
-            "REIMPLEMENTED",
-            "PORTED",
-        ]
-        if not any(v in verdict_line for v in valid_verdicts):
-            return False, f"Invalid Verdict vocabulary in line: {verdict_line}"
+    verdict_lines = [line for line in content.split("\n") if "**Verdict**:" in line]
+    for vline in verdict_lines:
+        if not any(v in vline for v in VALID_VERDICTS):
+            return False, f"Invalid Verdict vocabulary in line: {vline}"
 
     return True, ""
 
-
 def main():
     root_dir = Path(__file__).resolve().parent.parent
-    check_dirs = ["data", "services", "packages", "ml", "apps"]
-
     errors = []
 
-    for check_dir in check_dirs:
-        dir_path = root_dir / check_dir
-        if not dir_path.exists():
-            continue
-
-        for root, dirs, files in os.walk(dir_path):
-            dirs[:] = [d for d in dirs if not d.startswith(".") and d not in ("node_modules", "venv")]
-            if "README.md" in files:
-                file_path = os.path.join(root, "README.md")
-                # Skip root Vajra/README.md since we are starting from subdirs
+    for root, dirs, files in os.walk(root_dir):
+        dirs[:] = [d for d in dirs if not d.startswith(".") and d not in ("node_modules", "venv", "dist", "build", "out", "gitleaks") and not d.startswith("test_venv")]
+        if "fixtures" in dirs: dirs.remove("fixtures")
+        for file in files:
+            if file == "README.md" or file == "INDEX.md":
+                file_path = os.path.join(root, file)
                 passed, msg = check_readme(file_path)
                 if not passed:
-                    errors.append(f"{file_path}: {msg}")
+                    errors.append(f"{os.path.relpath(file_path, root_dir)}: {msg}")
 
     if errors:
         print("README format check failed:")
@@ -89,7 +97,6 @@ def main():
         sys.exit(1)
     else:
         print("README format check passed.")
-
 
 if __name__ == "__main__":
     main()

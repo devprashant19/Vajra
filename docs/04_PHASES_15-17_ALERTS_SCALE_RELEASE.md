@@ -11,7 +11,7 @@ Paste only the text under each **PROMPT** heading into Antigravity. Bring the ph
 ### PROMPT
 
 ```
-Read docs/MASTER_RULES.md, PROGRESS.md, DECISIONS.md, reports/PHASE_14_REPORT.md and
+Read docs/ENGINEERING_STANDARDS.md, PROGRESS.md, DECISIONS.md, reports/PHASE_14_REPORT.md and
 docs/KNOWN_REFERENCE_DEFECTS.md (the reference CAP "signature" was only a hash).
 
 OBJECTIVE
@@ -85,7 +85,7 @@ GATE
 ### PROMPT
 
 ```
-Read docs/MASTER_RULES.md, PROGRESS.md, DECISIONS.md, reports/PHASE_15_REPORT.md and all
+Read docs/ENGINEERING_STANDARDS.md, PROGRESS.md, DECISIONS.md, reports/PHASE_15_REPORT.md and all
 files in reports/bench/.
 
 OBJECTIVE
@@ -165,7 +165,7 @@ GATE
 ### PROMPT
 
 ```
-Read docs/MASTER_RULES.md, PROGRESS.md, DECISIONS.md and every reports/PHASE_*_REPORT.md.
+Read docs/ENGINEERING_STANDARDS.md, PROGRESS.md, DECISIONS.md and every reports/PHASE_*_REPORT.md.
 
 OBJECTIVE
 Produce the final, honest scientific evidence, the complete documentation set in the

@@ -1,5 +1,11 @@
 # Release Report (v0.1-sih-submission)
 
+**Origin**: NEW
+**Created**: 2026-10-01
+**Status**: IMPLEMENTED
+
+[<- Back to Index](../docs/INDEX.md)
+
 ## 1. Privacy & Security
 - **Gitleaks Scan**: ONE leak found in history. `tests/fixtures/REAL/imerg/response.txt` contains an `earthdata` OAuth `client_id` (Rule: `generic-api-key`). This is a public OAuth client ID for NASA API and not a secret.
 - **Tracked Files > 2MB**: PASS.

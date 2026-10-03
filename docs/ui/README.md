@@ -1,16 +1,16 @@
-# API Docs
+# UI Assets
 
 **Origin**: NEW
 **Created**: 2026-10-01
 **Status**: IMPLEMENTED
 
-OpenAPI schemas and API notes.
+Screenshots and design resources.
 
 ## Contents
 
-### `openapi.yaml`
+### `screenshots/`
 **Verdict**: NEW
-REST API spec.
+Images for README.
 
 ## Usage Restrictions
 Internal documentation.

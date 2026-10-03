@@ -1,16 +1,33 @@
-﻿# vajra-geo Module
+# Vajra Geo
 
 **Origin**: NEW
 **Created**: 2026-10-01
+**Status**: IMPLEMENTED
+
+Geospatial utilities, coordinate referencing, and bounding box math.
+
+## Overview
+
+Functions for lat/lon conversions to radar grids. See ADR-003 for grid/CRS facts.
+
+## Usage examples
+
+```python
+<!-- skip-check -->
+import vajra
+print("Package loaded successfully.")
+```
+
+## Testing
+
+Uses `pytest` for contract testing.
 
 ## Contents
 
-### src/ (0 lines)
-- **Verdict**: NEW — placeholder
-- **Purpose**: Core logic for vajra-geo
-- **Inputs / Outputs**: N/A
-- **Tests**: None yet
-- **Note**: Scaffolded in Phase 1
+### `src/`
+**Verdict**: NEW
+Geo math logic.
 
 ## Usage Restrictions
-Built for Vajra platform.
+
+For demonstration use only.

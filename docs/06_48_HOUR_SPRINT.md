@@ -1,6 +1,6 @@
 # Vajra 48-Hour Sprint
 
-**Purpose**: The deadline is two days away, so the 17-phase schedule is replaced by four parallel sprints. They produce a working, polished, honest demo: a replay-driven platform where every number is labelled by its origin. Save this file as `docs/06_48_HOUR_SPRINT.md`. It overrides `docs/05_BUILD_FIRST_MODE.md` and the phase prompts wherever they conflict. The honesty rules in `docs/MASTER_RULES.md` and section 2 of `docs/05_BUILD_FIRST_MODE.md` stay in force.
+**Purpose**: The deadline is two days away, so the 17-phase schedule is replaced by four parallel sprints. They produce a working, polished, honest demo: a replay-driven platform where every number is labelled by its origin. Save this file as `docs/06_48_HOUR_SPRINT.md`. It overrides `docs/05_BUILD_FIRST_MODE.md` and the phase prompts wherever they conflict. The honesty rules in `docs/ENGINEERING_STANDARDS.md` and section 2 of `docs/05_BUILD_FIRST_MODE.md` stay in force.
 
 ---
 
@@ -25,7 +25,7 @@
 ### PROMPT
 
 ```
-Read docs/MASTER_RULES.md, docs/05_BUILD_FIRST_MODE.md and docs/06_48_HOUR_SPRINT.md. This is Sprint A.
+Read docs/ENGINEERING_STANDARDS.md, docs/05_BUILD_FIRST_MODE.md and docs/06_48_HOUR_SPRINT.md. This is Sprint A.
 The deadline is in two days; work fast, commit after each step, do not push, do not create tags.
 
 STEP 0 (30 minutes at most): CLEANUP AND MERGES
@@ -104,7 +104,7 @@ critical path.
 ### PROMPT
 
 ```
-Read docs/MASTER_RULES.md, docs/05_BUILD_FIRST_MODE.md, docs/06_48_HOUR_SPRINT.md, and the Phase 12-14
+Read docs/ENGINEERING_STANDARDS.md, docs/05_BUILD_FIRST_MODE.md, docs/06_48_HOUR_SPRINT.md, and the Phase 12-14
 sections of docs/03_PHASES_10-14_ETA_BACKEND_UI.md (design language and screens). This is Sprint B. The
 deadline is in two days. Work only in the track-b-ui worktree; commit after each priority; do not push;
 no tags. The connection is slow: install dependencies once and reuse the pnpm store. Verify the latest
@@ -161,7 +161,7 @@ docs/ui/screenshots/, test counts, and the build output size. Stop after P6 or w
 ### PROMPT
 
 ```
-Read docs/MASTER_RULES.md, docs/05_BUILD_FIRST_MODE.md, docs/06_48_HOUR_SPRINT.md, docs/api/openapi.json
+Read docs/ENGINEERING_STANDARDS.md, docs/05_BUILD_FIRST_MODE.md, docs/06_48_HOUR_SPRINT.md, docs/api/openapi.json
 (tag contract-v1) and the Phase 11 and 15 sections of the playbook. This is Sprint C. The deadline is in
 two days. Work in the track-c-platform worktree; commit after each step; do not push; no tags.
 
@@ -201,7 +201,7 @@ DELIVERABLE: reports/SPRINT_C_REPORT.md with PASS/FAIL per step and pasted evide
 ### PROMPT
 
 ```
-Read docs/MASTER_RULES.md, docs/05_BUILD_FIRST_MODE.md, docs/06_48_HOUR_SPRINT.md and the reports of
+Read docs/ENGINEERING_STANDARDS.md, docs/05_BUILD_FIRST_MODE.md, docs/06_48_HOUR_SPRINT.md and the reports of
 Sprints A-C. This is Sprint D. Commit often, no push, no tags.
 
 1. REAL DATA PANEL (data for the "Real data" page; everything labelled REAL with source and limits):
@@ -211,7 +211,7 @@ Sprints A-C. This is Sprint D. Commit often, no push, no tags.
    c) at most two tiny real pulls (Open-Meteo or ERA5 and IMERG) for events whose citations resolved,
       each with a data-template README.
    Write them as JSON/PNG into demo/real/ and tell Sprint B's UI the schema.
-2. DOCS in the project format (templates in docs/MASTER_RULES.md section 4): root README.md (what Vajra is,
+2. DOCS in the project format (templates in docs/ENGINEERING_STANDARDS.md section 4): root README.md (what Vajra is,
    an honest status table with IMPLEMENTED / DEMONSTRATED (simulated) / DESIGNED / NOT STARTED per
    capability, quick start for `just demo`, layout), ARCHITECTURE.md (Mermaid diagrams: the target
    national architecture, and a separate diagram of what runs in the demo), ADRs updated, a README.md in
@@ -252,4 +252,4 @@ Say: Vajra is a working end-to-end prototype: a replay-driven platform with trac
 Do not say: that the model is accurate or validated, that hail, downburst or cloudburst outputs are verified, that the scale design has been load-tested at national level, or that a simulated scenario is an observation.
 
 ## Usage Restrictions
-This plan changes scope and order only. It does not relax the honesty, licence, secrecy or safety rules in `docs/MASTER_RULES.md`.
+This plan changes scope and order only. It does not relax the honesty, licence, secrecy or safety rules in `docs/ENGINEERING_STANDARDS.md`.

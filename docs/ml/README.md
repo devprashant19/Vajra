@@ -1,16 +1,16 @@
-# API Docs
+# ML Documentation
 
 **Origin**: NEW
 **Created**: 2026-10-01
-**Status**: IMPLEMENTED
+**Status**: DESIGNED
 
-OpenAPI schemas and API notes.
+ML design documents.
 
 ## Contents
 
-### `openapi.yaml`
+### `architecture.md`
 **Verdict**: NEW
-REST API spec.
+ML pipeline layout.
 
 ## Usage Restrictions
 Internal documentation.

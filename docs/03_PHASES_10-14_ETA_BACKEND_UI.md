@@ -11,7 +11,7 @@ Paste only the text under each **PROMPT** heading into Antigravity. Bring the ph
 ### PROMPT
 
 ```
-Read docs/MASTER_RULES.md, PROGRESS.md, DECISIONS.md and reports/PHASE_9_REPORT.md.
+Read docs/ENGINEERING_STANDARDS.md, PROGRESS.md, DECISIONS.md and reports/PHASE_9_REPORT.md.
 
 OBJECTIVE
 Build the signature feature: for every tracked cell and every location or asset, produce
@@ -77,7 +77,7 @@ GATE
 ### PROMPT
 
 ```
-Read docs/MASTER_RULES.md, PROGRESS.md, DECISIONS.md and reports/PHASE_10_REPORT.md.
+Read docs/ENGINEERING_STANDARDS.md, PROGRESS.md, DECISIONS.md and reports/PHASE_10_REPORT.md.
 
 OBJECTIVE
 Expose everything through a scalable, versioned, secure API with real-time push and map
@@ -153,7 +153,7 @@ The UI is judged by looking at it. This phase sets the design system and the mai
 ### PROMPT
 
 ```
-Read docs/MASTER_RULES.md, PROGRESS.md, DECISIONS.md and reports/PHASE_11_REPORT.md.
+Read docs/ENGINEERING_STANDARDS.md, PROGRESS.md, DECISIONS.md and reports/PHASE_11_REPORT.md.
 
 OBJECTIVE
 Build apps/web foundations: a distinctive design system and the interactive command map
@@ -245,7 +245,7 @@ GATE
 ### PROMPT
 
 ```
-Read docs/MASTER_RULES.md, PROGRESS.md, DECISIONS.md, reports/PHASE_12_REPORT.md and
+Read docs/ENGINEERING_STANDARDS.md, PROGRESS.md, DECISIONS.md, reports/PHASE_12_REPORT.md and
 docs/ui/DESIGN_SYSTEM.md.
 
 OBJECTIVE
@@ -317,7 +317,7 @@ GATE
 ### PROMPT
 
 ```
-Read docs/MASTER_RULES.md, PROGRESS.md, DECISIONS.md, reports/PHASE_13_REPORT.md and
+Read docs/ENGINEERING_STANDARDS.md, PROGRESS.md, DECISIONS.md, reports/PHASE_13_REPORT.md and
 docs/THIRD_PARTY.md (i18n licence status).
 
 OBJECTIVE
