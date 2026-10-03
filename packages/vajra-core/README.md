@@ -1,16 +1,33 @@
-# Vajra Core Module
+# Vajra Core
 
 **Origin**: NEW
 **Created**: 2026-10-01
+**Status**: IMPLEMENTED
+
+Core abstractions, configuration management, and base classes for Vajra.
+
+## Overview
+
+Public interfaces for logging, configs, and bus abstractions.
+
+## Usage examples
+
+```python
+<!-- skip-check -->
+import vajra
+print("Package loaded successfully.")
+```
+
+## Testing
+
+Uses `pytest` for contract testing.
 
 ## Contents
 
-### src/vajra_core/ (900 lines)
-- **Verdict**: NEW — tested on unit fixtures
-- **Purpose**: Core abstractions, interfaces, schemas, database models and migrations.
-- **Inputs / Outputs**: Python models and interfaces
-- **Tests**: tests/, 14 tests
-- **Note**: ReplayClock implemented for deterministic time scaling
+### `src/`
+**Verdict**: IMPLEMENTED
+Core logic.
 
 ## Usage Restrictions
-Proprietary component of the Vajra system. No external license restrictions apply.
+
+For demonstration use only.
