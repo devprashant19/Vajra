@@ -59,8 +59,8 @@ In this phase, we completed a comprehensive audit of all external data sources, 
 - Clustered options table for final training set:
 | Option | Files | Size | Strategy |
 |---|---|---|---|
-| Option A | 12 | ~4.1 GB | Clean map to 3 hazard classes across distinct chunks. |
-| Option B | 6 | ~2.0 GB | Optimizing for chunk layout (same 12 events clustered by month). |
+| Option A | 12 | ~4.1 GB (ESTIMATE-UNVERIFIED) | Clean map to 3 hazard classes across distinct chunks. |
+| Option B | 6 | ~2.0 GB (ESTIMATE-UNVERIFIED) | Optimizing for chunk layout (same 12 events clustered by month). |
 - Total bulk download (5.7 GB) deferred to background/Track D.
 
 ### 5. Remote Runbook & Extract Proof
