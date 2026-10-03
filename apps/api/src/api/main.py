@@ -1,20 +1,24 @@
+
 import json
 import os
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 import uuid
+from datetime import datetime, timedelta
 
 from fastapi import FastAPI, HTTPException, Request, Response, Depends, status, WebSocket
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel
 from .models import *
+from .cap import generate_cap, validate_cap, dispatch_webhook, add_audit, verify_audit, ALERTS_DB
+import api.cap as cap_module
 
 app = FastAPI(title="Vajra API", version="1.0.0")
 
 EXAMPLES_DIR = Path(__file__).resolve().parent.parent.parent.parent.parent / "docs" / "api" / "examples"
 BUNDLES_DIR = Path(__file__).resolve().parent.parent.parent.parent.parent / "demo" / "bundles"
 
-# Determine active scenario (pick first simulated one if available)
 active_scenario = None
 source_in_use = "examples"
 
@@ -31,8 +35,6 @@ def load_data(endpoint: str) -> Dict[str, Any]:
         if bundle_file.exists():
             with open(bundle_file, "r", encoding="utf-8") as f:
                 return json.load(f)
-    # Fallback to examples
-    # In examples, the files are singular (e.g. cell.json, eta.json)
     example_name = endpoint
     if endpoint == "cells": example_name = "cell"
     if endpoint == "etas": example_name = "eta"
@@ -57,6 +59,9 @@ def add_provenance(data: Dict[str, Any]) -> Dict[str, Any]:
 
 @app.middleware("http")
 async def add_request_id(request: Request, call_next):
+    if cap_module.KILL_SWITCH_ACTIVE and "kill-switch" not in request.url.path:
+        return JSONResponse(status_code=503, content={"detail": "Kill switch is active"})
+    
     req_id = str(uuid.uuid4())
     response = await call_next(request)
     response.headers["X-Request-ID"] = req_id
@@ -81,10 +86,6 @@ def get_cells(page: int = 1, size: int = 100) -> Dict[str, Any]:
     except:
         return add_provenance({"items": [], "total": 0, "page": page, "size": size})
 
-@app.get("/v1/cells/{id}")
-def get_cell(id: str) -> Dict[str, Any]:
-    return add_provenance(load_data("cells"))
-
 @app.get("/v1/eta")
 def get_etas(page: int = 1, size: int = 100) -> Dict[str, Any]:
     try:
@@ -95,45 +96,6 @@ def get_etas(page: int = 1, size: int = 100) -> Dict[str, Any]:
     except:
         return add_provenance({"items": [], "total": 0, "page": page, "size": size})
 
-@app.get("/v1/locations/{id}/eta")
-def get_location_eta(id: str) -> Dict[str, Any]:
-    return add_provenance(load_data("eta"))
-
-@app.get("/v1/hazards")
-def get_hazards() -> Dict[str, Any]:
-    try:
-        data = load_data("hazards")
-        if isinstance(data, list): return add_provenance({"items": data})
-        return add_provenance(data)
-    except:
-        return add_provenance({"items": []})
-
-@app.get("/v1/alerts")
-def list_alerts(page: int = 1, size: int = 100) -> Dict[str, Any]:
-    try:
-        data = load_data("alerts_drafts")
-        if isinstance(data, list):
-            return add_provenance({"items": data, "total": len(data), "page": page, "size": size})
-        return add_provenance({"items": [data], "total": 1, "page": page, "size": size})
-    except:
-        try:
-            data = load_data("alerts")
-            return add_provenance({"items": [data], "total": 1, "page": page, "size": size})
-        except:
-            return add_provenance({"items": [], "total": 0, "page": page, "size": size})
-
-@app.post("/v1/alerts")
-def create_alert() -> Dict[str, Any]:
-    return add_provenance(load_data("alerts"))
-
-@app.post("/v1/alerts/{id}/approve")
-def approve_alert(id: str) -> Dict[str, Any]:
-    return add_provenance(load_data("alerts"))
-
-@app.post("/v1/alerts/{id}/cancel")
-def cancel_alert(id: str) -> Dict[str, Any]:
-    return add_provenance(load_data("alerts"))
-
 @app.get("/v1/verification")
 def get_verification(scenario: str = "") -> Dict[str, Any]:
     if scenario and BUNDLES_DIR.exists():
@@ -143,13 +105,73 @@ def get_verification(scenario: str = "") -> Dict[str, Any]:
                 return add_provenance(json.load(f))
     return add_provenance({"metrics": [], "simulated_not_evidence": True})
 
-@app.get("/v1/models")
-def get_models() -> Dict[str, Any]:
-    return add_provenance({"items": [{"name": "baseline", "skilful": "unknown"}]})
+# --- ALERTS & WORKFLOW ---
+class AlertDraft(BaseModel):
+    cell_id: str
+    severity: str
+    skilful: str = "true"
+    admin_reason: Optional[str] = None
+    replay_time: str = ""
 
-@app.get("/v1/thresholds")
-def get_thresholds() -> Dict[str, Any]:
-    return add_provenance({"items": []})
+@app.post("/v1/alerts/kill-switch")
+def toggle_kill_switch(active: bool):
+    cap_module.KILL_SWITCH_ACTIVE = active
+    add_audit("toggle_kill_switch", "admin", "global", {"active": active})
+    return {"kill_switch": active}
+
+@app.post("/v1/alerts")
+def create_alert(draft: AlertDraft):
+    if draft.skilful != "true" and not draft.admin_reason:
+        raise HTTPException(status_code=400, detail="Admin reason required when skilful is not true")
+    
+    # Dedup logic under ReplayClock (20 mins)
+    for existing in ALERTS_DB.values():
+        if existing["cell_id"] == draft.cell_id and existing["status"] in ["pending", "approved", "dispatched"]:
+            t_exist = datetime.fromisoformat(existing["replay_time"].replace("Z", "+00:00"))
+            t_new = datetime.fromisoformat(draft.replay_time.replace("Z", "+00:00"))
+            if abs((t_new - t_exist).total_seconds()) < 1200:
+                raise HTTPException(status_code=409, detail="Duplicate alert within 20 minutes")
+    
+    alert_id = str(uuid.uuid4())
+    ALERTS_DB[alert_id] = {
+        "id": alert_id,
+        "cell_id": draft.cell_id,
+        "status": "pending",
+        "severity": draft.severity,
+        "skilful": draft.skilful,
+        "replay_time": draft.replay_time,
+        "provenance": {"status": "simulated"}
+    }
+    add_audit("draft", "forecaster", alert_id, draft.dict())
+    return add_provenance(ALERTS_DB[alert_id])
+
+@app.post("/v1/alerts/{id}/approve")
+def approve_alert(id: str):
+    if id not in ALERTS_DB: raise HTTPException(404)
+    if ALERTS_DB[id]["status"] != "pending": raise HTTPException(400, "Can only approve pending alerts")
+    ALERTS_DB[id]["status"] = "approved"
+    add_audit("approve", "admin", id, {})
+    
+    # Generate CAP & Validate
+    xml = generate_cap(id, "vajra-system", ALERTS_DB[id]["replay_time"] or "2026-01-01T00:00:00Z", "Actual", "Alert", "Public")
+    if not validate_cap(xml):
+        raise HTTPException(500, "CAP validation failed")
+    
+    dispatch_webhook(xml)
+    ALERTS_DB[id]["status"] = "dispatched"
+    add_audit("dispatch", "system", id, {"xml": xml.decode()})
+    return ALERTS_DB[id]
+
+@app.post("/v1/alerts/{id}/cancel")
+def cancel_alert(id: str):
+    if id not in ALERTS_DB: raise HTTPException(404)
+    ALERTS_DB[id]["status"] = "cancelled"
+    add_audit("cancel", "admin", id, {})
+    return ALERTS_DB[id]
+
+@app.get("/v1/audit/verify")
+def get_audit_verify():
+    return {"valid": verify_audit()}
 
 @app.websocket("/v1/stream")
 async def websocket_endpoint(websocket: WebSocket):
@@ -158,7 +180,6 @@ async def websocket_endpoint(websocket: WebSocket):
     try:
         while True:
             data = await websocket.receive_text()
-            # Echo back a dummy state change based on input for replay control
             parsed = json.loads(data)
             if parsed.get("action") in ["start", "pause", "seek", "speed"]:
                 await websocket.send_json({"type": "replay.state", "state": parsed.get("action"), "sequence": 2})
@@ -167,6 +188,5 @@ async def websocket_endpoint(websocket: WebSocket):
     except:
         pass
 
-# Serve immutable layer URLs
 if BUNDLES_DIR.exists():
     app.mount("/v1/frames", StaticFiles(directory=str(BUNDLES_DIR)), name="frames")
