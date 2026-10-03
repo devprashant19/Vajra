@@ -23,3 +23,7 @@ Evidence: `uv run pytest tests/` completed successfully with 3 passed.
 ## 6. DEMO PROFILE - PASS
 Docker Compose profiles `demo` added for API and Web services. Target `demo:` added to `justfile`.
 Evidence: `docker-compose.yml` updated, `justfile` updated.
+
+## 7. DOCS - PASS
+API README, Alert Governance, Human Oversight, Threat Model, and SOPs (Source Outage, False Alarm) have been added to the `docs/` folder.
+Evidence: `docs/api/README.md`, `docs/ops/ALERT_GOVERNANCE.md`, `docs/ops/HUMAN_OVERSIGHT.md`, `docs/ops/THREAT_MODEL.md`, `docs/ops/SOP_SOURCE_OUTAGE.md`, `docs/ops/SOP_FALSE_ALARM.md` were created.
