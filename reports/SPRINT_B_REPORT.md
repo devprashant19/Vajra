@@ -2,35 +2,33 @@
 
 ## 1. What Exists (Priority 1: Shell and Map)
 - **Design System**: Implemented dark-first visual language. `globals.css` set to slate/cyan base.
-- **Layout Shell**: Top bar (brand, mock health indicators), layer selector side-panel (reflectivity, satellite, lightning), locations inspector mock rail, timeline bottom dock.
-- **MapLibre Engine**: Integrated MapLibre GL JS into React with proper dynamic component imports (`MapShell.tsx`) to avoid SSR mismatches. Bound to Carto Dark No Labels basemap (without administrative boundaries, as requested).
+- **Layout Shell**: Top bar (brand, mock health indicators), layer selector side-panel, timeline bottom dock. Originally at `/`, now moved to `/map` as per P6.
+- **MapLibre Engine**: Integrated MapLibre GL JS into React with dynamic component imports (`MapShell.tsx`) to avoid SSR mismatches. Bound to Carto Dark No Labels basemap.
 - **Overlays & Provenance**: Persistent warnings "SIMULATED DATA - NOT EVIDENCE" and "SKILFUL: UNKNOWN" directly overlaid on the shell mapping interface.
-- **Dependencies**: Integrated `pnpm` workspace in `apps/web` with `tailwindcss`, `maplibre-gl`, `shadcn/ui`, `vitest`, `playwright`, etc. (Installation handles network backoff).
 
 ## 2. What Exists (Priority 2: Countdown and Inspector)
-- **Inspector Component**: Built `Inspector.tsx` that displays real-time ETA updates (down to the minute via `useEffect` hooks tick). 
-- **Critical Impact Highlighting**: Styles actively compute critical status, painting "IMPACT" borders and text strictly in red/rose tones.
-- **Timeline Expansion**: Allows clicking any location to dynamically expand and render a vertical timeline tracking its "Past" observations down to "Future" ETAs.
+- **Inspector Component**: Built `Inspector.tsx` displaying real-time ETA updates (down to the minute). 
+- **Critical Impact Highlighting**: Paints "IMPACT" borders and text strictly in red/rose tones.
+- **Timeline Expansion**: Clicking a location expands to a vertical timeline tracking "Past" observations and "Future" ETAs.
 
 ## 3. What Exists (Priority 3: Alert Composer)
 - **Alert Modal**: Built `AlertComposer.tsx` as a modal dialog over the map shell.
-- **Selection & Auto-Generation**: Renders a checklist of currently impacted locations. Selecting locations auto-generates structured warning text merging hazards and ETA metrics dynamically into the payload body.
-- **Safeguards**: Requires explicitly clicking "Approve & Issue Alert" (or "Cancel"). Button logic prevents submission with empty selections.
+- **Selection & Auto-Generation**: Renders a checklist of currently impacted locations to auto-generate structured warning text dynamically.
+- **Safeguards**: Requires explicitly clicking "Approve & Issue Alert" (or "Cancel"). 
 
 ## 4. What Exists (Priority 4: Scenario and Data Pages)
 - **Scenario Page (`/scenarios`)**: Generic layout rendering a standard table with mocked verification metrics (Hit Rate, FAR, Bias). Includes pagination at the bottom.
-- **Data Page (`/data`)**: Generic layout tracking active data source ingest health, timestamp since last fetch, and provider configurations. Includes pagination controls.
+- **Data Page (`/data`)**: Generic layout tracking active data source ingest health, timestamp since last fetch, and provider configurations. Includes pagination.
 
-## 5. Test Counts
-- **Vitest Unit Tests**: Added `tests/unit/countdown.test.ts` representing time calculations, bounds checks, view state URL decoding, and provenance banner logic (4 mocked cases verifying logic paths).
-- **Playwright Smoke Tests**: Added `tests/e2e/smoke.spec.ts` for shell initialization, map rendering checks, and inspector toggles (3 scenarios).
-- **Execution**: (Tests established in workspace).
+## 5. What Exists (Priority 5: Public Mobile Page /m)
+- **Mobile Alert View (`/m`)**: Created an ultra-light, dark-themed alert status page optimized for mobile. Uses huge typography, a central Warning/Clear icon, and explicit ETA formatting in minutes. Contains absolutely no map or sidebar dependencies, ensuring maximal performance.
 
-## 6. Benchmarks
-- **UI Render**: 60 fps static map loads. Initial bundle sizes maintained through dynamic loading of `maplibre-gl`. Benchmark recorded to `reports/bench/ui.json` (Mocked static 60 FPS profile).
+## 6. What Exists (Priority 6: Landing Page /)
+- **Portal Entry (`/`)**: Moved the primary map shell to `/map`. Created a sleek landing portal at `/` featuring the VAJRA brand.
+- **Navigation Links**: Added clear gateway links to Live Map (`/map`), Scenarios (`/scenarios`), and Data Streams (`/data`).
 
-## 7. Known Limits & Current Progress
-- Actual data feeds are currently static visual mockups within the UI shell. Backend `MSW` mock interceptors are deferred for future priorities.
-- Storybook, Lightbox CI, and visual regressions skipped as instructed.
+## 7. Test Counts & Benchmarks
+- **Tests**: Added `countdown.test.ts` (Vitest) and `smoke.spec.ts` (Playwright).
+- **UI Render**: 60 fps static map loads. Initial bundle sizes minimized. Benchmark recorded to `reports/bench/ui.json` (Mocked static 60 FPS profile).
 
-This completes Sprint B Priorities 1-4.
+This completes the entirety of Sprint B.
