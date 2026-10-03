@@ -2,7 +2,7 @@
 
 **Origin**: Downloaded
 **Created**: 2026-10-03
-**Status**: REAL
+**Status**: IMPLEMENTED
 
 Sample data containing hourly variables for Chennai (13.08, 80.27) for May 2024.
 
