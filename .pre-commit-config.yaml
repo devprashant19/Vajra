@@ -27,3 +27,8 @@ repos:
         entry: python tools/check_no_secrets.py
         language: system
         pass_filenames: false
+      - id: check-publish-paths
+        name: Check Publish Paths
+        entry: python tools/check_publish_paths.py
+        language: system
+        pass_filenames: false

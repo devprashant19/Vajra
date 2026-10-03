@@ -26,7 +26,7 @@
 | `data/reference/STORMTRACE/README.md` | 24 | Rewritten/Generated | PASS |
 | `demo/bundles/README.md` | 35 | Rewritten/Generated | PASS |
 | `demo/real/README.md` | 35 | Rewritten/Generated | PASS |
-| `docs/00_MASTER_RULES.md` | 238 | Kept | PASS |
+| `docs/00_ENGINEERING_STANDARDS.md` | 238 | Kept | PASS |
 | `docs/01_PHASES_01-04_FOUNDATION_AND_DATA.md` | 373 | Kept | PASS |
 | `docs/02_PHASES_05-09_FUSION_AND_ML.md` | 365 | Kept | PASS |
 | `docs/03_PHASES_10-14_ETA_BACKEND_UI.md` | 378 | Kept | PASS |
@@ -36,7 +36,7 @@
 | `docs/INDEX.md` | 40 | Rewritten/Generated | PASS |
 | `docs/KNOWN_REFERENCE_DEFECTS.md` | 11 | Kept | PASS |
 | `docs/LICENSE_DECISION.md` | 18 | Kept | PASS |
-| `docs/MASTER_RULES.md` | 243 | Kept | PASS |
+| `docs/ENGINEERING_STANDARDS.md` | 243 | Kept | PASS |
 | `docs/PROGRESS.md` | 20 | Kept | PASS |
 | `docs/THIRD_PARTY.md` | 11 | Kept | PASS |
 | `docs/adr/ADR-001-toolchain.md` | 31 | Kept | PASS |

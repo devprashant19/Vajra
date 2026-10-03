@@ -1,6 +1,6 @@
 # Vajra Master Rules
 
-**Purpose**: Standing rules for every Antigravity phase prompt. Save this file in the project root (the SIH_2026 workspace folder that already contains `_audit/` and `data/reference/`) as `docs/MASTER_RULES.md`. Every phase prompt begins with "Read docs/MASTER_RULES.md, PROGRESS.md and DECISIONS.md first."
+**Purpose**: Standing rules for every Antigravity phase prompt. Save this file in the project root (the SIH_2026 workspace folder that already contains `_audit/` and `data/reference/`) as `docs/ENGINEERING_STANDARDS.md`. Every phase prompt begins with "Read docs/ENGINEERING_STANDARDS.md, PROGRESS.md and DECISIONS.md first."
 
 **Project**: Vajra, a real-time convective-scale nowcasting platform for SIH 2026 problem 26084 (MoES / NCMRWF). It predicts thunderstorms, lightning, hail, downburst winds and cloudbursts for 0-6 hours at 1-3 km, fuses Doppler radar, INSAT-3D/3DR/3DS, lightning and NWP data, and shows hazard zones with live countdown clocks on an interactive GIS dashboard.
 
@@ -33,7 +33,7 @@
 - The basemap must not draw any country boundary layer. Boundaries come only from the verified Vajra boundary package. A test prevents adding any foreign fallback.
 
 ### 1.5 Working method for every phase
-1. Read `docs/MASTER_RULES.md`, `PROGRESS.md`, `DECISIONS.md`, and the latest `reports/PHASE_*_REPORT.md`.
+1. Read `docs/ENGINEERING_STANDARDS.md`, `PROGRESS.md`, `DECISIONS.md`, and the latest `reports/PHASE_*_REPORT.md`.
 2. Write `plans/PHASE_<N>_PLAN.md` (tasks, files, risks, test list) and show it. Continue unless a blocking question exists.
 3. Implement in small commits (conventional commit messages). Write the tests together with the code, not afterwards.
 4. Run the full phase test list plus all earlier phases' fast tests (regression).
@@ -226,7 +226,7 @@ The human pastes the full report (plus logs of any FAIL) back to the architect, 
 
 ## 8. Resume and recovery prompts
 
-**Resume in a new conversation**: "Read docs/MASTER_RULES.md, PROGRESS.md, DECISIONS.md and the latest reports/PHASE_*_REPORT.md. Summarise the state in 15 lines, list the open gate items, then wait for my next instruction."
+**Resume in a new conversation**: "Read docs/ENGINEERING_STANDARDS.md, PROGRESS.md, DECISIONS.md and the latest reports/PHASE_*_REPORT.md. Summarise the state in 15 lines, list the open gate items, then wait for my next instruction."
 
 **Fix a failed gate**: "Gate item <X> of Phase <N> failed with this output: <paste>. Diagnose the root cause, add a regression test that fails first, fix it, rerun the full Phase <N> test list and all earlier fast tests, then update reports/PHASE_<N>_REPORT.md."
 
