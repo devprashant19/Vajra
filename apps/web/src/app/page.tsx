@@ -1,6 +1,12 @@
+'use client';
+import { useState } from 'react';
 import { MapShell } from '@/components/MapShell';
+import { Inspector } from '@/components/Inspector';
+import { AlertComposer } from '@/components/AlertComposer';
 
 export default function Page() {
+  const [composerOpen, setComposerOpen] = useState(false);
+
   return (
     <main className="flex h-screen w-full flex-col bg-slate-950 text-slate-50 dark">
       {/* Top Bar */}
@@ -16,6 +22,12 @@ export default function Page() {
         <div className="flex items-center gap-4 text-sm font-mono text-slate-300">
           <span>12:00:00 IST</span>
           <span>06:30:00 UTC</span>
+          <button 
+            onClick={() => setComposerOpen(true)}
+            className="rounded bg-red-900/40 px-3 py-1 text-xs border border-red-500/50 text-red-400 hover:bg-red-800/60 font-bold uppercase"
+          >
+            Issue Alert
+          </button>
           <button className="rounded bg-slate-800 px-3 py-1 text-xs uppercase hover:bg-slate-700">EN</button>
           <button className="rounded bg-slate-800 px-3 py-1 text-xs hover:bg-slate-700">Live</button>
         </div>
@@ -53,7 +65,7 @@ export default function Page() {
         </div>
 
         {/* Banners */}
-        <div className="pointer-events-none absolute left-0 top-0 flex w-full flex-col items-center justify-center p-4">
+        <div className="pointer-events-none absolute left-0 top-0 flex w-full flex-col items-center justify-center p-4 z-20">
            <div className="rounded-md bg-yellow-500/90 px-4 py-1 text-sm font-bold text-black shadow-lg backdrop-blur">
              SIMULATED DATA - NOT EVIDENCE
            </div>
@@ -65,31 +77,7 @@ export default function Page() {
         {/* Right Rail (Inspector / Countdown) */}
         <aside className="absolute right-4 top-4 z-10 w-80 rounded-xl border border-slate-800 bg-slate-900/80 p-4 shadow-xl backdrop-blur">
           <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-400">Locations</h2>
-          <div className="space-y-4">
-             {/* Dummy Countdown Item */}
-             <div className="flex items-center justify-between rounded-lg border border-red-900/50 bg-red-950/30 p-3">
-               <div>
-                 <div className="font-semibold text-red-400">Airport T1</div>
-                 <div className="text-xs text-slate-400">Cloudburst, Lightning</div>
-               </div>
-               <div className="text-right">
-                 <div className="font-mono text-xl text-red-400">12m</div>
-                 <div className="text-xs text-red-500/80">IMPACT</div>
-               </div>
-             </div>
-             
-             {/* Dummy Countdown Item 2 */}
-             <div className="flex items-center justify-between rounded-lg border border-orange-900/50 bg-orange-950/30 p-3">
-               <div>
-                 <div className="font-semibold text-orange-400">Downtown Substation</div>
-                 <div className="text-xs text-slate-400">Heavy Rain</div>
-               </div>
-               <div className="text-right">
-                 <div className="font-mono text-xl text-orange-400">45m</div>
-                 <div className="text-xs text-orange-500/80">APPROACHING</div>
-               </div>
-             </div>
-          </div>
+          <Inspector />
         </aside>
 
         {/* Timeline Dock */}
@@ -105,6 +93,7 @@ export default function Page() {
           <div className="font-mono text-sm text-cyan-400">Now</div>
         </div>
         
+        {composerOpen && <AlertComposer onClose={() => setComposerOpen(false)} />}
       </div>
       
       <style dangerouslySetInnerHTML={{__html: `
