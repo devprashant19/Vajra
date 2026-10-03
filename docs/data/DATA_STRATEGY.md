@@ -46,13 +46,13 @@ We combine two robust datasets to provide a ground-truth baseline for our 15 con
 - **Copernicus GLO-30 DEM:** Streamed on-the-fly from AWS public buckets, this provides high-resolution terrain context (elevation, relief, slope) crucial for understanding orographic lift in convective events.
 
 **Limitations:**
-- IMD data is daily and relatively coarse (~25 km resolution). It significantly understates localized, short-duration cloudbursts (e.g., Kedarnath, Amarnath, Leh).
+- IMD data is daily and relatively coarse (~25 km resolution). It significantly understates and cannot verify cloudbursts (which are an hourly, local phenomenon).
 - IMD gridded data for the most recent year may be incomplete or subject to retrospective updates.
 
 ### Events & Control Sets
 We maintain three distinct sets of event days to support training and measuring false alarm rates:
 1. **Gold Events:** `data/events/events.yaml` - Hand-verified, known extreme weather events (e.g. Kedarnath, Mumbai). Ground-truth.
-2. **Auto-Detected Events:** `data/benchmark/events_auto.csv` - Events automatically extracted from IMD gridded data where rainfall exceeded the "Very Heavy" threshold (115.6 mm/24h). These days are grouped into events, ranked by `max_rain_mm`, capped at a maximum of 3 events per 1x1 degree cell, and we keep the top 200. These expand our positive samples but are threshold-based and NOT verified against human reports (quality: `auto_detected`).
+2. **Auto-Detected Events:** `data/benchmark/events_auto.csv` - Events automatically extracted from IMD gridded data where rainfall exceeded the "Very Heavy" threshold (115.6 mm/24h). These days are grouped into events, ranked by `max_rain_mm`, capped at a maximum of 3 events per 1x1 degree cell, and we keep the top 200. These expand our positive samples but are threshold-based candidates, not cited events (quality: `auto_detected`).
 3. **Control Days:** `data/benchmark/controls.csv` - Negative samples. For each gold event, we sample 5 days from the same location and season (but different year) where rainfall was strictly below 2.5 mm, ensuring they are temporally isolated from any known event. These allow us to measure the False Alarm Rate (FAR).
 
 **Limitations:** 
@@ -68,4 +68,4 @@ We maintain three distinct sets of event days to support training and measuring 
 We enforce a strict classification for the `label_quality` of our 15 gold events:
 - **`strong`**: rain-driven, single location, and the IMD grid robustly captures the signal.
 - **`weak`**: rain-related but too local/short-duration for a 25 km daily grid (e.g. highly localized cloudbursts), or regional/multi-day events where one coordinate/cell is just a loose proxy.
-- **`context_only`**: the primary hazard is not fundamentally local rainfall (e.g., GLOF, lightning, dust storms, tornado/hail).
+- **`context_only`**: the primary hazard is not fundamentally local rainfall (e.g., GLOF, lightning, dust storms, tornado/hail). These context_only events are not rainfall hazards.

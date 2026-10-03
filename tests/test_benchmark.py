@@ -234,9 +234,10 @@ def test_control_day_minus_one():
     assert res["rain_3day_max"] == 3.0
 
 
+@pytest.mark.data
 def test_control_constraints():
     if not os.path.exists("data/benchmark/controls.csv"):
-        return
+        pytest.skip("Benchmark data not found locally. Run build_benchmark.py first.")
     df = pd.read_csv("data/benchmark/controls.csv")
     for pid, grp in df.groupby("parent_event_id"):
         # One control per year
