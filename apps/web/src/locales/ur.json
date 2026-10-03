@@ -1,0 +1,14 @@
+{
+  "_meta": {
+    "status": "machine-drafted"
+  },
+  "warning": "انتباہ",
+  "clear": "صاف",
+  "simulated": "SIMULATED DATA - NOT EVIDENCE",
+  "reliability": "SKILFUL: UNKNOWN - Forecast Reliability is Low",
+  "actions": [
+    "Seek shelter immediately.",
+    "Stay away from windows.",
+    "Do not use electrical equipment."
+  ]
+}
