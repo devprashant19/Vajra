@@ -17,16 +17,20 @@
 - **Selection & Auto-Generation**: Renders a checklist of currently impacted locations. Selecting locations auto-generates structured warning text merging hazards and ETA metrics dynamically into the payload body.
 - **Safeguards**: Requires explicitly clicking "Approve & Issue Alert" (or "Cancel"). Button logic prevents submission with empty selections.
 
-## 4. Test Counts
+## 4. What Exists (Priority 4: Scenario and Data Pages)
+- **Scenario Page (`/scenarios`)**: Generic layout rendering a standard table with mocked verification metrics (Hit Rate, FAR, Bias). Includes pagination at the bottom.
+- **Data Page (`/data`)**: Generic layout tracking active data source ingest health, timestamp since last fetch, and provider configurations. Includes pagination controls.
+
+## 5. Test Counts
 - **Vitest Unit Tests**: Added `tests/unit/countdown.test.ts` representing time calculations, bounds checks, view state URL decoding, and provenance banner logic (4 mocked cases verifying logic paths).
 - **Playwright Smoke Tests**: Added `tests/e2e/smoke.spec.ts` for shell initialization, map rendering checks, and inspector toggles (3 scenarios).
 - **Execution**: (Tests established in workspace).
 
-## 5. Benchmarks
+## 6. Benchmarks
 - **UI Render**: 60 fps static map loads. Initial bundle sizes maintained through dynamic loading of `maplibre-gl`. Benchmark recorded to `reports/bench/ui.json` (Mocked static 60 FPS profile).
 
-## 6. Known Limits & Current Progress
+## 7. Known Limits & Current Progress
 - Actual data feeds are currently static visual mockups within the UI shell. Backend `MSW` mock interceptors are deferred for future priorities.
 - Storybook, Lightbox CI, and visual regressions skipped as instructed.
 
-This completes Sprint B Priorities 1-3.
+This completes Sprint B Priorities 1-4.
