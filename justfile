@@ -35,3 +35,7 @@ down:
 
 clean:
     rm -rf build dist .pytest_cache .mypy_cache .ruff_cache
+
+demo:
+    docker compose --profile demo up -d
+
