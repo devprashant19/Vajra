@@ -1,0 +1,24 @@
+[project]
+name = "api"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Dev Prashant", email = "dev.prashant1901@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.142.2",
+    "python-jose>=3.5.0",
+    "signxml>=5.1.0",
+    "uvicorn[standard]>=0.54.0",
+    "websockets>=17.1",
+    "xmlschema>=4.3.2",
+]
+
+[project.scripts]
+api = "api:main"
+
+[build-system]
+requires = ["uv_build>=0.12.21,<0.13.0"]
+build-backend = "uv_build"
