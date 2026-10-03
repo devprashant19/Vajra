@@ -1,16 +1,6 @@
-# Vajra API Documentation
+# API Documentation
+The `/v1` endpoints defined in `openapi.json` are now implemented via a FastAPI app (`apps/api`). 
+All responses return the `provenance` envelope ensuring that clients are aware if the data is simulated, and what engines were used.
 
-## REST API
-The REST API is documented in `openapi.json` and implements the core queries for cells, ETAs, alerts, and metadata.
-It relies on OIDC authentication (via Keycloak) and includes provenance envelopes on every response.
-
-## Tiles
-Tiles are available at `/v1/tiles/{layer}/{z}/{x}/{y}`. 
-URL scheme relies on immutable tile patterns keyed by `valid_time`. Caching headers (ETag, Cache-Control) are provided for CDN edge caching.
-
-## WebSocket and SSE Stream
-The stream endpoint at `/v1/stream` supports WebSocket and SSE.
-- **Heartbeat**: Every 15 seconds.
-- **Resume**: Provide `?last_sequence=<num>` when connecting.
-- **Envelope Schema**: Defined in `stream.schema.json`.
-- **Message Types**: `cell.updated`, `eta.updated`, `alert.issued`, `source.status`, `replay.state`.
+## Usage
+Start the api with `uv run uvicorn api.main:app` or via `docker compose --profile demo up`.
