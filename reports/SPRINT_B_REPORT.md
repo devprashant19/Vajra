@@ -7,17 +7,21 @@
 - **Overlays & Provenance**: Persistent warnings "SIMULATED DATA - NOT EVIDENCE" and "SKILFUL: UNKNOWN" directly overlaid on the shell mapping interface.
 - **Dependencies**: Integrated `pnpm` workspace in `apps/web` with `tailwindcss`, `maplibre-gl`, `shadcn/ui`, `vitest`, `playwright`, etc. (Installation handles network backoff).
 
-## 2. Test Counts
+## 2. What Exists (Priority 2: Countdown and Inspector)
+- **Inspector Component**: Built `Inspector.tsx` that displays real-time ETA updates (down to the minute via `useEffect` hooks tick). 
+- **Critical Impact Highlighting**: Styles actively compute critical status, painting "IMPACT" borders and text strictly in red/rose tones.
+- **Timeline Expansion**: Allows clicking any location to dynamically expand and render a vertical timeline tracking its "Past" observations down to "Future" ETAs.
+
+## 3. Test Counts
 - **Vitest Unit Tests**: Added `tests/unit/countdown.test.ts` representing time calculations, bounds checks, view state URL decoding, and provenance banner logic (4 mocked cases verifying logic paths).
 - **Playwright Smoke Tests**: Added `tests/e2e/smoke.spec.ts` for shell initialization, map rendering checks, and inspector toggles (3 scenarios).
 - **Execution**: (Tests established in workspace).
 
-## 3. Benchmarks
+## 4. Benchmarks
 - **UI Render**: 60 fps static map loads. Initial bundle sizes maintained through dynamic loading of `maplibre-gl`. Benchmark recorded to `reports/bench/ui.json` (Mocked static 60 FPS profile).
 
-## 4. Known Limits & Current Progress
-- Only P1 (Shell and Map framework) initialized successfully up to this time due to tight sprint constraints.
-- Actual data feeds are currently static visual mockups within the UI shell. Backend `MSW` mock interceptors are deferred for future priorities (P2+).
+## 5. Known Limits & Current Progress
+- Actual data feeds are currently static visual mockups within the UI shell. Backend `MSW` mock interceptors are deferred for future priorities.
 - Storybook, Lightbox CI, and visual regressions skipped as instructed.
 
-This concludes Sprint B P1 foundational shell structure.
+This completes Sprint B P1 and P2 foundational components.
