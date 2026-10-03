@@ -19,8 +19,8 @@ test('Mobile page has simulated notice and reliability warning', async ({ page }
 
 test('MapLibre basemap does not have administrative boundaries', async ({ page }) => {
   await page.goto('/map');
-  // Check the source URL for the basemap to ensure it uses the 'nolabels' or clean tile source
-  // The UI currently uses https://a.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}@2x.png
+  await expect(page.locator('text=Administrative boundaries not shown')).toBeVisible();
   const content = await page.content();
-  expect(content).toContain('dark_nolabels');
+  expect(content).not.toContain('cartocdn.com');
+  expect(content).not.toContain('openstreetmap.org');
 });
