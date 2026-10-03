@@ -59,7 +59,8 @@ line-length = 100
 [tool.uv.workspace]
 members = [
     "packages/*",
-    "services/*"
+    "services/*",
+    "apps/api",
 ]
 
 [dependency-groups]
