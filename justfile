@@ -39,3 +39,7 @@ clean:
 demo:
     docker compose --profile demo up -d
 
+bundles:
+    uv run python tools/write_bundles.py
+
+
