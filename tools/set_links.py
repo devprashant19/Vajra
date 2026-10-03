@@ -19,7 +19,7 @@ def main():
                 files_to_check.append(os.path.join(r, f))
                 
     # Also check E:\SIH_2026\README.md if possible
-    sih_readme = r"E:\SIH_2026\README.md"
+    sih_readme = os.environ.get("SIH_README_PATH", "../SIH_2026/README.md")
     if os.path.exists(sih_readme):
         files_to_check.append(sih_readme)
 

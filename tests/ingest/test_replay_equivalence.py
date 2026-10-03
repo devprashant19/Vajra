@@ -4,6 +4,8 @@ from datetime import datetime
 from services.ingest.connectors.radar import RadarConnector
 from services.ingest.replay import ReplaySource
 
+@pytest.mark.data
+@pytest.mark.skip(reason="Needs real data")
 @pytest.mark.anyio
 async def test_replay_equivalence():
     connector = RadarConnector()

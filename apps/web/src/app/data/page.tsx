@@ -27,6 +27,10 @@ export default function DataPage() {
         </button>
       </header>
 
+      <div className="mb-8 rounded-xl border border-yellow-800 bg-yellow-900/20 p-4 text-yellow-200">
+        <p><strong>Note:</strong> A real rendered radar replay exists in the internal build but is withheld from the public repository pending confirmation of redistribution terms.</p>
+      </div>
+
       <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-6">
         {loading ? (
           <div className="text-slate-400">Loading sources...</div>

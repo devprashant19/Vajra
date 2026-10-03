@@ -26,6 +26,8 @@ def test_open_meteo_connector():
     assert res.status == Status.live
     assert res.data.metadata["source"] == "Open-Meteo"
 
+@pytest.mark.data
+@pytest.mark.skip(reason="Needs real data")
 @pytest.mark.anyio
 async def test_radar_connector():
     connector = RadarConnector()
