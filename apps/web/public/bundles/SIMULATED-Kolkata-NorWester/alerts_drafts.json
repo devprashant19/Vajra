@@ -1,0 +1,370 @@
+[
+  {
+    "time": "2026-06-01T12:00:00",
+    "cell_id": "T_0000",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T12:00:00",
+    "cell_id": "T_0001",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T12:00:00",
+    "cell_id": "T_0002",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T12:10:00",
+    "cell_id": "T_0001",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T12:10:00",
+    "cell_id": "T_0002",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T12:10:00",
+    "cell_id": "T_0003",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T12:20:00",
+    "cell_id": "T_0001",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T12:20:00",
+    "cell_id": "T_0002",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T12:20:00",
+    "cell_id": "T_0004",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T12:30:00",
+    "cell_id": "T_0001",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T12:30:00",
+    "cell_id": "T_0002",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T12:30:00",
+    "cell_id": "T_0005",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T12:40:00",
+    "cell_id": "T_0001",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T12:40:00",
+    "cell_id": "T_0002",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T12:40:00",
+    "cell_id": "T_0006",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T12:50:00",
+    "cell_id": "T_0001",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T12:50:00",
+    "cell_id": "T_0002",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T12:50:00",
+    "cell_id": "T_0007",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T13:00:00",
+    "cell_id": "T_0001",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T13:00:00",
+    "cell_id": "T_0002",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T13:00:00",
+    "cell_id": "T_0008",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T13:10:00",
+    "cell_id": "T_0002",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T13:10:00",
+    "cell_id": "T_0008",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T13:10:00",
+    "cell_id": "T_0009",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T13:20:00",
+    "cell_id": "T_0002",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T13:20:00",
+    "cell_id": "T_0009",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T13:20:00",
+    "cell_id": "T_0010",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T13:30:00",
+    "cell_id": "T_0002",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T13:30:00",
+    "cell_id": "T_0010",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T13:30:00",
+    "cell_id": "T_0011",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T13:40:00",
+    "cell_id": "T_0002",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T13:40:00",
+    "cell_id": "T_0011",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T13:40:00",
+    "cell_id": "T_0012",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T13:50:00",
+    "cell_id": "T_0002",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T13:50:00",
+    "cell_id": "T_0012",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T13:50:00",
+    "cell_id": "T_0013",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T14:00:00",
+    "cell_id": "T_0002",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T14:00:00",
+    "cell_id": "T_0012",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T14:00:00",
+    "cell_id": "T_0014",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T14:10:00",
+    "cell_id": "T_0002",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T14:10:00",
+    "cell_id": "T_0015",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T14:20:00",
+    "cell_id": "T_0002",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T14:20:00",
+    "cell_id": "T_0015",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T14:30:00",
+    "cell_id": "T_0002",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T14:40:00",
+    "cell_id": "T_0002",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  },
+  {
+    "time": "2026-06-01T14:50:00",
+    "cell_id": "T_0002",
+    "severity": "Orange",
+    "hazards": [],
+    "status": "draft",
+    "method": "rule_based"
+  }
+]

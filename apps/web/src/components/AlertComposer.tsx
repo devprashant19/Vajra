@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { fetchApi } from '../lib/api';
 
 type Location = { id: string; name: string; hazards: string[]; etaMinutes: number | null };
 
@@ -9,8 +10,7 @@ export function AlertComposer({ onClose }: { onClose: () => void }) {
   const [locations, setLocations] = useState<Location[]>([]);
 
   React.useEffect(() => {
-    fetch('/v1/eta')
-      .then(res => res.json())
+    fetchApi('eta')
       .then(data => {
         if (data.items) {
           setLocations(data.items.map((i: any) => ({

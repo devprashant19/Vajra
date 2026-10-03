@@ -1,34 +1,40 @@
-# Vajra
+# Vajra (Nowcast System)
 
-Vajra is a rapidly prototyped, replay-driven nowcasting platform designed to process multi-source weather data (radar, satellite, lightning) to track storms, estimate hazards, compute ETAs, and distribute CAP-compliant alerts.
+Vajra is a rapidly prototyped nowcasting system tailored for high-resolution tracking and alerting of severe weather events across India. It ingests simulated radar, validates data, predicts storm tracks (optical flow), categorizes hazards (rule-based), and broadcasts warnings via CAP 1.2 standard.
 
-## Status
+**Status: Prototype running on SIMULATED scenarios; baseline engine; ML training pending.**
 
-| Capability | Status |
-|---|---|
-| Multi-source fusion layers | DEMONSTRATED (simulated) |
-| Early convective initiation | DEMONSTRATED (simulated) |
-| Lightning density / jump | DEMONSTRATED (simulated) |
-| Hail probability | DEMONSTRATED (simulated) |
-| Downburst gust estimate | DEMONSTRATED (simulated) |
-| Cloudburst threshold | DEMONSTRATED (simulated) |
-| Storm tracking & ETAs | IMPLEMENTED |
-| Interactive GIS dashboard | IMPLEMENTED |
-| CAP 1.2 XML alerts | IMPLEMENTED |
-| GPU batching & Zarr tiers | DESIGNED |
-| SEVIR extraction / ML models | NOT STARTED |
-| Kubernetes scaling | NOT STARTED |
+## Live Demo
+[Live Hosted Demo]({LIVE_URL})
+
+## Problem Statement Mapping
+
+| Requirement | What exists | Status | Where to see it |
+|---|---|---|---|
+| Radar ingestion & decode | Custom binary IMD decode with exact quantization | IMPLEMENTED | `services/ingest/connectors/radar.py` |
+| Real-time stream engine | Optical flow tracker, rule-based hazards | DEMONSTRATED (Simulated) | `demo/bundles/` and UI |
+| Sub-district alerts | CAP 1.2 compliant workflow, signing logic | IMPLEMENTED | `apps/api/src/api/cap.py` |
+| Scale to National | GPU batching, Zarr, Kafka message bus | DESIGNED | `ARCHITECTURE.md` |
+
+## Screenshots
+![Landing Page](docs/ui/screenshots/landing_page.png)
+![Map Timeline](docs/ui/screenshots/map_timeline.png)
+![Alert Composer](docs/ui/screenshots/alert_composer.png)
+![Mobile /m](docs/ui/screenshots/mobile_view.png)
 
 ## Quick Start
+```bash
+# Just run it
+just demo
 
-1. Install `uv`, `pnpm`, and `docker`.
-2. Run `just demo`.
-3. Open `http://localhost:3000` to view the UI.
-4. The API runs on `http://localhost:8000`.
+# Or without Docker:
+cd apps/api && uv run uvicorn src.api.main:app
+cd apps/web && pnpm dev
+```
 
-## Layout
-- `apps/api`: FastAPI backend and stream controllers.
-- `apps/web`: Next.js frontend with MapLibre & deck.gl.
-- `services`: Engine logic, hazard proxies, and simulation generators.
-- `demo/bundles`: Pre-generated payload sequences for scenarios.
-- `docs/`: Technical specifications, ADRs, and SOPs.
+## Documentation
+See [docs/INDEX.md](docs/INDEX.md) for the complete documentation map, and [ARCHITECTURE.md](ARCHITECTURE.md) for detailed design.
+
+## Licence & Team
+MIT Licence.
+Team: devprashant19 (SIH 2026, Problem 26084)

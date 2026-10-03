@@ -1,0 +1,27 @@
+1
+00:00:00,000 --> 00:00:15,000
+Welcome to Vajra, a high-resolution nowcasting prototype. What you're seeing today is a prototype running on SIMULATED scenarios using a baseline optical flow engine, with ML training pending.
+
+2
+00:00:15,000 --> 00:00:45,000
+Vajra ingests radar sweeps and computes storm movement. As we scrub the timeline, notice the simulated squall line approaching Kolkata.
+
+3
+00:00:45,000 --> 00:01:15,000
+By selecting a cell, we evaluate its hazard intensity. Here, rule-based logic estimates a Heavy Rain risk, computing the estimated time of arrival across a P10 to P90 probability window.
+
+4
+00:01:15,000 --> 00:01:45,000
+When thresholds are met, operators can draft an alert. The system generates a CAP 1.2 standard XML payload, ensuring interoperability with national disaster systems.
+
+5
+00:01:45,000 --> 00:02:15,000
+Citizens receive the final warning through a responsive mobile interface. It delivers clear impact windows and actionable safety guidelines, all driven by the baseline engine.
+
+6
+00:02:15,000 --> 00:02:45,000
+While our current engine is simulated, Vajra is built to process real data, demonstrated here with historical 2018 radar decoded natively and validated ERA5 convective parameters.
+
+7
+00:02:45,000 --> 00:03:00,000
+Try it yourself. Visit the live demo at our deployed URL to explore the prototype today.

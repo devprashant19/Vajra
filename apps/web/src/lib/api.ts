@@ -68,3 +68,18 @@ class StaticDataAdapter implements DataAdapter {
 export const api = process.env.NEXT_PUBLIC_STATIC_EXPORT === 'true' 
   ? new StaticDataAdapter() 
   : new ApiDataAdapter();
+
+export const fetchApi = async (endpoint: string) => {
+  const isStatic = process.env.NEXT_PUBLIC_STATIC_EXPORT === 'true';
+  const scenario = 'SIMULATED-Delhi-DustStorm'; // Default for static demo
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+  
+  let url = `${basePath}/v1/${endpoint}`;
+  if (isStatic) {
+    url = `${basePath}/bundles/${scenario}/${endpoint}.json`;
+  }
+  
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('API fetch failed');
+  return res.json();
+};

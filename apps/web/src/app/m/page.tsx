@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import { fetchApi } from '../../lib/api';
 
 // Translation dictionary
 const t = (key: string, lang: string) => {
@@ -20,8 +21,7 @@ export default function MobilePage() {
       navigator.serviceWorker.register('/sw.js');
     }
     // Fetch ETA from API
-    fetch('/v1/eta')
-      .then(res => res.json())
+    fetchApi('eta')
       .then(json => {
         if (json.items && json.items.length > 0) {
           const eta = json.items[0];

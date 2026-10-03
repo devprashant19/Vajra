@@ -1,0 +1,24 @@
+[build]
+  command = "cp -r ../../demo/bundles ./public/bundles && pnpm run build"
+  publish = "out"
+
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data:;"
+    X-Frame-Options = "DENY"
+
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/bundles/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

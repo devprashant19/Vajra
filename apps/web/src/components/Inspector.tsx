@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { fetchApi } from '../lib/api';
 
 type LocationImpact = {
   id: string;
@@ -16,8 +17,7 @@ export function Inspector() {
   // Simulate real-time ETA countdown
   useEffect(() => {
     const load = () => {
-      fetch('/v1/eta')
-        .then(res => res.json())
+      fetchApi('eta')
         .then(data => {
           if (data.items) {
             setLocations(data.items.map((i: any) => ({
