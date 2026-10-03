@@ -40,3 +40,8 @@ bundles:
     cmd /c "set PYTHONPATH=.&& uv run python tools/write_bundles.py"
 
 
+
+
+demo:
+    docker compose --profile demo up -d
+

@@ -1,0 +1,10 @@
+{
+    "type": "real_display_only",
+    "quality": "rendered",
+    "georeferenced": false,
+    "provenance": {
+        "status": "real",
+        "source": "IMD Radar",
+        "limits": "Rendered PNG previews, not georeferenced, single tilt"
+    }
+}

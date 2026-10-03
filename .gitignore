@@ -48,3 +48,5 @@ Thumbs.db
 venv_*/
 
 data/reference/SEVIR_CATALOG.csv
+apps/api/dev_key.pem
+apps/api/dev_cert.pem
