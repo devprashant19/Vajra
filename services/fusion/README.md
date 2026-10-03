@@ -1,16 +1,51 @@
-﻿# fusion Module
+# Fusion Service
 
 **Origin**: NEW
 **Created**: 2026-10-01
+**Status**: DESIGNED
+
+Designed to merge radar, satellite, and lightning data into a unified 3D weather grid.
+
+## Overview
+
+This service is part of the Vajra backend microservices architecture.
+
+## Inputs / Outputs
+
+**Inputs**: Radar, Satellite, Lightning streams.
+**Outputs**: Multi-modal Data Cube.
+
+## Algorithm
+
+Spatial-temporal interpolation onto a common 1km x 1km EPSG:4326 grid.
+
+## What is real versus simulated
+
+Currently DESIGNED. Not yet actively processing data in the demo.
+
+## Configuration
+
+| Variable | Description |
+|---|---|
+| `KAFKA_BROKERS` | Kafka connection string |
+
+## Commands
+
+```bash
+<!-- skip-check -->
+uv run python -m src.main
+```
+
+## Testing
+
+Uses `pytest` for unit testing logic.
 
 ## Contents
 
-### src/ (0 lines)
-- **Verdict**: NEW — placeholder
-- **Purpose**: Core logic for fusion
-- **Inputs / Outputs**: N/A
-- **Tests**: None yet
-- **Note**: Scaffolded in Phase 1
+### `src/`
+**Verdict**: NEW
+Initial stubs for fusion.
 
 ## Usage Restrictions
-Built for Vajra platform.
+
+For demonstration use only.
