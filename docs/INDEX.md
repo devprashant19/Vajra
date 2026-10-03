@@ -1,12 +1,40 @@
 # Documentation Index
 
-| File | Description | Status |
-|---|---|---|
-| `README.md` | Main entrypoint | IMPLEMENTED |
-| `ARCHITECTURE.md` | System design and technical specs | IMPLEMENTED |
-| `docs/ops/DEPLOYMENT.md` | Netlify/Vercel static deployment | IMPLEMENTED |
-| `docs/ops/NATIONAL_DESIGN.md` | National scaling assumptions | DESIGNED |
-| `reports/TRUTH_AUDIT.md` | Fabrication checks and mock removals | IMPLEMENTED |
-| `docs/api/schemas/README.md` | CAP 1.2 XSD origin tracking | IMPLEMENTED |
-| `docs/presentation/VIDEO_SCRIPT.md` | Pitch video script | IMPLEMENTED |
-| `reports/RELEASE_REPORT.md` | Release verification limits | IMPLEMENTED |
+**Origin**: NEW
+**Created**: 2026-10-01
+**Status**: IMPLEMENTED
+
+Complete table of documents with their status.
+
+## Contents
+
+### `adr/`
+**Verdict**: IMPLEMENTED
+Architecture Decision Records.
+
+### `api/`
+**Verdict**: IMPLEMENTED
+API schemas.
+
+### `ops/`
+**Verdict**: IMPLEMENTED
+Runbooks and SOPs.
+
+### `ml/`
+**Verdict**: DESIGNED
+ML docs.
+
+### `data/`
+**Verdict**: IMPLEMENTED
+Data schema descriptions.
+
+### `ui/`
+**Verdict**: IMPLEMENTED
+UI assets and screenshots.
+
+### `presentation/`
+**Verdict**: IMPLEMENTED
+Pitch deck and scripts.
+
+## Usage Restrictions
+Internal documentation.

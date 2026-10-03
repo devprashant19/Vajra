@@ -1,16 +1,16 @@
-# API Docs
+# Presentation Materials
 
 **Origin**: NEW
 **Created**: 2026-10-01
 **Status**: IMPLEMENTED
 
-OpenAPI schemas and API notes.
+Slide deck and script for pitch.
 
 ## Contents
 
-### `openapi.yaml`
+### `VIDEO_SCRIPT.md`
 **Verdict**: IMPLEMENTED
-REST API spec.
+Video script.
 
 ## Usage Restrictions
 Internal documentation.
