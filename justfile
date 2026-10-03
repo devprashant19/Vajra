@@ -35,3 +35,7 @@ down:
 
 clean:
     rm -rf build dist .pytest_cache .mypy_cache .ruff_cache
+
+bundles:
+    uv run python tools/write_bundles.py
+
