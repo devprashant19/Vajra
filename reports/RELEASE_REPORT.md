@@ -1,7 +1,7 @@
 # Release Report (v0.1-sih-submission)
 
 ## 1. Privacy & Security
-- **Gitleaks Scan**: PASS. Full history scanned using Gitleaks v8.18.2; no private keys or secrets found.
+- **Gitleaks Scan**: ONE leak found in history. `tests/fixtures/REAL/imerg/response.txt` contains an `earthdata` OAuth `client_id` (Rule: `generic-api-key`). This is a public OAuth client ID for NASA API and not a secret.
 - **Tracked Files > 2MB**: PASS.
   - `data/reference/SEVIR_CATALOG.csv.4405B3Ce` (32.27 MB)
   - `data/reference/SEVIR_VIS_STORMEVENTS_2018_1101_1130.h5` (1488.38 MB)
