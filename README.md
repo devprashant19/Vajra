@@ -17,10 +17,10 @@ Vajra is a rapidly prototyped nowcasting system tailored for high-resolution tra
 | Scale to National | GPU batching, Zarr, Kafka message bus | DESIGNED | `ARCHITECTURE.md` |
 
 ## Screenshots
-![Landing Page](docs/ui/screenshots/landing_page.png)
-![Map Timeline](docs/ui/screenshots/map_timeline.png)
-![Alert Composer](docs/ui/screenshots/alert_composer.png)
-![Mobile /m](docs/ui/screenshots/mobile_view.png)
+![Landing Page](docs/ui/screenshots/01-landing.png)
+![Map Timeline](docs/ui/screenshots/02-map-timeline.png)
+![Alert Composer](docs/ui/screenshots/05-alert-composer.png)
+![Mobile /m](docs/ui/screenshots/07-mobile-public.png)
 
 ## Quick Start
 ```bash

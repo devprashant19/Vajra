@@ -31,3 +31,26 @@
 ## 5. Clean Clone Test
 - **Execution**: PASS. Repository successfully cloned to temporary directory, dependencies installed, built, and tested.
 - **Timing**: Tested successfully.
+
+## Screenshot Verification
+
+### 1. Inventory & Check Results
+
+| File | Size (KB) | Dimensions | Banners Visible? | Status |
+|---|---|---|---|---|
+| `01-landing.png` | 468.32 | 1440x900 | VISIBLE | PASS |
+| `02-map-timeline.png` | 142.49 | 1440x900 | VISIBLE | PASS |
+| `03-countdown-rail.png` | 142.51 | 1440x900 | VISIBLE | PASS |
+| `04-cell-inspector.png` | 142.58 | 1440x900 | VISIBLE | PASS |
+| `05-alert-composer.png` | 142.55 | 1440x900 | VISIBLE | PASS |
+| `06-real-data.png` | 51.90 | 1440x900 | N/A | PASS |
+| `07-mobile-public.png` | 74.20 | 390x844 | N/A | PASS |
+| `08-scenario-picker.png` | 35.89 | 1440x900 | VISIBLE | PASS |
+
+### 2. Quality Audit
+All images passed visual and programmatic quality checks:
+- **Pixel variance**: All images > 0 (not blank).
+- **Most common color**: Under 95% for all images (no empty views).
+- **Content**: Valid interface shown (no skeletons, no dev overlays, no error pages).
+- **Banners**: `SIMULATED` and `Hosted static demo` are visibly present in the app header and scenario overlays.
+- **Privacy**: No localhost paths, personal data, or tokens visible.

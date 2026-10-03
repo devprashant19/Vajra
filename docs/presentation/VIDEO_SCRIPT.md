@@ -21,3 +21,22 @@
 
 ## Thumbnail Text
 Vajra (Nowcast) - SIH 2026 Prototype
+
+---
+
+**Length**: 5 Minutes
+**Settings**: 1920x1080, Browser 100% Zoom, Hide Notifications, Clean Desktop.
+**Checklist**:
+- [ ] Run `just demo` and start `apps/web` via Static Export.
+- [ ] Load SIMULATED-Vidarbha-Hail scenario.
+
+## 5-Minute Script & Clicks
+
+| Timecode | Action/Clicks | Narration |
+|---|---|---|
+| 00:00 - 00:30 | Open Landing Page. | Welcome to Vajra. Here is our deployed prototype for the SIH 2026 Nowcasting challenge. Note the "Hosted static demo" label - this demonstrates our fallback capability. |
+| 00:30 - 01:15 | Click "Enter Map". | The main interface visualizes radar tracks and hazards. We are currently showing a simulated Vidarbha hail scenario. The timeline at the bottom allows scrubbing through predicted timeframes. |
+| 01:15 - 02:00 | Click a cell to open Inspector. | Selecting a cell computes its ETA and probability window, providing early warning signals based on our deterministic optical flow baseline. |
+| 02:00 - 03:00 | Click "Draft Alert". | The Alert Composer allows authorities to review the CAP 1.2 payload. You can see the XML references strictly follow the OASIS standard for interoperability. |
+| 03:00 - 04:00 | Switch to Mobile view `/m`. | The responsive mobile UI ensures that end users receive localized, clear, and actionable safety guidelines directly on their devices. |
+| 04:00 - 05:00 | Go to Real Data page. | While the engine is simulated, the system handles real 2018 radar datasets and ERA5 references to ensure the processing pipeline is fully ready for live data ingestion. |
