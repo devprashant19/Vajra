@@ -11,6 +11,7 @@ from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from .models import *
+from .auth import get_current_user
 from .cap import generate_cap, validate_cap, dispatch_webhook, add_audit, verify_audit, ALERTS_DB
 import api.cap as cap_module
 
@@ -59,8 +60,9 @@ def add_provenance(data: Dict[str, Any]) -> Dict[str, Any]:
 
 @app.middleware("http")
 async def add_request_id(request: Request, call_next):
-    if cap_module.KILL_SWITCH_ACTIVE and "kill-switch" not in request.url.path:
-        return JSONResponse(status_code=503, content={"detail": "Kill switch is active"})
+    if cap_module.KILL_SWITCH_ACTIVE:
+        if request.method == "POST" and request.url.path.endswith("/approve"):
+            return JSONResponse(status_code=423, content={"detail": "Kill switch is active. Alert approval and dispatch frozen."})
     
     req_id = str(uuid.uuid4())
     response = await call_next(request)
@@ -114,9 +116,11 @@ class AlertDraft(BaseModel):
     replay_time: str = ""
 
 @app.post("/v1/alerts/kill-switch")
-def toggle_kill_switch(active: bool):
+def toggle_kill_switch(active: bool, user: dict = Depends(get_current_user)):
+    if not active and user.get("role") != "admin":
+        raise HTTPException(status_code=403, detail="Admin role required to lift kill switch")
     cap_module.KILL_SWITCH_ACTIVE = active
-    add_audit("toggle_kill_switch", "admin", "global", {"active": active})
+    add_audit("toggle_kill_switch", user.get("sub"), "global", {"active": active})
     return {"kill_switch": active}
 
 @app.post("/v1/alerts")
@@ -153,7 +157,7 @@ def approve_alert(id: str):
     add_audit("approve", "admin", id, {})
     
     # Generate CAP & Validate
-    xml = generate_cap(id, "vajra-system", ALERTS_DB[id]["replay_time"] or "2026-01-01T00:00:00Z", "Actual", "Alert", "Public")
+    xml = generate_cap(id, "vajra-system", (ALERTS_DB[id]["replay_time"] or "2026-01-01T00:00:00Z").replace("Z", "+00:00"), "Actual", "Alert", "Public")
     if not validate_cap(xml):
         raise HTTPException(500, "CAP validation failed")
     
