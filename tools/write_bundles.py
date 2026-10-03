@@ -32,7 +32,8 @@ def generate_real_bundle(base_dir: str):
     for i in range(70):
         t = start_time + timedelta(minutes=10 * i)
         img = Image.fromarray(np.random.randint(0, 255, (256, 256, 4), dtype=np.uint8))
-        img.save(os.path.join(bundle_dir, "frames", "dbz", f"{t.isoformat()}.png"))
+        safe_t = t.isoformat().replace(":", "")
+        img.save(os.path.join(bundle_dir, "frames", "dbz", f"{safe_t}.png"))
         
     manifest = {
         "scenario": "REAL-radar-2018-01-11",
@@ -97,7 +98,8 @@ def main():
             # Save PNG
             dbz_rgba = colormap_dbz(frame_data["dbz"])
             img = Image.fromarray(dbz_rgba)
-            img.save(os.path.join(frames_dir, "dbz", f"{frame_time_str}.png"))
+            safe_time_str = frame_time_str.replace(":", "")
+            img.save(os.path.join(frames_dir, "dbz", f"{safe_time_str}.png"))
             
             # 2. Track Cells
             active_cells = tracker.process_frame(frame_data["dbz"], frame_data["vil"], frame_time_str)
@@ -160,7 +162,7 @@ def main():
                 if f30:
                     fcst_rgba = colormap_dbz(f30["dbz"])
                     f_img = Image.fromarray(fcst_rgba)
-                    f_img.save(os.path.join(frames_dir, "forecast_dbz", f"{frame_time_str}_+30.png"))
+                    f_img.save(os.path.join(frames_dir, "forecast_dbz", f"{safe_time_str}_+30.png"))
             prev_dbz = frame_data["dbz"]
             
         # Write JSONs
