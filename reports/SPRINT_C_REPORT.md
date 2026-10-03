@@ -1,5 +1,11 @@
 # Sprint C Report
 
+**Origin**: NEW
+**Created**: 2026-10-01
+**Status**: IMPLEMENTED
+
+[<- Back to Index](../docs/INDEX.md)
+
 ## 1. SERVE BUNDLES
 - PASS: `/v1/status` updated to report source. `demo/bundles/` loaded if present, example mocks fallback gracefully.
 

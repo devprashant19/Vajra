@@ -1,5 +1,11 @@
 # Truth Audit
 
+**Origin**: NEW
+**Created**: 2026-10-01
+**Status**: IMPLEMENTED
+
+[<- Back to Index](../docs/INDEX.md)
+
 | File | Line | Content | Verdict | Action Taken |
 |---|---|---|---|---|
 | `apps/web/src/app/page.tsx` | 38, 39, 45 | `Math.random()` for lightning visual | OK in a test/visual | None, acceptable for animated visual background. |

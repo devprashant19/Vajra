@@ -1,5 +1,11 @@
 # Sprint A Report
 
+**Origin**: NEW
+**Created**: 2026-10-01
+**Status**: IMPLEMENTED
+
+[<- Back to Index](../docs/INDEX.md)
+
 ## Status of Steps (0-8)
 All Sprint A steps are complete and committed:
 - Step 0 (Cleanup): `95bd562`, `3b861de`

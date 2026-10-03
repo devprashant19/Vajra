@@ -1,5 +1,11 @@
 # Sprint D Report (Verified)
 
+**Origin**: NEW
+**Created**: 2026-10-01
+**Status**: IMPLEMENTED
+
+[<- Back to Index](../docs/INDEX.md)
+
 ## Real Data Panel
 - `demo/real/` is restricted to verified real data.
 - The 2018 historical radar replay is generated natively in `demo/bundles/REAL-radar-2018-01-11`.
