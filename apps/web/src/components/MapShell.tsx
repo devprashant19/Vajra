@@ -12,40 +12,18 @@ const frames = [
 ];
 
 const INITIAL_VIEW_STATE = {
-  longitude: 79.09,
-  latitude: 21.14,
-  zoom: 7,
+  longitude: 79.5,
+  latitude: 21.0,
+  zoom: 6.5,
   pitch: 0,
   bearing: 0
 };
 
-export function MapShell() {
+export function MapShell({ frameIdx, showRadar }: { frameIdx: number, showRadar: boolean }) {
   const [viewState, setViewState] = useState(INITIAL_VIEW_STATE);
-  const [frameIdx, setFrameIdx] = useState(0);
-
-  useEffect(() => {
-    const hash = window.location.hash;
-    if (hash) {
-      const parts = hash.replace('#', '').split('/');
-      if (parts.length === 3) {
-        setViewState(prev => ({
-          ...prev,
-          zoom: parseFloat(parts[0]),
-          latitude: parseFloat(parts[1]),
-          longitude: parseFloat(parts[2])
-        }));
-      }
-    }
-
-    const interval = setInterval(() => {
-      setFrameIdx(f => (f + 1) % frames.length);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   const onViewStateChange = ({ viewState }: any) => {
     setViewState(viewState);
-    window.location.hash = `${viewState.zoom.toFixed(2)}/${viewState.latitude.toFixed(4)}/${viewState.longitude.toFixed(4)}`;
   };
 
   const layers = [
@@ -65,14 +43,16 @@ export function MapShell() {
         });
       },
     }),
-    // Animated radar overlay
-    new BitmapLayer({
-      id: 'radar-layer',
-      bounds: [77.94, 20.0, 80.24, 22.3],
-      image: `/bundles/SIMULATED-Vidarbha-Hail/frames/dbz/${frames[frameIdx]}.png`,
-      transparentColor: [0, 0, 0, 0],
-      opacity: 0.8
-    })
+    // Animated radar overlay - massively expanded bounds for demo visibility
+    ...(showRadar ? [
+      new BitmapLayer({
+        id: 'radar-layer',
+        bounds: [74.0, 16.0, 84.0, 26.0], // Massively expanded across Central India
+        image: `/bundles/SIMULATED-Vidarbha-Hail/frames/dbz/${frames[frameIdx]}.png`,
+        transparentColor: [0, 0, 0, 0],
+        opacity: 0.85
+      })
+    ] : [])
   ];
 
   return (
