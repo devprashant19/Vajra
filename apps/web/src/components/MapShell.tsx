@@ -3,36 +3,26 @@ import { useState, useEffect } from 'react';
 import DeckGL from '@deck.gl/react';
 import { Map } from 'react-map-gl/maplibre';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { GeoJsonLayer, ScatterplotLayer } from '@deck.gl/layers';
+import { BitmapLayer } from '@deck.gl/layers';
 
-const MAP_STYLE = {
-  version: 8 as const,
-  sources: {},
-  layers: [
-    {
-      id: 'background',
-      type: 'background' as const,
-      paint: { 'background-color': '#020617' } // slate-950
-    }
-  ]
-};
+const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json';
 
-const graticuleFeatures: any[] = [];
-for (let lat = -90; lat <= 90; lat += 5) {
-  graticuleFeatures.push({ type: 'Feature', geometry: { type: 'LineString', coordinates: [[-180, lat], [180, lat]] } });
-}
-for (let lon = -180; lon <= 180; lon += 5) {
-  graticuleFeatures.push({ type: 'Feature', geometry: { type: 'LineString', coordinates: [[lon, -90], [lon, 90]] } });
-}
+const frames = [
+  '2026-06-01T120000', '2026-06-01T121000', '2026-06-01T122000', '2026-06-01T123000',
+  '2026-06-01T124000', '2026-06-01T125000', '2026-06-01T130000', '2026-06-01T131000',
+  '2026-06-01T132000', '2026-06-01T133000'
+];
 
 export function MapShell() {
   const [viewState, setViewState] = useState({
-    longitude: 80.0,
-    latitude: 20.0,
-    zoom: 4,
+    longitude: 79.09,
+    latitude: 21.14,
+    zoom: 7,
     pitch: 0,
     bearing: 0
   });
+
+  const [frameIdx, setFrameIdx] = useState(0);
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -47,6 +37,11 @@ export function MapShell() {
         }));
       }
     }
+
+    const interval = setInterval(() => {
+      setFrameIdx(f => (f + 1) % frames.length);
+    }, 1000);
+    return () => clearInterval(interval);
   }, []);
 
   const onViewStateChange = ({ viewState }: any) => {
@@ -55,47 +50,12 @@ export function MapShell() {
   };
 
   const layers = [
-    new GeoJsonLayer({
-      id: 'graticule',
-      data: { type: 'FeatureCollection', features: graticuleFeatures },
-      stroked: true,
-      getLineColor: [255, 255, 255, 30],
-      getLineWidth: 1,
-      lineWidthMinPixels: 1
-    }),
-    new ScatterplotLayer({
-      id: 'locations',
-      data: [{position: [79.9, 20.1], name: 'City Center'}],
-      getPosition: d => d.position,
-      getFillColor: [0, 255, 255],
-      getRadius: 10000,
-      radiusMinPixels: 4
-    }),
-    new GeoJsonLayer({
-      id: 'cells',
-      data: {
-        type: 'FeatureCollection',
-        features: [{
-          type: 'Feature',
-          geometry: { type: 'Polygon', coordinates: [[[79.8, 19.9], [80.2, 19.9], [80.2, 20.2], [79.8, 20.2], [79.8, 19.9]]] },
-          properties: {}
-        }]
-      },
-      getFillColor: [255, 0, 0, 100],
-      getLineColor: [255, 0, 0, 255],
-      lineWidthMinPixels: 2,
-      stroked: true
-    }),
-    new GeoJsonLayer({
-      id: 'tracks',
-      data: { type: 'FeatureCollection', features: [] },
-      getLineColor: [255, 255, 0, 255],
-      lineWidthMinPixels: 2
-    }),
-    new GeoJsonLayer({
-      id: 'cones',
-      data: { type: 'FeatureCollection', features: [] },
-      getFillColor: [255, 255, 0, 50]
+    new BitmapLayer({
+      id: 'radar-layer',
+      bounds: [77.94, 20.0, 80.24, 22.3], // min_lon, min_lat, max_lon, max_lat
+      image: `/bundles/SIMULATED-Vidarbha-Hail/frames/dbz/${frames[frameIdx]}.png`,
+      transparentColor: [0, 0, 0, 0],
+      opacity: 0.8
     })
   ];
 
@@ -109,8 +69,10 @@ export function MapShell() {
       >
         <Map mapStyle={MAP_STYLE} />
       </DeckGL>
-      <div className="absolute bottom-20 left-4 text-xs text-slate-500 bg-slate-900/80 p-2 rounded backdrop-blur">
-        Administrative boundaries not shown (awaiting a verified Survey of India source)
+      <div className="absolute bottom-20 left-4 text-xs text-slate-500 bg-slate-900/80 p-2 rounded backdrop-blur border border-slate-700">
+        <div className="font-bold text-cyan-400 mb-1">Simulated Radar Feed (Vidarbha Hail)</div>
+        Timestamp: {frames[frameIdx].replace('T', ' ')}<br/>
+        Administrative boundaries not shown (awaiting Survey of India source)
       </div>
     </div>
   );
