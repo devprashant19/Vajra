@@ -67,7 +67,7 @@ The frontend dashboard provides a comprehensive view of the storm tracks and haz
 |---|---|
 | ![Landing Page](docs/ui/screenshots/01-landing.png) | ![Map Timeline](docs/ui/screenshots/02-map-timeline.png) |
 | **Landing.** Scenario selection and MoES problem statement overview. | **Map & Timeline.** Custom MapLibre basemap with a scrubber to view optical flow predictions over time. |
-| ![Countdown Rail](docs/ui/screenshots/03-countdown-rail.png) | ![Alert Composer](docs/ui/screenshots/04-alert-composer.png) |
+| ![Countdown Rail](docs/ui/screenshots/03-countdown-rail.png) | ![Alert Composer](docs/ui/screenshots/05-alert-composer.png) |
 | **Countdown Rail.** Precise ETAs for tracked storm cells matching the rule-based predictions. | **Alert Composer.** Drafts a CAP 1.2 alert, signed with an ephemeral demo key for integrity checking. |
 
 ---
