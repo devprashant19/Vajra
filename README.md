@@ -1,142 +1,125 @@
 # Vajra
 
-**Origin**: NEW
-**Created**: 2026-10-01
-**Status**: DEMONSTRATED
+**High-Resolution Nowcasting & Alerting for Severe Weather**
+*Hyper-local tracking, not just static forecasts*
 
-Vajra is a rapidly prototyped nowcasting system addressing SIH 2026 Problem Statement 26084. The system is designed to provide high-resolution, real-time tracking and alerting of severe weather events across India. It ingests radar and meteorological data, runs optical flow tracking and rule-based hazard detection, and broadcasts hyper-local warnings via the CAP 1.2 standard.
+SIH 2026 · Problem Statement **26084** · Ministry of Earth Sciences (MoES) / IMD
 
-## Contents
+Meteorological agencies need to identify and track rapidly developing severe weather events (like cloudbursts, hail, or localized squalls) and issue precise, location-level warnings before they strike. Traditional forecasting operates on coarse grids and longer timelines. Nowcasting bridges this gap by turning raw radar and satellite telemetry into actionable, polygon-based tracks and estimated times of arrival (ETAs).
 
-### `apps/`
-**Verdict**: NEW
-Contains the frontend Next.js app and the FastAPI backend.
+Vajra is a rapidly prototyped nowcasting system designed for high-resolution tracking and alerting. It ingests simulated radar and meteorological data, executes optical flow tracking and rule-based hazard classification, and broadcasts hyper-local warnings compliant with the CAP 1.2 standard.
 
-### `packages/`
-**Verdict**: NEW
-Shared types and core schemas.
+Everything in the live demo runs **offline** against simulated bundles. 
 
-### `services/`
-**Verdict**: NEW
-Python services for tracking, alerts, and ingestion.
+---
 
-## Overview
+## Run it (Deployment Steps for Demo)
 
-- **Live Demo**: [{LIVE_URL}]({LIVE_URL})
-- **Video Walkthrough**: [{VIDEO_URL}]({VIDEO_URL})
+The system requires Node 20+ and Python 3.12+. The entire static demo can be deployed easily.
 
-![Vajra Dashboard](docs/ui/screenshots/01-landing.png)
+### Option 1: Static Export (Recommended for Evaluation)
 
-### Status table
+The web dashboard is fully statically exported and runs entirely in the browser, fetching pre-generated JSON bundles.
 
-| Requirement | What exists | Status | Where to see it |
-|---|---|---|---|
-| Radar ingestion & decode | Custom binary IMD decode with exact quantization | IMPLEMENTED | `services/ingest/connectors/radar.py` |
-| Real-time stream engine | Optical flow tracker, rule-based hazards | DEMONSTRATED | `demo/bundles/` and UI |
-| Sub-district alerts | CAP 1.2 compliant workflow, signing logic | IMPLEMENTED | `apps/api/src/api/cap.py` |
-| Scale to National | GPU batching, Zarr, Kafka message bus | DESIGNED | `ARCHITECTURE.md` |
+```bash
+cd apps/web
+pnpm install
+pnpm run build
+npx serve out -p 8080
+```
+Then navigate to `http://localhost:8080`.
 
-| Capability | Status | Evidence |
+### Option 2: Docker Compose (Full Stack)
+
+This spins up the FastAPI backend and the Next.js frontend.
+
+```bash
+docker compose --profile demo up -d
+```
+| URL | What |
+|---|---|
+| http://localhost:3000 | Vajra Web Dashboard |
+| http://localhost:8000/docs | FastAPI Backend Reference |
+
+---
+
+## Build status
+
+Built against the approved SIH implementation plan. The current iteration focuses on the foundation and data pipeline, proving the UI and the CAP 1.2 alert generation.
+
+| Phase | Scope | Status |
 |---|---|---|
-| Web UI & Maps | DEMONSTRATED | `apps/web/` |
-| API & Real-time Stream | DEMONSTRATED | `apps/api/` |
-| Alerting & CAP 1.2 | IMPLEMENTED | `apps/api/src/api/cap.py` |
-| Radar Ingestion (Decoder) | IMPLEMENTED | `services/ingest/` |
-| ML Tracking | DESIGNED | `ARCHITECTURE.md` |
-| Rule-based Tracking | IMPLEMENTED | `services/tracker/` |
+| 0 | Scaffold, monorepo configuration, Docker | **Done** |
+| 1 | Radar ingestion & IMD binary decode | **Done** |
+| 2 | Optical flow tracker, rule-based hazards | **Demonstrated** (via static bundles) |
+| 3 | Location-level alerts (CAP 1.2), signing logic | **Done** |
+| 4 | Web UI, Timeline playback, Alert Composer | **Done** |
+| 5 | Train deep learning ML tracker | **Pending** (Rule-based baseline used) |
+| 6 | Distributed Kafka & GPU batching | **Designed** (See Architecture) |
 
-### Repository Layout
+---
 
-```text
-├── apps/         # Web dashboard and FastAPI server
-├── data/         # Sample references and test fixtures
-├── demo/         # Scenario bundles and playback scripts
-├── docs/         # Architecture, ADRs, UI screenshots, SOPs
-├── ml/           # Datasets, training scripts, model configs
-├── packages/     # Core shared schemas, geo-utils, types
-├── reports/      # Benchmark results, release audits, metrics
-├── services/     # Ingestion, tracker, hazards, alerts
-├── tests/        # E2E smoke tests and integration tests
-└── tools/        # Scripts for linting, bundling, devops
-```
+## The screens
 
-### Technology Stack
+The frontend dashboard provides a comprehensive view of the storm tracks and hazards. The application is completely offline capable during the demo and fetches static `manifest.json` and `alerts_drafts.json` bundles.
 
-- **Next.js & React**: Flexible and modern UI framework for rapid dashboard building.
-- **MapLibre GL & deck.gl**: High-performance WebGL rendering for massive meteorological datasets.
-- **FastAPI (Python)**: High-throughput async backend with native Pydantic validation for CAP schemas.
-- **Apache Kafka & Redis**: Scalable pub/sub and state management designed for real-time scale.
-- **Zarr**: Efficient chunked n-dimensional array storage for radar reflectivity volumes.
+| | |
+|---|---|
+| ![Landing Page](docs/ui/screenshots/01-landing.png) | ![Map Timeline](docs/ui/screenshots/02-map-timeline.png) |
+| **Landing.** Scenario selection and MoES problem statement overview. | **Map & Timeline.** Custom MapLibre basemap with a scrubber to view optical flow predictions over time. |
+| ![Countdown Rail](docs/ui/screenshots/03-countdown-rail.png) | ![Alert Composer](docs/ui/screenshots/04-alert-composer.png) |
+| **Countdown Rail.** Precise ETAs for tracked storm cells matching the rule-based predictions. | **Alert Composer.** Drafts a CAP 1.2 alert, signed with an ephemeral demo key for integrity checking. |
 
-### Testing
+---
 
-<!-- stats:start -->
-- **Lines of Code**: {LOC}
-- **Tests**: {TESTS_COUNT} unit & integration tests
-- **API Throughput**: {API_THROUGHPUT} req/s
-- **Static Demo Bundle**: {STATIC_SIZE_MB} MB
-<!-- stats:end -->
+## Demo Script
 
-### Data sources and acknowledgements
+Twelve minutes, in order, designed for the evaluation jury.
 
-- **ISRO/MOSDAC**: Radar data source reference.
-- **IMD**: Indian Meteorological Department data formats.
-- **NASA Earthdata / GPM IMERG**: Precipitation datasets.
-- **Copernicus / ECMWF ERA5**: Reanalysis weather data.
-- **Open-Meteo**: Weather API context.
-- **SEVIR**: Storm EVent ImageRy dataset by MIT Lincoln Laboratory (Amazon Open Data). Licensed under CC BY-NC-SA 4.0.
+**0 · Setup (1 min).** Start the static dashboard using `npx serve out -p 8080`.
+**1 · The problem (1 min).** Explain the MoES nowcasting challenge and select `SIMULATED-Vidarbha-Hail`.
+**2 · The Map (3 min).** Demonstrate the Timeline Slider. Point out how the forecast layers update dynamically, driven by the optical-flow simulation bundles.
+**3 · ETAs (2 min).** Direct attention to the left Countdown Rail displaying ETAs for specific tracking IDs.
+**4 · Alert Generation (3 min).** Click a tracked cell and open the Alert Composer. Explain that the tool automatically generates CAP 1.2 compliant alerts. Point out the signature validation ("signed with an ephemeral demo key; integrity check only") and note that all alerts are `Exercise` status.
+**5 · Verification (2 min).** Visit the Data page to review the raw bundled JSON, proving that the UI is fully data-driven.
 
-### Related documents
+### Questions they will ask
 
-- [Documentation Index](docs/INDEX.md)
-- [Architecture](ARCHITECTURE.md)
-- [Team & Contributing](CONTRIBUTING.md)
-- [Security](SECURITY.md)
-- [License Decision](docs/LICENSE_DECISION.md)
+| Question | Answer |
+|---|---|
+| "Is this using ML right now?" | No, the current baseline uses optical flow and deterministic rules. True ML training is slated for the next phase. |
+| "Are the alerts real?" | No, they are generated against simulated data bundles with an `Exercise` status to prevent false panic. |
+| "How does it scale?" | We have designed a Kafka and Zarr-based architecture capable of GPU batching (see Architecture.md). |
 
-## Architecture
+---
 
-```mermaid
-graph TD
-    A[Radar / IMD / SEVIR] -->|Ingest| B(Ingest Service)
-    B -->|Kafka Topic| C{Tracker & Hazards}
-    C -->|GeoJSON/CAP| D[API Server]
-    D -->|WebSocket| E[Web Dashboard]
-```
+## Data and Bundles
 
-## Usage examples
+The demo relies on simulated scenarios pre-computed into static bundles.
 
-Run the fully featured static demo (from the `release/sih-submission` branch build):
-```bash
-npx serve apps/web/out -p 8080
-```
+| Metric | Detail |
+|---|---|
+| Scenarios | Delhi-DustStorm, Himalaya-Cloudburst, Kolkata-NorWester, Vidarbha-Hail |
+| Frame Interval | 10 minutes |
+| CAP Output | XML compliant with CAP-v1.2-os.xsd, locally verified, signed via signxml |
+| Static Bundle Size | Under 40 MB total |
 
-Start the backend and frontend using Docker:
-```bash
-just demo
-```
+---
 
-Run without Docker (development mode):
-```bash
-<!-- skip-check -->
-# Start API
-cd apps/api && uv run uvicorn src.api.main:app
+## Known Limitations and Honest Gaps
 
-# Start Web (in a new terminal)
-cd apps/web && pnpm dev
-```
+1. **ML Tracking is Not Integrated:** The current tracks are generated using a deterministic optical flow baseline.
+2. **Frames Not Rendered:** Observed and forecast reflectivity image frames (`dbz`) failed to generate in the latest pipeline run due to dependency constraints, so the UI map relies strictly on vector polygons.
+3. **Ephemeral Keys:** CAP messages are signed with an ephemeral in-memory RSA key. In production, this must tie into an HSM or KMS infrastructure.
 
-## Limitations and known issues
+---
 
-- The current implementation relies on rule-based tracking (optical flow) as the ML models are not fully trained.
-- The live demo operates on `SIMULATED` scenarios derived from synthetic events rather than live real-time feeds.
+## Technology Stack
 
-## Roadmap
+- **Frontend**: Next.js 14, React 18, MapLibre GL, deck.gl, TailwindCSS.
+- **Backend**: Python 3.12, FastAPI, lxml (for XSD validation), signxml.
+- **Data & Scale**: Designed for Apache Kafka, Redis, and Zarr.
 
-- Fully train ML models for track prediction.
-- Integrate real-time live MOSDAC radar hooks.
-- Deploy Kafka-based ingestion pipelines to production clusters.
+---
 
-## Usage Restrictions
-
-The code in this repository is currently under evaluation for SIH 2026. Data usage must adhere to the original provider's licensing terms, including SEVIR's CC BY-NC-SA 4.0 terms.
+*Vajra Team · SIH 2026*
