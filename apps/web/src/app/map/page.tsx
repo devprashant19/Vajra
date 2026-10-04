@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { MapShell } from '@/components/MapShell';
+import dynamic from 'next/dynamic';
+const MapShell = dynamic(() => import('@/components/MapShell').then(m => m.MapShell), { ssr: false });
 import { Inspector } from '@/components/Inspector';
 import { AlertComposer } from '@/components/AlertComposer';
 
@@ -67,7 +68,12 @@ export default function Page() {
                   className="w-full accent-cyan-500"
                 />
                 {/* Legend from data */}
-                <div className="mt-1 h-1 w-full bg-slate-800 rounded flex items-center justify-center text-[8px] text-slate-500">No data</div>
+                <div className="mt-1 w-full bg-slate-800 rounded flex items-center justify-between px-2 py-1 text-[10px] text-slate-400">
+                  {layer === 'radar' && <><span className="text-blue-400">Light</span><span className="text-green-400">Mod</span><span className="text-yellow-400">Heavy</span><span className="text-red-400">Severe</span></>}
+                  {layer === 'satellite' && <><span className="text-slate-500">Cloud</span><span className="text-white">Dense</span></>}
+                  {layer === 'lightning' && <><span className="text-yellow-300">Strikes</span><span className="text-orange-500">Clusters</span></>}
+                  {layer === 'hazard' && <><span className="text-orange-400">Watch</span><span className="text-red-500">Warning</span></>}
+                </div>
               </div>
             ))}
           </div>

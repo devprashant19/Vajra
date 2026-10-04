@@ -17,19 +17,13 @@ export function Inspector() {
   // Simulate real-time ETA countdown
   useEffect(() => {
     const load = () => {
-      fetchApi('eta')
-        .then(data => {
-          if (data.items) {
-            setLocations(data.items.map((i: any) => ({
-              id: i.cell_id || String(Math.random()),
-              name: i.cell_id || 'Unknown Location',
-              hazards: i.dominant_hazard ? [i.dominant_hazard] : [],
-              etaMinutes: i.eta_minutes || null,
-              status: i.probability_15min > 0 ? (i.eta_minutes < 15 ? 'IMPACT' : 'APPROACHING') : 'CLEAR'
-            })));
-          }
-        })
-        .catch(() => setLocations([]));
+      // Mock data for demo purposes since the API is down in the frontend-only deployment
+      const mockData = [
+        { id: '1', name: 'Nagpur', hazards: ['Large Hail', 'Heavy Rain'], etaMinutes: 12, status: 'IMPACT' },
+        { id: '2', name: 'Amravati', hazards: ['Lightning', 'Strong Wind'], etaMinutes: 45, status: 'APPROACHING' },
+        { id: '3', name: 'Wardha', hazards: ['Moderate Rain'], etaMinutes: null, status: 'CLEAR' },
+      ];
+      setLocations(mockData as any);
     };
     load();
     const timer = setInterval(load, 60000);

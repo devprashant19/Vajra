@@ -1,11 +1,9 @@
 'use client';
 import { useState, useEffect } from 'react';
 import DeckGL from '@deck.gl/react';
-import { Map } from 'react-map-gl/maplibre';
-import 'maplibre-gl/dist/maplibre-gl.css';
+import { TileLayer } from '@deck.gl/geo-layers';
 import { BitmapLayer } from '@deck.gl/layers';
-
-const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json';
+import { MapView } from '@deck.gl/core';
 
 const frames = [
   '2026-06-01T120000', '2026-06-01T121000', '2026-06-01T122000', '2026-06-01T123000',
@@ -13,15 +11,16 @@ const frames = [
   '2026-06-01T132000', '2026-06-01T133000'
 ];
 
-export function MapShell() {
-  const [viewState, setViewState] = useState({
-    longitude: 79.09,
-    latitude: 21.14,
-    zoom: 7,
-    pitch: 0,
-    bearing: 0
-  });
+const INITIAL_VIEW_STATE = {
+  longitude: 79.09,
+  latitude: 21.14,
+  zoom: 7,
+  pitch: 0,
+  bearing: 0
+};
 
+export function MapShell() {
+  const [viewState, setViewState] = useState(INITIAL_VIEW_STATE);
   const [frameIdx, setFrameIdx] = useState(0);
 
   useEffect(() => {
@@ -50,9 +49,26 @@ export function MapShell() {
   };
 
   const layers = [
+    // CartoDB Dark Matter — sharp professional basemap
+    new TileLayer({
+      id: 'basemap',
+      data: 'https://basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}.png?key=cb1_49kp_1_fd22eda84ab71984faf2c5c5',
+      minZoom: 0,
+      maxZoom: 19,
+      tileSize: 256,
+      renderSubLayers: (props: any) => {
+        const { west, south, east, north } = props.tile.bbox;
+        return new BitmapLayer({
+          id: props.id,
+          image: props.data,
+          bounds: [west, south, east, north],
+        });
+      },
+    }),
+    // Animated radar overlay
     new BitmapLayer({
       id: 'radar-layer',
-      bounds: [77.94, 20.0, 80.24, 22.3], // min_lon, min_lat, max_lon, max_lat
+      bounds: [77.94, 20.0, 80.24, 22.3],
       image: `/bundles/SIMULATED-Vidarbha-Hail/frames/dbz/${frames[frameIdx]}.png`,
       transparentColor: [0, 0, 0, 0],
       opacity: 0.8
@@ -60,15 +76,14 @@ export function MapShell() {
   ];
 
   return (
-    <div className="h-full w-full relative">
+    <div className="h-full w-full relative" style={{ background: '#0f172a' }}>
       <DeckGL
+        views={new MapView({ repeat: true })}
         viewState={viewState}
         onViewStateChange={onViewStateChange}
         controller={true}
         layers={layers}
-      >
-        <Map mapStyle={MAP_STYLE} />
-      </DeckGL>
+      />
       <div className="absolute bottom-20 left-4 text-xs text-slate-500 bg-slate-900/80 p-2 rounded backdrop-blur border border-slate-700">
         <div className="font-bold text-cyan-400 mb-1">Simulated Radar Feed (Vidarbha Hail)</div>
         Timestamp: {frames[frameIdx].replace('T', ' ')}<br/>

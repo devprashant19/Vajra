@@ -10,18 +10,13 @@ export function AlertComposer({ onClose }: { onClose: () => void }) {
   const [locations, setLocations] = useState<Location[]>([]);
 
   React.useEffect(() => {
-    fetchApi('eta')
-      .then(data => {
-        if (data.items) {
-          setLocations(data.items.map((i: any) => ({
-            id: i.cell_id || String(Math.random()),
-            name: i.cell_id || 'Unknown',
-            hazards: i.dominant_hazard ? [i.dominant_hazard] : [],
-            etaMinutes: i.eta_minutes || null
-          })));
-        }
-      })
-      .catch(() => setLocations([]));
+    // Mock data for demo purposes
+    const mockData = [
+      { id: '1', name: 'Nagpur', hazards: ['Large Hail', 'Heavy Rain'], etaMinutes: 12 },
+      { id: '2', name: 'Amravati', hazards: ['Lightning', 'Strong Wind'], etaMinutes: 45 },
+      { id: '3', name: 'Wardha', hazards: ['Moderate Rain'], etaMinutes: null },
+    ];
+    setLocations(mockData as any);
   }, []);
 
   const toggleSelection = (id: string) => {
