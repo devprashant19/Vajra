@@ -5,11 +5,15 @@
 
 SIH 2026 · Problem Statement **26084** · Ministry of Earth Sciences (MoES) / IMD
 
+
+
 Meteorological agencies need to identify and track rapidly developing severe weather events (like cloudbursts, hail, or localized squalls) and issue precise, location-level warnings before they strike. Traditional forecasting operates on coarse grids and longer timelines. Nowcasting bridges this gap by turning raw radar and satellite telemetry into actionable, polygon-based tracks and estimated times of arrival (ETAs).
 
 Vajra is a rapidly prototyped nowcasting system designed for high-resolution tracking and alerting. It ingests simulated radar and meteorological data, executes optical flow tracking and rule-based hazard classification, and broadcasts hyper-local warnings compliant with the CAP 1.2 standard.
 
 Everything in the live demo runs **offline** against simulated bundles. 
+
+**Live Demo Link:** https://vajra-nu.vercel.app
 
 ---
 
@@ -17,7 +21,7 @@ Everything in the live demo runs **offline** against simulated bundles.
 
 The system requires Node 20+ and Python 3.12+. The entire static demo can be deployed easily.
 
-### Option 1: Static Export (Recommended for Evaluation)
+### Option 1: Static Export
 
 The web dashboard is fully statically exported and runs entirely in the browser, fetching pre-generated JSON bundles.
 
